@@ -1,38 +1,44 @@
 import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/screens/arduino_doc/document_template.dart';
 
 class ArduinoDoc extends StatelessWidget {
+  final List<Doc> docs = [
+    Doc('Arduino Documents', 'Learn how to build a robot', 0,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 1,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 2,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 3,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 4,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 5,
+        'arduino_doc.png'),
+    Doc('Arduino Documents', 'Learn how to build a robot', 6,
+        'arduino_doc.png'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          buildCard('Arduino Documents', 'Learn how to build a robot', 0,
-              context, 'arduino_doc.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 1,
-              context, 'car_runner.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 2,
-              context, 'arduino_doc.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 3,
-              context, 'arduino_doc.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 4,
-              context, 'arduino_doc.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 5,
-              context, 'arduino_doc.png'),
-          buildCard('Arduino Documents', 'Learn how to build a robot', 6,
-              context, 'arduino_doc.png'),
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: docs.length,
+          itemBuilder: (context, index) {
+            Doc doc = docs[index];
+            return _buildCard(
+                doc.title, doc.describe, doc.index, context, doc.imagePath);
+          }),
     );
   }
 
-  Widget buildCard(String title, String desription, int cardIndex,
+  Widget _buildCard(String title, String desription, int cardIndex,
       BuildContext context, String path) {
-    String pathlogo = 'arduino_logo.png';
-    String pathBack = 'arduino_doc.png';
-    double widtht = 30;
-    double heightt = 35;
+    final String pathlogo = 'arduino_logo.png';
+    final String pathBack = 'arduino_doc.png';
+    final double widtht = 30;
+    final double heightt = 35;
 
     return Container(
       height: 145,
@@ -59,20 +65,10 @@ class ArduinoDoc extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(14.0))),
                 onPressed: () {
-                  String routeP;
-                  if (cardIndex == 0) {
-                    Navigator.pushReplacement(
-                        context,
-                        PageTransition(
-                            child: ArduinoDoc(),
-                            duration: Duration(milliseconds: 1000),
-                            type: PageTransitionType.fade));
-                  }
-                  if (cardIndex == 1) routeP = '/sender';
-                  if (cardIndex == 2) routeP = '/shooter';
-                  if (cardIndex == 3) routeP = '/ard_car';
-                  if (cardIndex == 4) routeP = '/ir_remote';
-                  Navigator.pushNamed(context, routeP);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DocumentTemplate(cardIndex)));
                 },
                 splashColor: Color.fromRGBO(255, 255, 255, .2),
                 child: Column(

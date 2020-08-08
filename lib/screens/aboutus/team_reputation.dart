@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/screens/aboutus/about_team_template.dart';
+import 'package:erobot_app/object_class/classes.dart';
 
 class TeamReputation extends StatefulWidget {
   TeamReputation({Key key}) : super(key: key);
@@ -10,19 +11,22 @@ class TeamReputation extends StatefulWidget {
 }
 
 class _TeamReputationState extends State<TeamReputation> {
+  final List<Reputation> reputation = [
+    Reputation('pnc.png', 'PNC Event', '19th Jul, 2019', 0),
+    Reputation('smart.png', 'Smart Event', '19th Jul, 2019', 1),
+    Reputation('stem.png', 'Stem Event', '19th Jul, 2019', 2),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      children: <Widget>[
-        buildProfileCard('PNC Event', '19th Jul, 2019', 'pnc.png', 1, context),
-        buildProfileCard(
-            'Smart Event', '19th Jul, 2019', 'smart.png', 2, context),
-        buildProfileCard(
-            'Stem Event', '19th Jul, 2019', 'stem.png', 3, context),
-        SizedBox(height: 10),
-      ],
-    ));
+      body: ListView.builder(
+          itemCount: reputation.length,
+          itemBuilder: (context, index) {
+            Reputation card = reputation[index];
+            return buildProfileCard(
+                card.name, card.date, card.path, card.index, context);
+          }),
+    );
   }
 
   //CREATE EVENT CARDS

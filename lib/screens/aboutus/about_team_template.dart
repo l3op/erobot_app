@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:erobot_app/object_class/classes.dart';
 
 class AboutTeamTemplate extends StatefulWidget {
   final index; //ARTICLE INDEX FROM TeamReputation();
@@ -12,15 +13,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
   final int index;
   _AboutTeamTemplateState(this.index);
 
-  final List<String> eventName = ['PNC Event', 'Smart Event', 'Stem Event'];
-  final List<String> logoList = ['pnc.png', 'smart.png', 'stem.png'];
-  final List<String> eventDate = [
-    'Coming Soon',
-    '19th Jul 2019',
-    '12th Feb 2019'
-  ];
-
-  //SECTION 1 - MEMORIES
+  //SECTION 1 - MEMORIES - PICTURES COLLECTION
   final List<String> imagePath = [
     'arduino_doc.png',
     'our_team.png',
@@ -30,13 +23,13 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
     'our_team.png'
   ];
 
-  //SECTION 2 - PARTICIPATING MEMBER
-  final List<String> names = ['Suy Kosal', 'Han Leangsiv', 'Run Seyha'];
-  final List<String> profilePath = ['kosal.png', 'leangsiv.png', 'seyha.png'];
+  //SECTION 2 - PARTICIPATING MEMBER 
+  final List<String> member = ['Suy Kosal', 'Han Leangsiv', 'Run Seyha'];
+  final List<String> memberPath = ['kosal.png', 'leangsiv.png', 'seyha.png'];
 
   //SECTION 3 - ROBOT USED
-  final List<String> robotNames = ['Car runner', 'Ball shooter', 'Car runner'];
-  final List<String> profileRobot = [
+  final List<String> robot = ['Car runner', 'Ball shooter', 'Car runner'];
+  final List<String> robotPath = [
     'car_runner.png',
     'ball_shooter.png',
     'car_runner.png'
@@ -47,13 +40,19 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
   final String paragraph2 =
       'អ្វីដែលក្រុមយើងទទួលបាន​ជោគជ័យ​បំផុតនោះគឺ​ ពួកយើងបាននាំអោយ​មនុស្សម្នាជាច្រើនចូលមកកាន់​ ប៉ូត Robot​របស់​យើង​ ហើយលេង​កំសាន្តដោយ​រីករាយ​  ជា​ពិសេសគឺ​ពួកយើង​បាននាំអោយ​ ក្រុម​ហ៊ុន​ ពេញចិត្តនឹងចង់អោយពួកយើង​ បន្តការងារនេះទៅមុខទៀត។ សរុប​ចំនួនទាំងអស់ជិត៣០​ នាក់ពួកយើងបាន​ខិតខំ​យ៉ាងខ្លាំងក្នុងការងារមួយនេះ។​ ក្នុង​រយៈពេលមុន​ និង​អំឡុង​ពេលកម្មវិធី​ មាន​សមាជិក​យើងខ្លះ​ ដែលពួកគាត់​សកម្មរហូតត្រូវមិនគេង​ រយៈពេលជិត៥​ ថ្ងៃហើយមាន​ថ្ងៃខ្លះ​ ពួកយើងមិនបានគេងសោះតែម្ដង។ នេះហើយជា​ឆន្ទៈ​ពិតដោយមិនគិតសោះថាកាងារនោះជាការងារ​ស្មាក់ចិត្ត​។   ខ្ញុំនិយាយទាំងអស់នេះ​ ពិតណាស់មិនអាច​រៀបរាប់​អស់​សេចក្ដី​នោះទេ​ តែខ្ញុំនៅតែ​ចង់ចាំនូវ​សេចក្ដី​ ព្យាយាម​  ប្រឹងប្រែង​ជា​ពិសេសគឺ​មិនខ្លាចភាពនឿយ​ហត់​ របស់ពួកគេ។   បើគ្មានពួកគេទេ​ ខ្ញុំ​ជឿជាក់​ថា​ កម្មវិធី​នោះមិនអាច​ទទួល​បាន​ជោគជ័យ​ដូចនោះទេ។ នេះហើយ​ សកម្មភាព​ និង​ កម្លាំង​របស់​យុវជនយើង​  ពួកគេជាមនុស្ស​រីកចំរើន​។ ក្រោយការងារនេះបាន​បញ្ចប់​  ពួកយើបាន​បន្តការងាររៀនជាមួយគ្នាទៀត។';
 
-  //IMAGE INDEX FROM LIST (FOR CHANGE IMAGE ON SLIVER APP BAR)
+  //IMAGE INDEX FROM LIST (FOR CHANGABLE IMAGE ON SLIVER APP BAR)
   int _imageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    String pathLogo = logoList[index - 1];
-    String nameEvent = eventName[index - 1];
-    String eventdate = eventDate[index - 1];
+    final List<Event> event = [
+      Event('PNC Event', 'pnc.png', 'Coming Soon', imagePath, member,
+          memberPath, robot, robotPath, 1),
+      Event('Smart Event', 'smart.png', '19th Jul 2019', imagePath, member,
+          memberPath, robot, robotPath, 2),
+      Event('Stem Event', 'stem.png', '12th Feb 2019', imagePath, member,
+          memberPath, robot, robotPath, 3),
+    ];
+    Event eventAcc = event[index];
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -69,12 +68,12 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                 //APP BAR BACKGROUND
                 flexibleSpace: FlexibleSpaceBar(
                   background: Image.asset(
-                      'assets/home/${imagePath[_imageIndex]}',
+                      'assets/home/${eventAcc.imagePath[_imageIndex]}',
                       fit: BoxFit.cover),
                 ),
                 //APP BAR
                 title: Text(
-                  nameEvent,
+                  eventAcc.eventName,
                   style: TextStyle(
                       color: Hexcolor('172634'),
                       fontWeight: FontWeight.normal,
@@ -96,7 +95,8 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   //EVENT IMAGE
-                                  Image.asset('assets/events/$pathLogo'),
+                                  Image.asset(
+                                      'assets/events/${eventAcc.eventPath}'),
                                   SizedBox(
                                     width: 10,
                                   ),
@@ -105,18 +105,19 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Column(
-                                          crossAxisAlignment:CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             //EVENT NAME
                                             Text(
-                                              nameEvent,
+                                              eventAcc.eventName,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 18),
                                             ),
                                             //EVENT DATE
                                             Text(
-                                              eventdate,
+                                              eventAcc.eventDate,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 12),
@@ -165,7 +166,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.20,
-                    child: buildListView(0.55, 1),
+                    child: buildListView(0.55, 1, eventAcc),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -186,7 +187,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.20,
-                    child: buildListView(0.35, 2),
+                    child: buildListView(0.35, 2, eventAcc),
                   ),
                   SizedBox(
                     height: 8,
@@ -201,7 +202,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.20,
-                    child: buildListView(0.35, 3),
+                    child: buildListView(0.35, 3, eventAcc),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -239,12 +240,12 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
   }
 
   //IMAGE LIST WITH HORIZONTAL SCROLL
-  ListView buildListView(double widthContainer, int section) {
+  ListView buildListView(double widthContainer, int section, Event eventAcc) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: section == 1
-            ? imagePath.length
-            : section == 2 ? names.length : robotNames.length,
+            ? eventAcc.imagePath.length
+            : section == 2 ? eventAcc.member.length : eventAcc.robot.length,
         itemBuilder: (context, index) {
           //CLICK TO CHANGE IMAGE (SECTION 1 ONLY)
           return GestureDetector(
@@ -257,15 +258,15 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(14, 8, 2, 8),
               child: Container(
-                // IF != SECTION 1 => NO NAME ON IMAGE
+                // IF == SECTION 1 => NO NAME ON IMAGE
                 child: section != 1
                     ? Container(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
                           ' ' +
                               (section == 2
-                                  ? names[index]
-                                  : robotNames[index]) +
+                                  ? eventAcc.member[index]
+                                  : eventAcc.robot[index]) +
                               ' ',
                           style: TextStyle(
                               backgroundColor: Hexcolor('03a0b0'),
@@ -291,8 +292,8 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                         image: AssetImage(section == 1
                             ? 'assets/home/${imagePath[index]}'
                             : section == 2
-                                ? 'assets/profiles/${profilePath[index]}'
-                                : 'assets/home/${profileRobot[index]}'),
+                                ? 'assets/profiles/${eventAcc.memberPath[index]}'
+                                : 'assets/home/${eventAcc.robotPath[index]}'),
                         fit: BoxFit.cover)),
               ),
             ),
