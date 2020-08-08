@@ -35,7 +35,7 @@ class _ControllerState extends State<Controller> {
     _loadSavedData();
   }
 
-  //Load cacte
+  //LOAD CACHE DATA
   _loadSavedData() async {
     button = await loadData();
     setState(() {

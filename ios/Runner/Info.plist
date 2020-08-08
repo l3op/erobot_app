@@ -39,6 +39,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIBackgroundModes</key>
@@ -48,5 +49,16 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To get profile picture from user</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	
+	<string>Need BLE permission</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Need BLE permission</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Need Location permission</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Need Location permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need Location permission</string>
 </dict>
 </plist>

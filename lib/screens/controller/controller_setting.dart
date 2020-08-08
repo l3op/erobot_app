@@ -42,6 +42,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
             var button = Button(
                 btnTop, btnLeft, btnBottom, btnRight, btnShoot, btnSpeed);
             print('LAST VALUE: ');
+            //SAVE CACHE DATA
             await saveData(button);
             print(button.top +
                 button.left +

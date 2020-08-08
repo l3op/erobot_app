@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+//import 'package:flutter_blue/flutter_blue.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -9,6 +10,9 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  bool isSwitched = false;
+  bool isConnected = false;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -55,6 +59,35 @@ class _MainDrawerState extends State<MainDrawer> {
                               fontWeight: FontWeight.w100),
                         )
                       ],
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      isConnected
+                          ? Icons.bluetooth_connected
+                          : isSwitched
+                              ? Icons.bluetooth
+                              : Icons.bluetooth_disabled,
+                      color: Colors.white,
+                    ),
+                    title: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Bluetooth",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Switch(
+                              activeColor: Colors.white,
+                              value: isSwitched,
+                              onChanged: (value) {
+                                setState(() {
+                                  isSwitched = value;
+                                });
+                              })
+                        ],
+                      ),
                     ),
                   ),
                   ListTile(
