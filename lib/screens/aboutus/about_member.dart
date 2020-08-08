@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:erobot_app/object_class/classes.dart';
 
 class AboutMember extends StatelessWidget {
+  final List<Member> member = [
+    Member('kosal.png', 'Suy Kosal', 'Leader of Team', "kosal", "kosal"),
+    Member('leangsiv.png', 'Han Leangsiv', 'Organizer of team since 2019',
+        "leangsiv", "kosal"),
+    Member('seyha.png', 'Run Seyha', 'Organizer of team since 2019', "seyha",
+        "kosal"),
+    Member('bot1.png', 'Bots', "Bots", "bots", "kosal"),
+    Member('bot2.png', 'Bots', "Bots", "bots", "kosal"),
+    Member('bot2.png', 'Bots', "Bots", "bots", "kosal"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      //Store all cards
-      children: <Widget>[
-        buildProfileCard('Suy Kosal', 'Leader of Team', 'kosal.png', 'kosal',
-            'kosal', context),
-        buildProfileCard('Han Leangsiv', 'Organizer of team since 2019',
-            'leangsiv.png', 'kosal', 'kosal', context),
-        buildProfileCard('Run Seyha', 'Organizer of team since 2019',
-            'seyha.png', 'kosal', 'kosal', context),
-        buildProfileCard(
-            'Bots', 'Robot of team', 'bot1.png', 'kosal', 'kosal', context),
-        buildProfileCard(
-            'Bots', 'Robot of team', 'bot2.png', 'kosal', 'kosal', context),
-        buildProfileCard(
-            'Bots', 'Robot of team', 'bot1.png', 'kosal', 'kosal', context),
-        SizedBox(
-          height: 10,
-        ),
-      ],
-    ));
+      body: ListView.builder(
+          itemCount: member.length,
+          itemBuilder: (context, index) {
+            Member memberAcc = member[index];
+            return buildProfileCard(memberAcc.name, memberAcc.role,
+                memberAcc.path, memberAcc.fb, memberAcc.tele, context);
+          }),
+    );
   }
 
   Padding buildProfileCard(String name, String role, String pathIMG,
