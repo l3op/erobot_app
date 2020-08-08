@@ -1,3 +1,4 @@
+import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,24 +19,32 @@ class Controller extends StatefulWidget {
 class _ControllerState extends State<Controller> {
   final int _cardIndex;
   _ControllerState(this._cardIndex);
-  String btnRight, btnLeft, btnBottom, btnTop, btnShoot;
+  String btnRight, btnLeft, btnBottom, btnTop, btnShoot, btnSpeed;
   double speed, speedTMP, servo;
 
   Button button; //BUTTON CLASS
 
   @override
   void initState() {
-    btnRight = 'R';
-    btnLeft = 'L';
-    btnBottom = 'B';
-    btnTop = 'T';
-    btnShoot = 'S';
     servo = 4;
     speedTMP = 5;
     speed = 5;
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
     super.initState();
+    _loadSavedData();
+  }
+
+  _loadSavedData() async {
+    button = await loadData();
+    setState(() {
+      btnRight = button.right;
+      btnLeft = button.left;
+      btnBottom = button.bottom;
+      btnTop = button.top;
+      btnShoot = button.shoot;
+      btnSpeed = button.speed;
+    });
   }
 
   @override
@@ -101,7 +110,7 @@ class _ControllerState extends State<Controller> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => BallShooterSetting(btnTop, btnLeft,
-                        btnRight, btnBottom, btnShoot, _cardIndex)));
+                        btnRight, btnBottom, btnShoot, btnSpeed, _cardIndex)));
             setState(() {
               if (button != null) {
                 btnRight = button.right;

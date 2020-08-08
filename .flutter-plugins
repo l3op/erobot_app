@@ -2,3 +2,8 @@
 file_picker=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-1.13.2/
 flutter_plugin_android_lifecycle=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8/
 hexcolor=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/hexcolor-1.0.4/
+path_provider_linux=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+2/
+shared_preferences=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.8/
+shared_preferences_linux=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-0.0.2+1/
+shared_preferences_macos=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10/
+shared_preferences_web=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7/

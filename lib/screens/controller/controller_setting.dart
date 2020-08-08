@@ -1,3 +1,4 @@
+import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:erobot_app/validation/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:erobot_app/supplier/widget_supplier.dart';
@@ -7,36 +8,41 @@ import 'package:toast/toast.dart';
 
 class BallShooterSetting extends StatefulWidget {
   final int _cardIndex;
-  final String btnTop, btnLeft, btnRight, btnBottom, btnShoot;
+  final String btnTop, btnLeft, btnRight, btnBottom, btnShoot, btnSpeed;
   BallShooterSetting(this.btnTop, this.btnLeft, this.btnRight, this.btnBottom,
-      this.btnShoot, this._cardIndex);
+      this.btnShoot, this.btnSpeed, this._cardIndex);
 
   @override
   _BallShooterSettingState createState() => _BallShooterSettingState(
-      btnTop, btnLeft, btnRight, btnBottom, btnShoot, _cardIndex);
+      btnTop, btnLeft, btnRight, btnBottom, btnShoot, btnSpeed, _cardIndex);
 }
 
 class _BallShooterSettingState extends State<BallShooterSetting> {
   final int _cardIndex;
-  String btnTop, btnLeft, btnRight, btnBottom, btnShoot;
+  String btnTop, btnLeft, btnRight, btnBottom, btnShoot, btnSpeed;
   _BallShooterSettingState(this.btnTop, this.btnLeft, this.btnRight,
-      this.btnBottom, this.btnShoot, this._cardIndex);
+      this.btnBottom, this.btnShoot, this.btnSpeed, this._cardIndex);
 
-  Button tmp;
+  Button tmp; // class to store temporary button value
 
   @override
   Widget build(BuildContext context) {
     //STORE TEMPORARY DATA
-    tmp = Button(btnTop, btnLeft, btnBottom, btnRight, btnShoot);
+    tmp = Button(btnTop, btnLeft, btnBottom, btnRight, btnShoot, btnSpeed);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text('Setting', style: TextStyle(fontSize: 18),),
+        title: Text(
+          'Setting',
+          style: TextStyle(fontSize: 18),
+        ),
         leading: IconButton(
-          onPressed: () {
+          onPressed: () async {
             //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
-            var button = Button(btnTop, btnLeft, btnBottom, btnRight, btnShoot);
+            var button = Button(
+                btnTop, btnLeft, btnBottom, btnRight, btnShoot, btnSpeed);
             print('LAST VALUE: ');
+            await saveData(button);
             print(button.top +
                 button.left +
                 button.bottom +
@@ -95,6 +101,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
     btnRight = tmp.right;
     btnBottom = tmp.bottom;
     btnShoot = tmp.shoot;
+    btnSpeed = tmp.speed;
   }
 
   //RESET TO DEFAULT DATA
@@ -104,6 +111,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
     btnRight = 'R';
     btnBottom = 'B';
     btnShoot = 'S';
+    btnSpeed = 'S';
   }
 
   //BUILD EACH BUTTON SETTING
@@ -143,7 +151,8 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
               btnLeft,
               btnRight,
               btnBottom,
-              btnShoot
+              btnShoot,
+              btnSpeed
             ];
             //CLARIFY THAT THERE IS NO DULICATE CHAR
             var distinctBtn = _validate.toSet().toList();
@@ -180,6 +189,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
       if (btnRight == btnValue) btnRight = value;
       if (btnBottom == btnValue) btnBottom = value;
       if (btnShoot == btnValue) btnShoot = value;
+      if (btnSpeed == btnValue) btnSpeed = value;
       btnValue = value;
     }
 

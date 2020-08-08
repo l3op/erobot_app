@@ -8,6 +8,6 @@ class RequestMember {
 }
 
 class Button {
-  final String top, left, right, bottom, shoot;
-  Button(this.top, this.left, this.bottom, this.right, this.shoot);
+  final String top, left, right, bottom, shoot, speed;
+  Button(this.top, this.left, this.bottom, this.right, this.shoot, this.speed);
 }
