@@ -12,9 +12,19 @@ class _SenderState extends State<Sender> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sender'),
-        
+        title: Text('Sender', style: TextStyle(fontSize: 18)),
       ),
+      body: Form(child: Container(
+        child: Column(
+          children:<Widget>[
+            TextField(
+              decoration: InputDecoration(
+                counterText: '',
+              ),
+            )   
+          ]
+        ),
+      )),
     );
   }
 }
