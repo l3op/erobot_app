@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:erobot_app/supplier/widget_supplier.dart';
+import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:erobot_app/screens/controller/controller.dart';
 
 class HomeScreen extends StatelessWidget {

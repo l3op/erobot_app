@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:erobot_app/supplier/widget_supplier.dart';
+import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LogInChoice extends StatefulWidget {

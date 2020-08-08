@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:erobot_app/supplier/widget_supplier.dart';
+import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:erobot_app/screens/controller/controller_setting.dart';
 import 'package:erobot_app/object_class/classes.dart';
 import 'package:toast/toast.dart';

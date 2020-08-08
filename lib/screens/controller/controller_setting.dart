@@ -1,7 +1,7 @@
 import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:erobot_app/validation/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:erobot_app/supplier/widget_supplier.dart';
+import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:erobot_app/object_class/classes.dart';
 import 'package:toast/toast.dart';
