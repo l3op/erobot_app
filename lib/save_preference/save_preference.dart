@@ -43,16 +43,12 @@ Future<Button> loadPadData(int index) async {
 
 Future<void> saveRecentSenderData(List<String> values) async {
   final prefs = await SharedPreferences.getInstance();
+  if (values.contains('')) values.remove('');
   prefs.setStringList('values', values);
 }
 
 Future<List<String>> loadRecentSenderData() async {
   final prefs = await SharedPreferences.getInstance();
-  List<String> values = prefs.getStringList('values');
+  List<String> values = prefs.getStringList('values') ?? [''];
   return values;
-}
-
-Future<void> removeRecentSenderText(index) async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.remove('value$index');
 }
