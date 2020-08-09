@@ -14,32 +14,6 @@ IconData isConnect() {
   }
 }
 
-// RETURN BUTTON PAD FOR CAR CONTROLLER PAGES
-class CreatePadBtn extends StatelessWidget {
-  final int btnIndex, screenNum;
-  final toBluetooth;
-  CreatePadBtn(this.btnIndex, this.screenNum, this.toBluetooth);
-  @override
-  Widget build(BuildContext context) {
-    return ClipOval(
-      child: Material(
-        color: Hexcolor('c4c4c4'),
-        child: InkWell(
-          splashColor: Colors.black12,
-          child: SizedBox(
-            width: 55,
-            height: 55,
-            child: ReturnIcon(btnIndex, 55, screenNum),
-          ),
-          onTap: () {
-            print(toBluetooth);
-          },
-        ),
-      ),
-    );
-  }
-}
-
 // RETURN PAD BUTTON ICONS
 class ReturnIcon extends StatelessWidget {
   final int index;

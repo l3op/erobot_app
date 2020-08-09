@@ -66,6 +66,24 @@ class _ControllerState extends State<Controller> {
     double widthBtn = 55;
     double heightBtn = 55;
     String tille = _cardIndex == 1 ? 'Ball Shooter' : 'Arduino Card';
+
+    ClipOval buildPadButton(int btnIndex, int screenNum, toBluetooth) => ClipOval(
+        child: Material(
+          color: Hexcolor('c4c4c4'),
+          child: InkWell(
+            splashColor: Colors.black12,
+            child: SizedBox(
+              width: 55,
+              height: 55,
+              child: ReturnIcon(btnIndex, 55, screenNum),
+            ),
+            onTap: () {
+              print(toBluetooth);
+            },
+          ),
+        ),
+      );
+
     return SafeArea(
       child: Scaffold(
         //APP BAR
@@ -129,15 +147,15 @@ class _ControllerState extends State<Controller> {
                   child: Center(
                     child: Column(
                       children: <Widget>[
-                        CreatePadBtn(1, _cardIndex, btnTop),
+                        buildPadButton(1, _cardIndex, btnTop),
                         Row(children: <Widget>[
-                          CreatePadBtn(2, _cardIndex, btnLeft),
+                          buildPadButton(2, _cardIndex, btnLeft),
                           SizedBox(
                             width: widthBtn,
                           ),
-                          CreatePadBtn(3, _cardIndex, btnRight),
+                          buildPadButton(3, _cardIndex, btnRight),
                         ]),
-                        CreatePadBtn(4, _cardIndex, btnBottom),
+                        buildPadButton(4, _cardIndex, btnBottom),
                       ],
                     ),
                   ),
