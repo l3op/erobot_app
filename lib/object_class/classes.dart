@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RequestMember {
   static String firstName;
   static String lastName;
@@ -49,4 +51,10 @@ class Doc {
   final int index;
   final String imagePath;
   Doc(this.title, this.describe, this.index, this.imagePath);
+}
+
+class RecentSender {
+  final String recent;
+  final Color color;
+  RecentSender(this.recent, this.color);
 }

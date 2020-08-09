@@ -153,7 +153,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
               //SAVE CACHE DATA
               var button = Button(btnTop, btnLeft, btnBottom, btnRight,
                   _cardIndex == 1 ? btnShoot : btnSpeed);
-              await saveData(button, _cardIndex);
+              await savePadData(button, _cardIndex);
               Toast.show("Saved change'", context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
             } else {

@@ -1,7 +1,7 @@
 import 'package:erobot_app/object_class/classes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> saveData(Button button, int index) async {
+Future<void> savePadData(Button button, int index) async {
   final prefs = await SharedPreferences.getInstance();
   if (index == 1) {
     prefs.setString('top', button.top);
@@ -18,7 +18,7 @@ Future<void> saveData(Button button, int index) async {
   }
 }
 
-Future<Button> loadData(int index) async {
+Future<Button> loadPadData(int index) async {
   String btnTop, btnLeft, btnRight, btnBottom, btnPower;
   final prefs = await SharedPreferences.getInstance();
 
@@ -37,7 +37,22 @@ Future<Button> loadData(int index) async {
     btnPower = prefs.getString('speed') ?? "P";
   }
 
-  Button button =
-      Button(btnTop, btnLeft, btnBottom, btnRight, btnPower);
+  Button button = Button(btnTop, btnLeft, btnBottom, btnRight, btnPower);
   return button;
+}
+
+Future<void> saveRecentSenderData(List<String> values) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('values', values);
+}
+
+Future<List<String>> loadRecentSenderData() async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> values = prefs.getStringList('values');
+  return values;
+}
+
+Future<void> removeRecentSenderText(index) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.remove('value$index');
 }

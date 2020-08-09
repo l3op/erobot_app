@@ -37,7 +37,7 @@ class _ControllerState extends State<Controller> {
 
   //LOAD CACHE DATA
   _loadSavedData() async {
-    button = await loadData(_cardIndex);
+    button = await loadPadData(_cardIndex);
     setState(() {
       btnRight = button.right;
       btnLeft = button.left;
