@@ -2,18 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "archive",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/archive-2.0.13",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "args",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.6.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.3"
-    },
-    {
       "name": "async",
       "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.4.2",
       "packageUri": "lib/",
@@ -60,12 +48,6 @@
       "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/convert-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "1.17"
-    },
-    {
-      "name": "crypto",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-2.1.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
     },
     {
       "name": "cupertino_icons",
@@ -116,18 +98,6 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "flutter_launcher_icons",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.7.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.2"
-    },
-    {
-      "name": "flutter_launcher_name",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_name-0.0.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.1"
-    },
-    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8",
       "packageUri": "lib/",
@@ -162,12 +132,6 @@
       "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/hexcolor-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.8"
-    },
-    {
-      "name": "image",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.12",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
     },
     {
       "name": "intl",
@@ -210,12 +174,6 @@
       "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
-    },
-    {
-      "name": "petitparser",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.4"
     },
     {
       "name": "platform",
@@ -356,25 +314,13 @@
       "languageVersion": "2.3"
     },
     {
-      "name": "xml",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/xml-3.6.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.6"
-    },
-    {
-      "name": "yaml",
-      "rootUri": "file:///home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/yaml-2.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.4"
-    },
-    {
       "name": "erobot_app",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-08-09T17:18:37.098200Z",
+  "generated": "2020-08-09T17:31:40.654953Z",
   "generator": "pub",
   "generatorVersion": "2.9.0"
 }
