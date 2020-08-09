@@ -159,7 +159,7 @@ class _SenderState extends State<Sender> {
     if (values.contains(valueTMP)) {
       values.remove(valueTMP);
       for (int i = 0; i < listRecent.length; i++) {
-        ////DO THERE
+        ////DO TERE
       }
       setState(() {
         listRecent.remove(listRecent);

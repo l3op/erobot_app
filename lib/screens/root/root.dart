@@ -303,6 +303,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
           //MERGE TAB VIEW WITH PAGE VIEW
           body: NotificationListener(
             onNotification: (overscroll) {
+              //IF USER SCROLL UP OR DOWN, DO NOTHING (BUT SCROLL WITH LIST IN TAB)
               if (overscroll is UserScrollNotification &&
                   (overscroll.direction == ScrollDirection.forward ||
                       overscroll.direction == ScrollDirection.reverse)) {
@@ -316,14 +317,14 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 if (overscroll.overscroll > 25 && tabIndex == 0) {
                   print('Scrolling on tab[0]');
                 }
-                //IF USER SWAP LEFT ON TAB[1] => ANIMATE TO PAGE 3 (LOGIN)
+                //IF USER SWAP RIGHT ON TAB[1] => ANIMATE TO PAGE 3 (LOGIN)
                 else if (overscroll.overscroll > 20 && tabIndex == 1) {
                   print('Swaping on tab[1]');
                   _pageController.animateToPage(3,
                       curve: Curves.easeOutQuad,
                       duration: Duration(milliseconds: 300));
                 }
-                //IF USER SWAP LEFT ON TAB[1] => ANIMATE TO PAGE 1 (EDUCATON)
+                //IF USER SWAP LEFT ON TAB[0] => ANIMATE TO PAGE 1 (EDUCATON)
                 else if (overscroll.overscroll < -25 && tabIndex == 0) {
                   print('Swapping on tab[0]');
                   _pageController.animateToPage(1,
