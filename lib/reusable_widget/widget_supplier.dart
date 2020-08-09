@@ -38,7 +38,7 @@ class ReturnIcon extends StatelessWidget {
 }
 
 // Discuss about Card on Homepage and Document page:
-// Each card has 3 layer with with stack together:
+// Each card has 3 layer with which stack together:
 // - 1st layer is image which is image return from imageBackground(); (Homepage only)
 // - 2nd layer is background color with return from randBackground();
 // - 3nd layer is flat button
@@ -57,6 +57,7 @@ Widget randBackground(int index) {
   ];
   String indexColor = list[cardIndex];
   
+  //DO THIS TO BE BETTER WHEN DECREASE COLOR PICTURE OPERCITY
   var color1 = [0, 111, 60];
   var color2 = [249, 167, 62];
   var color3 = [182, 20, 44];
@@ -75,6 +76,7 @@ Widget randBackground(int index) {
       child: Image.asset(
         'assets/colors/$indexColor',
         fit: BoxFit.cover,
+        //DECREASE OPERCITY TO 0.8 WITH COLOR ABOVE
         color: Color.fromRGBO(colorRGBO[0], colorRGBO[1], colorRGBO[2], 0.8),
         colorBlendMode: BlendMode.modulate,
       ));
