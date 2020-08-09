@@ -19,9 +19,9 @@ class Controller extends StatefulWidget {
 class _ControllerState extends State<Controller> {
   final int _cardIndex;
   _ControllerState(this._cardIndex);
+
   String btnRight, btnLeft, btnBottom, btnTop, btnShoot, btnSpeed;
   double speed, speedTMP, servo;
-
   Button button; //BUTTON CLASS
 
   @override
@@ -37,14 +37,13 @@ class _ControllerState extends State<Controller> {
 
   //LOAD CACHE DATA
   _loadSavedData() async {
-    button = await loadData();
+    button = await loadData(_cardIndex);
     setState(() {
       btnRight = button.right;
       btnLeft = button.left;
       btnBottom = button.bottom;
       btnTop = button.top;
-      btnShoot = button.shoot;
-      btnSpeed = button.speed;
+      _cardIndex == 1 ? btnShoot = button.power : btnSpeed = button.power;
     });
   }
 
@@ -55,17 +54,7 @@ class _ControllerState extends State<Controller> {
     super.dispose();
   }
 
-  //WHEN CLICK SPEED UP BUTTON - PROBLEM WHEN SPEED = 0
-  //SO SET IT TO VALUE 1 BEFORE ANIMATE TO VALUE 1
-  //REMOVE THE CONDITION TO TEST IT
   void updateSpeed() {
-    if (speedTMP == 0 || speed == 0) {
-      setState(() {
-        speedTMP = 1;
-        speed = speedTMP;
-      });
-      speedTMP = speed = 0;
-    }
     setState(() {
       speed++;
       speedTMP = speed.roundToDouble();
@@ -118,7 +107,9 @@ class _ControllerState extends State<Controller> {
                 btnLeft = button.left;
                 btnBottom = button.bottom;
                 btnTop = button.top;
-                btnShoot = button.shoot;
+                _cardIndex == 1
+                    ? btnShoot = button.power
+                    : btnSpeed = button.power;
               }
             });
           },

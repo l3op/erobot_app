@@ -28,7 +28,8 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
   @override
   Widget build(BuildContext context) {
     //STORE TEMPORARY DATA
-    tmp = Button(btnTop, btnLeft, btnBottom, btnRight, btnShoot, btnSpeed);
+    tmp = Button(btnTop, btnLeft, btnBottom, btnRight,
+        _cardIndex == 1 ? btnShoot : btnSpeed);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
@@ -39,16 +40,8 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
         leading: IconButton(
           onPressed: () async {
             //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
-            var button = Button(
-                btnTop, btnLeft, btnBottom, btnRight, btnShoot, btnSpeed);
-            print('LAST VALUE: ');
-            //SAVE CACHE DATA
-            await saveData(button);
-            print(button.top +
-                button.left +
-                button.bottom +
-                button.right +
-                button.shoot);
+            var button = Button(btnTop, btnLeft, btnBottom, btnRight,
+                _cardIndex == 1 ? btnShoot : btnSpeed);
             Navigator.pop(context, button);
           },
           icon: Icon(Icons.arrow_back),
@@ -88,7 +81,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
             SizedBox(height: _cardIndex == 1 ? 8 : 0),
             _cardIndex == 1
                 ? buildSetting(context, 'Shoot Button', btnShoot, 5)
-                : buildSetting(context, 'Speed Up', btnShoot, 6),
+                : buildSetting(context, 'Speed Up', btnSpeed, 6),
           ],
         ),
       ),
@@ -101,8 +94,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
     btnLeft = tmp.left;
     btnRight = tmp.right;
     btnBottom = tmp.bottom;
-    btnShoot = tmp.shoot;
-    btnSpeed = tmp.speed;
+    _cardIndex == 1 ? btnShoot = tmp.power : btnSpeed = tmp.power;
   }
 
   //RESET TO DEFAULT DATA
@@ -111,8 +103,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
     btnLeft = 'L';
     btnRight = 'R';
     btnBottom = 'B';
-    btnShoot = 'S';
-    btnSpeed = 'S';
+    _cardIndex == 1 ? btnShoot = 'S' : btnSpeed = 'P';
   }
 
   //BUILD EACH BUTTON SETTING
@@ -146,24 +137,30 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
       InkWell(
         splashColor: null,
         onTap: () {
-          buildShowModalBottomSheet(context, btnValue).whenComplete(() {
+          buildShowModalBottomSheet(context, btnValue).whenComplete(() async {
             List<String> _validate = [
               btnTop,
               btnLeft,
               btnRight,
               btnBottom,
-              btnShoot,
-              btnSpeed
+              _cardIndex == 1 ? btnShoot : btnSpeed
             ];
             //CLARIFY THAT THERE IS NO DULICATE CHAR
             var distinctBtn = _validate.toSet().toList();
             if (distinctBtn.length == 5) {
               print('btn changed');
               setState(() {});
+              //SAVE CACHE DATA
+              var button = Button(btnTop, btnLeft, btnBottom, btnRight,
+                  _cardIndex == 1 ? btnShoot : btnSpeed);
+              await saveData(button, _cardIndex);
               Toast.show("Saved change'", context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-            } else
+            } else {
               reset();
+              Toast.show("Value can't be saved", context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
+            }
           });
         },
         child: Row(
@@ -181,17 +178,26 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
 
   //OPEN TEXT FIELD TO CHANGE BUTTON DATA
   Future buildShowModalBottomSheet(BuildContext context, String btnValue) {
-    List<String> _validate = [btnTop, btnLeft, btnRight, btnBottom, btnShoot];
+    List<String> _validate = [
+      btnTop,
+      btnLeft,
+      btnRight,
+      btnBottom,
+      _cardIndex == 1 ? btnShoot : btnSpeed
+    ];
     final String _btnTMP = btnValue;
 
     void changeValue(value) {
-      if (btnTop == btnValue) btnTop = value;
-      if (btnLeft == btnValue) btnLeft = value;
-      if (btnRight == btnValue) btnRight = value;
-      if (btnBottom == btnValue) btnBottom = value;
-      if (btnShoot == btnValue) btnShoot = value;
-      if (btnSpeed == btnValue) btnSpeed = value;
-      btnValue = value;
+      if (value != '') {
+        if (btnTop == btnValue) btnTop = value;
+        if (btnLeft == btnValue) btnLeft = value;
+        if (btnRight == btnValue) btnRight = value;
+        if (btnBottom == btnValue) btnBottom = value;
+        if (btnShoot == btnValue && _cardIndex == 1)
+          btnShoot = value;
+        else if (btnSpeed == btnValue) btnSpeed = value;
+        btnValue = value;
+      }
     }
 
     return showModalBottomSheet(
@@ -213,11 +219,12 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
                   maxLines: 1,
                   maxLength: 1,
                   onChanged: (value) {
-                    if (value != '') print("changing to " + value);
+                    print("changing to " + value);
                     if (_btnTMP != value &&
                         !buttonValidator(value, _validate)) {
                       Toast.show("Dublicated value '$value'", context,
                           duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
+                      reset();
                     }
                   },
                   onFieldSubmitted: (value) {
