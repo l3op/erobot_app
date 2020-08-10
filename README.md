@@ -26,7 +26,7 @@ Build release to test:<br>
 $ flutter build apk --release<br>
 $ build/app/outputs/flutter-apk/app-release.apk
 <br><br>
-@Method2: this produce 3 apk, choose 1 for your device<br>
+@Method2: this produce 3 apk, choose 1 for your device.<br>
 $ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
 <br>
 $ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
