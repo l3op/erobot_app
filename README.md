@@ -35,6 +35,9 @@ Build release to test:<br>
 :~/erobot_app$ flutter build appbundle --target-platform android-arm, android-arm64, android-x64
 <br>
 :~/erobot_app$ flutter install build/app/outputs/bundle/release/app-release.aab
+<br><br>
+Best wishes, 
+Erobot
 
  
  
