@@ -26,10 +26,9 @@ Build release to test:<br>
 :~/erobot_app$ flutter build apk --release<br>
 :~/erobot_app$ build/app/outputs/flutter-apk/app-release.apk
 <br><br>
-@Method2:<br>
+@Method2: this produce 3 apk, choose 1 for your device<br>
 :~/erobot_app$ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
 <br>
-[ it produce 3 apk, choose 1 for your device ]<br>
 :~/erobot_app$ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
 <br><br>
 @Method3:<br>
