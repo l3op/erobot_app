@@ -43,15 +43,15 @@ String validatePassword(String value) {
   }
 }
 
-bool buttonValidator(String value, List<String> buttons) {
+bool isDublicate(String value, List<String> buttons) {
   int k = 0;
   for (String i in buttons) {
     if (i == value) k++;
   }
   if (k == 0)
-    return true;
-  else if (k > 0)
     return false;
+  else if (k > 0)
+    return true;
   else
     return null;
 }

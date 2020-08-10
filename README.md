@@ -16,7 +16,7 @@ Functions of the app are:
 Prototype and design here: https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-Robot-App?node-id=0%3A1
 
 Build release to test: 
-thea@dev:~/erobot_app$ flutter build apk --target-platform android-arm64 --split-per-abi && flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
+erobot@dev:~/erobot_app$ flutter build apk --target-platform android-arm64 --split-per-abi && flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
 
 
  

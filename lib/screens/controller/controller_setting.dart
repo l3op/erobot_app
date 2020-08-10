@@ -221,7 +221,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
                   onChanged: (value) {
                     print("changing to " + value);
                     if (_btnTMP != value &&
-                        !buttonValidator(value, _validate)) {
+                        isDublicate(value, _validate)) {
                       Toast.show("Dublicated value '$value'", context,
                           duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
                       reset();
