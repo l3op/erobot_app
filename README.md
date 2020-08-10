@@ -36,7 +36,7 @@ Build release to test:<br>
 <br>
 :~/erobot_app$ flutter install build/app/outputs/bundle/release/app-release.aab
 <br><br>
-Best wishes, 
+Best wishes,<br>
 Erobot
 
  
