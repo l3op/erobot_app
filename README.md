@@ -4,6 +4,7 @@ Start date: 24 July, 2020
 Welcome to Open Source Project.<br>
 Erobot is designed to control Arduino robot via Bluetooth. The app is developing using Flutter.
 
+<img src="./assets/3screen.png">
 Functions of the app are:
 - Farm Assistant : (in planning)
 - Arduino Documents : Document of how to build robots
