@@ -25,14 +25,14 @@ class _IrRemoterState extends State<IrRemoter> {
 
   //REFERENCE: https://www.circuitbasics.com/arduino-ir-remote-receiver-tutorial/
   _loadCacheDate() {
-    ch = '0xFF629D';
-    chp = '0xFFE21D';
     chm = '0xFFA25D';
+    chp = '0xFFE21D';
+    ch = '0xFF629D';
     prev = '0xFF22DD';
     next = '0xFF02FD';
     playpause = '0xFFC23D';
-    volp = '0xFFA857';
     volm = '0xFFE01F';
+    volp = '0xFFA857';
     eq = '0xFF906F';
     twohunp = '0xFFB04F';
     onehunp = '0xFF9867';
@@ -59,8 +59,19 @@ class _IrRemoterState extends State<IrRemoter> {
       IRremoteSetting('playpause.png', 'Play or Pause', playpause),
       IRremoteSetting('volm.png', 'Volumn Down', volm),
       IRremoteSetting('volp.png', 'Volumn Up', volp),
+      IRremoteSetting('EQ', 'EQ', eq),
       IRremoteSetting('100+', 'Increase 100', onehunp),
       IRremoteSetting('200+', 'Increase 200', twohunp),
+      IRremoteSetting('1', 'Number 1', one),
+      IRremoteSetting('2', 'Number 2', two),
+      IRremoteSetting('3', 'Number 3', three),
+      IRremoteSetting('4', 'Number 4', four),
+      IRremoteSetting('5', 'Number 5', five),
+      IRremoteSetting('6', 'Number 6', six),
+      IRremoteSetting('7', 'Number 7', seven),
+      IRremoteSetting('8', 'Number 8', edge),
+      IRremoteSetting('9', 'Number 9', nine),
+      IRremoteSetting('0', 'Number 0', zero),
     ];
     return Scaffold(
       appBar: AppBar(

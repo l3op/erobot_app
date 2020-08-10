@@ -12,19 +12,29 @@ class IRremoterSetting extends StatefulWidget {
 }
 
 class _IRremoterSettingState extends State<IRremoterSetting> {
-  final List<IRremoteSetting> setting;
+  List<IRremoteSetting> setting, settingTMP;
   _IRremoterSettingState(this.setting);
+
   @override
   Widget build(BuildContext context) {
+    settingTMP = setting;
     return Scaffold(
       appBar: AppBar(
         title: Text('Setting', style: TextStyle(fontSize: 18)),
         //RESET TO DEFAUL BUTTON
-        actions: [
-          Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5),
+        actions: [],
+      ),
+      body: ScrollConfiguration(
+        //ScrollConfiguration IS USED TO HIDE SCROLL EFFECT (WHITE EFFECT)
+        behavior: ScrollBehavior()
+          ..buildViewportChrome(context, null, AxisDirection.down),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                height: 40,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Color.fromRGBO(255, 255, 255, .1)),
@@ -44,7 +54,7 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                             style: TextStyle(fontSize: 10),
                           ),
                           onPressed: () {
-                            print('hex');
+                            resetDefaultHex();
                           }),
                     ),
                     Text(' '),
@@ -61,25 +71,24 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                             style: TextStyle(fontSize: 10),
                           ),
                           onPressed: () {
-                            print('char');
+                            resetDefaultChar();
                           }),
                     ),
                   ],
                 ),
-              ))
-        ],
-      ),
-      body: ScrollConfiguration(
-        //ScrollConfiguration IS USED TO HIDE SCROLL EFFECT (WHITE EFFECT)
-        behavior: ScrollBehavior()
-          ..buildViewportChrome(context, null, AxisDirection.down),
-        child: ListView.builder(
-            itemCount: setting.length,
-            itemBuilder: (context, index) {
-              IRremoteSetting set = setting[index];
-              return buildSetting(
-                  context, set.name, set.describe, set.value, index);
-            }),
+              ),
+            ),
+            ListView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: setting.length,
+                itemBuilder: (context, index) {
+                  IRremoteSetting settings = setting[index];
+                  return buildSetting(context, settings.name, settings.describe,
+                      settings.value, index);
+                }),
+          ],
+        ),
       ),
     );
   }
@@ -96,10 +105,80 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
     return false;
   }
 
+  //RESET TO INITIAL SETTING
+  void reset() {
+    for (int i = 0; i < setting.length; i++) {
+      setting[i].value = settingTMP[i].value;
+    }
+  }
+
+  //RESET TO DEFAULT CHARACTER SETTING
+  void resetDefaultChar() {
+    List<String> _defaultChar = [
+      'M',
+      'P',
+      'C',
+      'p',
+      'n',
+      'Y',
+      'v',
+      'V',
+      'E',
+      'T',
+      'O',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '0'
+    ];
+    print("${_defaultChar.length} vs ${setting.length}");
+    for (int i = 0; i < setting.length; i++) setting[i].value = _defaultChar[i];
+    setState(() {});
+  }
+
+  //RESET TO DEFAULT HEX SETTING
+  void resetDefaultHex() {
+    List<String> _defaultHex = [
+      '0xFFA25D',
+      '0xFFE21D',
+      '0xFF629D',
+      '0xFF22DD',
+      '0xFF02FD',
+      '0xFFC23D',
+      '0xFFE01F',
+      '0xFFA857',
+      '0xFF906F',
+      '0xFFB04F',
+      '0xFF9867',
+      '0xFF30CF',
+      '0xFF18E7',
+      '0xFF7A85',
+      '0xFF10EF',
+      '0xFF38C7',
+      '0xFF5AA5',
+      '0xFF42BD',
+      '0xFF4AB5',
+      '0xFF52AD',
+      '0XFF6897',
+    ];
+    for (int i = 0; i < setting.length; i++) setting[i].value = _defaultHex[i];
+    setState(() {});
+  }
+
   Padding buildSetting(context, final String title, final String describe,
-      final String value, final int index) {
+      final String _value, final int index) {
     return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20, top: index == 0 ? 20 : 10),
+      padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: index == 0 ? 10 : 10,
+          bottom: index == setting.length - 1 ? 20 : 0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Row(
           children: [
@@ -130,11 +209,11 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
         InkWell(
           splashColor: null,
           onTap: () {
-            buildShowModalBottomSheet(context, value);
+            buildShowModalBottomSheet(context, _value);
           },
           child: Row(
             children: [
-              Text(value, style: TextStyle(color: Colors.white, fontSize: 17)),
+              Text(_value, style: TextStyle(color: Colors.white, fontSize: 17)),
               SizedBox(
                 width: 10,
               ),
@@ -155,6 +234,29 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
 
   Future buildShowModalBottomSheet(BuildContext context, String btnValue) {
     String _btnTMP = btnValue;
+
+    void changeValue(value) {
+      print('cam!');
+      if (value != '' && _btnTMP != value) {
+        for (int i = 0; i < setting.length; i++) {
+          if (setting[i].value == _btnTMP) {
+            if (!isDubicateValue(value)) {
+              setState(() {
+                setting[i].value = value;
+                print('changed value to ${setting[i].value}');
+              });
+            } else if (isDubicateValue(value)) {
+              Toast.show("Cannot save, dublicated value '$value'", context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+            }
+          }
+        }
+      } else {
+        Toast.show("Cannot save!", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+      }
+    }
+
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -179,7 +281,9 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                           duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
                     }
                   },
-                  onFieldSubmitted: (value) {},
+                  onFieldSubmitted: (value) {
+                    changeValue(value);
+                  },
                 ),
               ),
             ),
