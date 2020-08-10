@@ -23,18 +23,18 @@ Prototype and design here: https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-R
 <img src="./assets/2screen.png"><br>
 Build release to test:<br>
 @Method1:<br>
-:~/erobot_app$ flutter build apk --release<br>
-:~/erobot_app$ build/app/outputs/flutter-apk/app-release.apk
+$ flutter build apk --release<br>
+$ build/app/outputs/flutter-apk/app-release.apk
 <br><br>
 @Method2: this produce 3 apk, choose 1 for your device<br>
-:~/erobot_app$ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
+$ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
 <br>
-:~/erobot_app$ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
+$ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
 <br><br>
 @Method3:<br>
-:~/erobot_app$ flutter build appbundle --target-platform android-arm, android-arm64, android-x64
+$ flutter build appbundle --target-platform android-arm, android-arm64, android-x64
 <br>
-:~/erobot_app$ flutter install build/app/outputs/bundle/release/app-release.aab
+$ flutter install build/app/outputs/bundle/release/app-release.aab
 <br><br>
 Best wishes,<br>
 Erobot
