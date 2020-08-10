@@ -62,6 +62,7 @@ flutter:
     - assets/profiles/
     - assets/events/
     - assets/graphics/
+    - assets/sender/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -82,9 +83,14 @@ flutter:
           style: italic
     - family: Quicksand
       fonts:
-        - asset: fonts/Quicksand-Bold.ttf
+        - asset: fonts/Quicksand-Light.ttf
+          weight: 100
         - asset: fonts/Quicksand-Medium.ttf
-          weight: 700
+          weight: 200
+        - asset: fonts/Quicksand-Regular.ttf
+          weight: 300
+        - asset: fonts/Quicksand-Bold.ttf
+          weight: 400
     - family: Hanuman
       fonts:
         - asset: fonts/khmer/Hanuman-Regular.ttf
