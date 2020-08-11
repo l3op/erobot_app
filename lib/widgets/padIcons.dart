@@ -1,7 +1,7 @@
 // RETURN PAD BUTTON ICONS
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ReturnIcon extends StatelessWidget {
   final int index;
@@ -20,7 +20,7 @@ class ReturnIcon extends StatelessWidget {
         child: FaIcon(
       icon,
       size: widthBtn - 20,
-      color: screenNum == 1 ? Hexcolor('B6142C') : Hexcolor('03A0B0'),
+      color: screenNum == 1 ? Palette.red_milano : Palette.blue_pacific,
     ));
   }
 }

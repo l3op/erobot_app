@@ -1,6 +1,6 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/widgets/circlebutton.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/screens/ir_remoter/ir_remoter_setting.dart';
 import 'package:erobot_app/models/models.dart';
 
@@ -97,7 +97,7 @@ class _IrRemoterState extends State<IrRemoter> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
-        child: Icon(Icons.settings, color: Hexcolor('03A0B0'), size: 25),
+        child: Icon(Icons.settings, color: Palette.blue_pacific, size: 25),
         onPressed: () {
           Navigator.push(
               context,

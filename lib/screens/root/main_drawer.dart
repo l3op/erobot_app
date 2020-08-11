@@ -1,5 +1,5 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -22,7 +22,7 @@ class _MainDrawerState extends State<MainDrawer> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    color: Hexcolor('172634'),
+                    color: Palette.bigstone,
                     width: double.infinity,
                     padding: EdgeInsets.all(20),
                     child: Column(

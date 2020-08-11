@@ -1,11 +1,9 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/widgets/bluewhitebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:erobot_app/widgets/layerscard.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class LogInChoice extends StatefulWidget {
-  LogInChoice({Key key}) : super(key: key);
-
   @override
   _LogInChoiceState createState() => _LogInChoiceState();
 }
@@ -40,8 +38,8 @@ class _LogInChoiceState extends State<LogInChoice> {
             FlatTextButton(
                 isblue: true,
                 text: 'Login as member',
-                splashColor: Hexcolor('04bacd'),
-                color: Hexcolor('03a0b0'),
+                splashColor: Palette.blueSplash,
+                color: Palette.blue_pacific,
                 onPressed: () {
                   Navigator.pushNamed(context, '/loginP');
                 }),

@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/validation/validation.dart';
 import 'package:erobot_app/models/models.dart';
 import 'package:file_picker/file_picker.dart';
@@ -140,7 +140,7 @@ class _JoinUsState extends State<JoinUs> {
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Hexcolor('03a0b0')),
+                            color: Palette.blue_pacific),
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
@@ -189,7 +189,7 @@ class _JoinUsState extends State<JoinUs> {
 
   CircleAvatar buildImagePciker() {
     return CircleAvatar(
-      backgroundColor: Hexcolor('03a0b0'),
+      backgroundColor: Palette.blue_pacific,
       radius: 55,
       child: CircleAvatar(
           backgroundColor: Colors.white,
@@ -211,7 +211,7 @@ class _JoinUsState extends State<JoinUs> {
                     backgroundColor: Color.fromRGBO(255, 255, 255, .5),
                     child: Icon(
                       Icons.camera_alt,
-                      color: Hexcolor('03a0b0'),
+                      color: Palette.blue_pacific,
                       size: 35,
                     ),
                   )

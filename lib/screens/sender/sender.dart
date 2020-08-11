@@ -1,7 +1,7 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/models/models.dart';
 import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class Sender extends StatefulWidget {
   @override
@@ -24,11 +24,11 @@ class _SenderState extends State<Sender> {
   //COLORS FOR RECENT TEXT BUTTON
   var color;
   List<Color> colorsList = [
-    Hexcolor('f9a73e'),
-    Hexcolor('006f3c'),
-    Hexcolor('e77e4e'),
-    Hexcolor('b6142c'),
-    Hexcolor('03a0b0')
+    Palette.orange_burning,
+    Palette.red_milano,
+    Palette.yellow,
+    Palette.blue_pacific,
+    Palette.green_fun,
   ];
 
   @override
@@ -148,7 +148,7 @@ class _SenderState extends State<Sender> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    color: Hexcolor('c4c4c4'),
+                    color: Palette.whitesmoke,
                     borderRadius: BorderRadius.circular(8)),
                 padding: EdgeInsets.only(bottom: 0),
                 child: TextFormField(
@@ -181,7 +181,7 @@ class _SenderState extends State<Sender> {
                     style: TextStyle(color: Colors.white, fontSize: 15)),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
-                color: Hexcolor('03a0B0'),
+                color: Palette.blue_pacific,
                 onPressed: () {
                   if (_valueTMP != null) {
                     print(listRecent.length.toString());
@@ -189,7 +189,7 @@ class _SenderState extends State<Sender> {
                   }
                 },
               ),
-              Divider(color: Hexcolor('c4c4c4')),
+              Divider(color: Palette.whitesmoke),
               Text(listRecent.length > 1 ? 'Recently' : 'No recent data',
                   style: TextStyle(color: Colors.white, fontSize: 15)),
             ],

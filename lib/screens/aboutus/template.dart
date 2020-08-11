@@ -1,5 +1,5 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/models/models.dart';
 import 'package:erobot_app/data/events.dart';
 
@@ -25,7 +25,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
             return <Widget>[
               //SLIVER APP BAR
               SliverAppBar(
-                iconTheme: IconThemeData(color: Hexcolor('172634')),
+                iconTheme: IconThemeData(color: Palette.bigstone),
                 expandedHeight: 400,
                 floating: false,
                 pinned: true,
@@ -37,7 +37,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                 //APP BAR
                 title: Text(eventData.eventName,
                     style: TextStyle(
-                        color: Hexcolor('172634'),
+                        color: Palette.shark,
                         fontWeight: FontWeight.normal,
                         fontSize: 18)),
                 bottom: eventCard(eventData),
@@ -86,7 +86,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
     return Text(
       '   ' + text,
       style: TextStyle(
-          color: Hexcolor('172634'), fontWeight: FontWeight.w500, fontSize: 18),
+          color: Palette.shark, fontWeight: FontWeight.w500, fontSize: 18),
     );
   }
 
@@ -110,7 +110,8 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
           children: <TextSpan>[
             TextSpan(text: '    '),
             TextSpan(text: 'Written by '),
-            TextSpan(text: author, style: TextStyle(color: Hexcolor('03a0b0'))),
+            TextSpan(
+                text: author, style: TextStyle(color: Palette.blue_pacific)),
           ]),
     );
   }
@@ -214,7 +215,7 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                                     : eventAcc.robot[index]) +
                                 ' ',
                             style: TextStyle(
-                                backgroundColor: Hexcolor('03a0b0'),
+                                backgroundColor: Palette.blue_pacific,
                                 color: Colors.white),
                           ),
                         )

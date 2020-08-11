@@ -1,6 +1,6 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ProfileCard extends StatelessWidget {
   final String name;
@@ -66,7 +66,7 @@ class ProfileCard extends StatelessWidget {
                           //TELEGRAM
                           ClipOval(
                             child: Material(
-                              color: Hexcolor('161F28'),
+                              color: Palette.shark,
                               child: InkWell(
                                 splashColor: Colors.blue,
                                 child: SizedBox(
@@ -93,7 +93,7 @@ class ProfileCard extends StatelessWidget {
                                 splashColor: Colors.blue,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50)),
-                                color: Hexcolor('161F28'),
+                                color: Palette.shark,
                                 onPressed: onTGpressed,
                                 icon: FaIcon(
                                   FontAwesomeIcons.facebookF,

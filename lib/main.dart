@@ -8,15 +8,15 @@ void main() => runApp(MaterialApp(
         return Theme(
           data: ThemeData(
             fontFamily: lang == 'kh' ? 'Hanuman' : 'Raleway',
-            primarySwatch: colorCustom,
-            canvasColor: colorCustom2,
+            primarySwatch: Palette.appbar,
+            canvasColor: Palette.background,
           ),
           child: navigator,
         );
       },
       theme: ThemeData(
-        primarySwatch: colorCustom,
-        canvasColor: colorCustom2,
+        primarySwatch: Palette.appbar,
+        canvasColor: Palette.background,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',

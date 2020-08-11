@@ -1,6 +1,6 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/validation/validation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Hexcolor('03a0b0')),
+                          color: Palette.blue_pacific),
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
                         //LOGIN WITH FACEBOOK
                         ClipOval(
                           child: Material(
-                            color: Hexcolor('386fde'),
+                            color: Palette.blueFacebook,
                             child: InkWell(
                               splashColor: Colors.white,
                               child: SizedBox(

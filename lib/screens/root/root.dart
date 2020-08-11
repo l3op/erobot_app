@@ -1,3 +1,4 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/data/data.dart';
 import 'package:erobot_app/screens/aboutus/aboutus.dart';
 import 'package:erobot_app/widgets/dialogButton.dart';
@@ -9,7 +10,6 @@ import 'package:erobot_app/screens.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 //ROOT PAGE
@@ -108,7 +108,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
           //BOTTOM NAVIGATION
           bottomNavigationBar: BubbledNavigationBar(
             defaultBubbleColor: Colors.white,
-            backgroundColor: Hexcolor('172634'),
+            backgroundColor: Palette.bigstone,
             initialIndex: pageIndex,
             controller: _menuPositionController,
             itemMargin: EdgeInsets.symmetric(horizontal: 0),
@@ -202,11 +202,11 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
       activeIcon: Icon(
         icon,
         size: 30,
-        color: Hexcolor('172634'),
+        color: Palette.bigstone,
       ),
       title: Text(
         label,
-        style: TextStyle(color: Hexcolor('172634'), fontSize: 12),
+        style: TextStyle(color: Palette.bigstone, fontSize: 12),
       ),
     );
   }

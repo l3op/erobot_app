@@ -1,6 +1,6 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/screens/aboutus/template.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
@@ -77,7 +77,7 @@ class EventCard extends StatelessWidget {
                                         : Colors.lightBlueAccent,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50)),
-                                color: Hexcolor('161F28'),
+                                color: Palette.shark,
                                 onPressed: () {
                                   print('see more clicked $index');
                                   Navigator.push(

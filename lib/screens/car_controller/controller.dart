@@ -1,9 +1,9 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:erobot_app/widgets/padIcons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:erobot_app/screens/car_controller/controller_setting.dart';
 import 'package:erobot_app/models/models.dart';
@@ -67,22 +67,23 @@ class _ControllerState extends State<Controller> {
     double heightBtn = 55;
     String tille = _cardIndex == 1 ? 'Ball Shooter' : 'Arduino Card';
 
-    ClipOval buildPadButton(int btnIndex, int screenNum, toBluetooth) => ClipOval(
-        child: Material(
-          color: Hexcolor('c4c4c4'),
-          child: InkWell(
-            splashColor: Colors.black12,
-            child: SizedBox(
-              width: 55,
-              height: 55,
-              child: ReturnIcon(btnIndex, 55, screenNum),
+    ClipOval buildPadButton(int btnIndex, int screenNum, toBluetooth) =>
+        ClipOval(
+          child: Material(
+            color: Palette.whitesmoke,
+            child: InkWell(
+              splashColor: Colors.black12,
+              child: SizedBox(
+                width: 55,
+                height: 55,
+                child: ReturnIcon(btnIndex, 55, screenNum),
+              ),
+              onTap: () {
+                print(toBluetooth);
+              },
             ),
-            onTap: () {
-              print(toBluetooth);
-            },
           ),
-        ),
-      );
+        );
 
     return SafeArea(
       child: Scaffold(
@@ -111,7 +112,8 @@ class _ControllerState extends State<Controller> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           child: Icon(Icons.settings,
-              color: _cardIndex == 1 ? Hexcolor('B6142C') : Hexcolor('03A0B0'),
+              color:
+                  _cardIndex == 1 ? Palette.red_milano : Palette.blue_pacific,
               size: 25),
           onPressed: () async {
             Button button = await Navigator.push(
@@ -188,12 +190,12 @@ class _ControllerState extends State<Controller> {
                               handlerSize: 3,
                             ),
                             customColors: CustomSliderColors(
-                                trackColor: Hexcolor('c4c4c4'),
+                                trackColor: Palette.whitesmoke,
                                 progressBarColor: _cardIndex == 1
-                                    ? Hexcolor('B6142C')
-                                    : Hexcolor('03A0B0'),
+                                    ? Palette.red_milano
+                                    : Palette.blue_pacific,
                                 hideShadow: true,
-                                dotColor: Hexcolor('c4c4c4')),
+                                dotColor: Palette.whitesmoke),
                             startAngle: 90,
                             angleRange: 180,
                             counterClockwise: true,
@@ -213,8 +215,8 @@ class _ControllerState extends State<Controller> {
                         child: ClipOval(
                           child: Material(
                             color: _cardIndex == 1
-                                ? Hexcolor('B6142C')
-                                : Hexcolor('03A0B0'),
+                                ? Palette.red_milano
+                                : Palette.blue_pacific,
                             child: InkWell(
                               splashColor: Colors.black12,
                               child: SizedBox(
@@ -293,9 +295,9 @@ class _ControllerState extends State<Controller> {
                                 max: 9,
                                 min: 0,
                                 activeColor: _cardIndex == 1
-                                    ? Hexcolor('B6142C')
-                                    : Hexcolor('03A0B0'),
-                                inactiveColor: Hexcolor('c4c4c4'),
+                                    ? Palette.red_milano
+                                    : Palette.blue_pacific,
+                                inactiveColor: Palette.whitesmoke,
                                 onChanged: (servoTMP) {
                                   setState(() {
                                     servo = servoTMP.roundToDouble();
