@@ -13,7 +13,7 @@ class JoinUs extends StatefulWidget {
 
 class _JoinUsState extends State<JoinUs> {
   final _formKey = GlobalKey<FormState>();
-  var _filepath = 'assets/erobot-logo/erobotlogo.png';
+  var _filepath = '0';
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _JoinUsState extends State<JoinUs> {
       body: ScrollConfiguration(
         behavior: ScrollBehavior()
           ..buildViewportChrome(context, null, AxisDirection.down),
-        child: ListView(
+        child: Column(
           children: <Widget>[
             Material(
                 textStyle: TextStyle(
@@ -194,7 +194,7 @@ class _JoinUsState extends State<JoinUs> {
       child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 50,
-          backgroundImage: FileImage(File(_filepath)),
+          backgroundImage: _filepath != '0' ? FileImage(File(_filepath)) : null,
           child: GestureDetector(
             onTap: () async {
               var filepath = await FilePicker.getFilePath(type: FileType.image);
@@ -244,17 +244,15 @@ class InputStyle extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.only(bottom: 5),
-      child: Positioned(
-        child: TextFormField(
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: labelText,
-              labelStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-              contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-          validator: validator,
-          maxLines: maxLines,
-          keyboardType: TextInputType.text,
-        ),
+      child: TextFormField(
+        decoration: InputDecoration(
+            border: InputBorder.none,
+            labelText: labelText,
+            labelStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
+            contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
+        validator: validator,
+        maxLines: maxLines,
+        keyboardType: TextInputType.text,
       ),
     );
   }

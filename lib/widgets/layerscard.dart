@@ -109,7 +109,7 @@ class ThreeLayerCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-                    Image.asset('assets/arduino-logo/$pathlogo',
+                    Image.asset('assets/arduinologo/$pathlogo',
                         width: width, height: height),
                     SizedBox(
                       height: boxSize,

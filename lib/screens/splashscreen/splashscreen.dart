@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                     SizedBox(height: 250),
-                    Image.asset('assets/mostused/app_splash.png', width: 150),
+                    Image.asset('assets/erobot-logo/app_splash.png', width: 150),
                     SizedBox(height: 20),
                     RichText(
                       text: TextSpan(
