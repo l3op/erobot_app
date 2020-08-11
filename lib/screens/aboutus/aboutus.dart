@@ -1,8 +1,8 @@
+import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/screens/aboutus/tabs.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 //ABOUT US SCREEN WITH TWO TABS
@@ -26,7 +26,7 @@ class AboutUs extends StatelessWidget {
         initialIndex: 0,
         length: 2,
         child: Scaffold(
-          backgroundColor: Hexcolor('172634'),
+          backgroundColor: Palette.shark,
           //CENTERING APP BAR
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
@@ -35,7 +35,7 @@ class AboutUs extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Hexcolor('172634'),
+                    color: Palette.shark,
                     blurRadius: 30.0,
                     spreadRadius: 0.0,
                     offset: Offset(0.0, 0.0),
@@ -73,39 +73,39 @@ class AboutUs extends StatelessWidget {
               AboutMember(),
               TeamReputation(),
             ]),
-            onNotification: (overscroll) {
-              //IF USER SCROLL UP OR DOWN, DO NOTHING (BUT SCROLL WITH LIST IN TAB)
-              if (overscroll is UserScrollNotification &&
-                  (overscroll.direction == ScrollDirection.forward ||
-                      overscroll.direction == ScrollDirection.reverse)) {
-                print('scrolling');
-              } else if (overscroll is OverscrollNotification &&
-                  overscroll.overscroll != 0 &&
-                  overscroll.dragDetails != null) {
-                print(overscroll.overscroll);
-
-                //IF USER SCROLL DOWN ON TAB[0] => DO NOTHINGS
-                if (overscroll.overscroll > 25 && tabIndex == 0) {
-                  print('Scrolling on tab[0]');
-                }
-                //IF USER SWAP RIGHT ON TAB[1] => ANIMATE TO PAGE 3 (LOGIN)
-                else if (overscroll.overscroll > 20 && tabIndex == 1) {
-                  print('Swaping on tab[1]');
-                  _pageController.animateToPage(3,
-                      curve: Curves.easeOutQuad,
-                      duration: Duration(milliseconds: 300));
-                }
-                //IF USER SWAP LEFT ON TAB[0] => ANIMATE TO PAGE 1 (EDUCATON)
-                else if (overscroll.overscroll < -25 && tabIndex == 0) {
-                  print('Swapping on tab[0]');
-                  _pageController.animateToPage(1,
-                      curve: Curves.easeOutQuad,
-                      duration: Duration(milliseconds: 300));
-                }
-              }
-              return true;
-            },
+            onNotification: onNotification,
           ),
         ));
+  }
+
+  bool onNotification(overscroll) {
+    //IF USER SCROLL UP OR DOWN, DO NOTHING (BUT SCROLL WITH LIST IN TAB)
+    if (overscroll is UserScrollNotification &&
+        (overscroll.direction == ScrollDirection.forward ||
+            overscroll.direction == ScrollDirection.reverse)) {
+      print('scrolling');
+    } else if (overscroll is OverscrollNotification &&
+        overscroll.overscroll != 0 &&
+        overscroll.dragDetails != null) {
+      print(overscroll.overscroll);
+
+      //IF USER SCROLL DOWN ON TAB[0] => DO NOTHINGS
+      if (overscroll.overscroll > 25 && tabIndex == 0) {
+        print('Scrolling on tab[0]');
+      }
+      //IF USER SWAP RIGHT ON TAB[1] => ANIMATE TO PAGE 3 (LOGIN)
+      else if (overscroll.overscroll > 20 && tabIndex == 1) {
+        print('Swaping on tab[1]');
+        _pageController.animateToPage(3,
+            curve: Curves.easeOutQuad, duration: Duration(milliseconds: 300));
+      }
+      //IF USER SWAP LEFT ON TAB[0] => ANIMATE TO PAGE 1 (EDUCATON)
+      else if (overscroll.overscroll < -25 && tabIndex == 0) {
+        print('Swapping on tab[0]');
+        _pageController.animateToPage(1,
+            curve: Curves.easeOutQuad, duration: Duration(milliseconds: 300));
+      }
+    }
+    return true;
   }
 }

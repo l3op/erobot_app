@@ -13,7 +13,7 @@ class JoinUs extends StatefulWidget {
 
 class _JoinUsState extends State<JoinUs> {
   final _formKey = GlobalKey<FormState>();
-  var _filepath = 'assets/mostused/blank-profile-picture.png';
+  var _filepath = 'assets/erobot-logo/erobotlogo.png';
 
   @override
   void initState() {

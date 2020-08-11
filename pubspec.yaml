@@ -1,5 +1,5 @@
 name: erobot_app
-description: A new Flutter project.
+description: To learn, share about robot and controll it!.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -58,13 +58,15 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/arduino-logo/
     - assets/colors/
-    - assets/home/
-    - assets/profiles/
+    - assets/controller/
+    - assets/erobot-logo/
     - assets/events/
     - assets/graphics/
+    - assets/home/
+    - assets/profiles/
     - assets/sender/
-    - assets/mostused/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -80,23 +82,20 @@ flutter:
   fonts:
     - family: Raleway
       fonts:
-        - asset: fonts/Raleway-Regular.ttf
-        - asset: fonts/Raleway-Italic.ttf
+        - asset: fonts/raleway/Raleway-Regular.ttf
+        - asset: fonts/raleway/Raleway-Italic.ttf
           style: italic
     - family: Quicksand
       fonts:
-        - asset: fonts/Quicksand-Light.ttf
-          weight: 100
-        - asset: fonts/Quicksand-Medium.ttf
-          weight: 200
-        - asset: fonts/Quicksand-Regular.ttf
-          weight: 300
-        - asset: fonts/Quicksand-Bold.ttf
-          weight: 400
+        - asset: fonts/quicksand/Quicksand-Light.ttf
+        - asset: fonts/quicksand/Quicksand-Medium.ttf
+        - asset: fonts/quicksand/Quicksand-Regular.ttf
+        - asset: fonts/quicksand/Quicksand-Bold.ttf
+          weight: 700
     - family: Hanuman
       fonts:
-        - asset: fonts/khmer/Hanuman-Regular.ttf
-        - asset: fonts/khmer/Hanuman-Bold.ttf
+        - asset: fonts/hanuman/Hanuman-Regular.ttf
+        - asset: fonts/hanuman/Hanuman-Bold.ttf
           weight: 700
   #
   # For details regarding fonts from package dependencies,
