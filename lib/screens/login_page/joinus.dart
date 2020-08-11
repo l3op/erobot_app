@@ -13,7 +13,7 @@ class JoinUs extends StatefulWidget {
 
 class _JoinUsState extends State<JoinUs> {
   final _formKey = GlobalKey<FormState>();
-  var _filepath = '0';
+  var _filepath = 'assets/mostused/blank-profile-picture.png';
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _JoinUsState extends State<JoinUs> {
       body: ScrollConfiguration(
         behavior: ScrollBehavior()
           ..buildViewportChrome(context, null, AxisDirection.down),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Material(
                 textStyle: TextStyle(
@@ -245,9 +245,6 @@ class InputStyle extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.only(bottom: 5),
       child: Positioned(
-        left: 0,
-        right: 0,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
         child: TextFormField(
           decoration: InputDecoration(
               border: InputBorder.none,
