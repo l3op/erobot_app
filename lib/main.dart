@@ -8,16 +8,7 @@ import 'package:flutter/services.dart';
 
 //Palette
 import 'config/palette.dart';
-
-//Screens
-import 'screens/root/root.dart';
-import 'package:erobot_app/screens/sender/sender.dart';
-import 'package:erobot_app/screens/ir_remoter/ir_remoter.dart';
-import 'package:erobot_app/screens/feedback/feedback.dart';
-import 'package:erobot_app/screens/login_page/login.dart';
-import 'package:erobot_app/screens/farm_assistant/farm_assistant.dart';
-import 'package:erobot_app/screens/login_page/joinus.dart';
-import 'screens/feedback/feedback.dart';
+import 'package:erobot_app/screens.dart';
 
 void main() => runApp(MaterialApp(
       builder: (context, navigator) {

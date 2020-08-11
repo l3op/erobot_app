@@ -1,21 +1,16 @@
+import 'package:erobot_app/data/data.dart';
+import 'package:erobot_app/screens/aboutus/aboutus.dart';
+import 'package:erobot_app/widgets/dialogButton.dart';
 import 'package:flutter/material.dart';
 
-//PACKAGES
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:erobot_app/screens.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:preload_page_view/preload_page_view.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-
-//SCREENS
-import 'package:erobot_app/screens/arduino_doc/arduino_doc.dart';
-import 'package:erobot_app/screens/home_page/home.dart';
-import 'package:erobot_app/screens/root/main_drawer.dart';
-import 'package:erobot_app/screens/aboutus/about_member.dart';
-import 'package:erobot_app/screens/aboutus/team_reputation.dart';
-import 'package:erobot_app/screens/login_page/log_choice.dart';
 
 //ROOT PAGE
 class Root extends StatefulWidget {
@@ -44,8 +39,11 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
         initialPage: pageIndex, keepPage: true, viewportFraction: 1);
     _pageController.addListener(handlePageChange);
 
-    _tabController =
-        TabController(length: 2, vsync: this, initialIndex: tabIndex);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: tabIndex,
+    );
     _tabController.addListener(handleTabChange);
 
     _scrollViewController = ScrollController();
@@ -60,8 +58,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
     _menuPositionController.dispose();
     super.dispose();
   }
-
-  List<String> titleName = ['E-Robot', 'Education', 'About Us', 'Profile'];
 
   void handleTabChange() {
     setState(() {
@@ -85,26 +81,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
         onWillPop: _onBackPressed,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: pageIndex == 2 ? 0 : 5,
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 13),
-              child: Builder(
-                  builder: (context) => IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.alignLeft,
-                        size: 20,
-                      ),
-                      onPressed: () => Scaffold.of(context).openDrawer())),
-            ),
-            title: Text(
-              titleName[pageIndex],
-              style: TextStyle(
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18),
-            ),
-          ),
+          appBar: buildAppBar(),
           drawer: MainDrawer(),
           body: Container(
             //PRELOAD : TO ENSURE PAGES ARE LOADED BEFORE USABLE
@@ -112,7 +89,10 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
               children: <Widget>[
                 HomeScreen(),
                 ArduinoDoc(),
-                aboutUs(),
+                AboutUs(
+                    tabController: _tabController,
+                    tabIndex: tabIndex,
+                    pageController: _pageController),
                 LogInChoice()
               ],
               physics: const AlwaysScrollableScrollPhysics(),
@@ -180,72 +160,13 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             //BOTTOM NAVIGATION ITEMS
             items: <BubbledNavigationBarItem>[
               //HOME
-              BubbledNavigationBarItem(
-                icon: Icon(Icons.home, size: 30, color: Colors.white),
-                activeIcon: Icon(
-                  Icons.home,
-                  size: 30,
-                  color: Hexcolor('172634'),
-                ),
-                title: Text(
-                  'Home',
-                  style: TextStyle(color: Hexcolor('172634'), fontSize: 12),
-                ),
-              ),
+              buildBubbledNavigationBar('Home', Icons.home),
               //EDUCATION
-              BubbledNavigationBarItem(
-                icon: Icon(Icons.school, size: 30, color: Colors.white),
-                activeIcon: Icon(
-                  Icons.school,
-                  size: 30,
-                  color: Hexcolor('172634'),
-                ),
-                title: Text(
-                  'Education',
-                  style: TextStyle(
-                      color: Hexcolor('172634'),
-                      fontFamily: 'Raleway',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: .5),
-                ),
-              ),
+              buildBubbledNavigationBar('Education', Icons.school),
               //ABOUT US
-              BubbledNavigationBarItem(
-                icon: Icon(Icons.people, size: 30, color: Colors.white),
-                activeIcon: Icon(
-                  Icons.people,
-                  size: 30,
-                  color: Hexcolor('172634'),
-                ),
-                title: Text(
-                  'About us',
-                  style: TextStyle(
-                      color: Hexcolor('172634'),
-                      fontFamily: 'Raleway',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: .5),
-                ),
-              ),
+              buildBubbledNavigationBar('About us', Icons.people),
               //PROFILE
-              BubbledNavigationBarItem(
-                icon: Icon(Icons.person, size: 30, color: Colors.white),
-                activeIcon: Icon(
-                  Icons.person,
-                  size: 30,
-                  color: Hexcolor('172634'),
-                ),
-                title: Text(
-                  'Profile',
-                  style: TextStyle(
-                      color: Hexcolor('172634'),
-                      fontFamily: 'Raleway',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: .5),
-                ),
-              ),
+              buildBubbledNavigationBar('Profile', Icons.person),
             ],
           ),
         ),
@@ -253,93 +174,41 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
     );
   }
 
-  //ABOUT US SCREEN WITH TWO TABS
-  DefaultTabController aboutUs() {
-    return DefaultTabController(
-        initialIndex: 0,
-        length: 2,
-        child: Scaffold(
-          backgroundColor: Hexcolor('172634'),
-          //CENTERING APP BAR
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(
-                kToolbarHeight), //kToolbarHeight HAS SAME CONSTANT THAT AppBar USES.
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Hexcolor('172634'),
-                    blurRadius: 30.0,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 0.0),
-                    // MOVE TO (RIGHT HORIZONTALLY, BOTTOM VERTICALLY)
-                  )
-                ],
-              ),
-              //TAB BAR
-              child: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(child: Container()),
-                    TabBar(
-                      controller: _tabController,
-                      isScrollable: true,
-                      dragStartBehavior: DragStartBehavior.start,
-                      labelStyle: TextStyle(
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
-                      indicatorColor: Colors.white,
-                      tabs: <Widget>[
-                        Tab(text: 'About Member'),
-                        Tab(text: 'Team Reputation')
-                      ],
-                    ),
-                  ],
+  AppBar buildAppBar() {
+    return AppBar(
+      elevation: pageIndex == 2 ? 0 : 5,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 13),
+        child: Builder(
+            builder: (context) => IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.alignLeft,
+                  size: 20,
                 ),
-              ),
-            ),
-          ),
-          //MERGE TAB VIEW WITH PAGE VIEW
-          body: NotificationListener(
-            onNotification: (overscroll) {
-              //IF USER SCROLL UP OR DOWN, DO NOTHING (BUT SCROLL WITH LIST IN TAB)
-              if (overscroll is UserScrollNotification &&
-                  (overscroll.direction == ScrollDirection.forward ||
-                      overscroll.direction == ScrollDirection.reverse)) {
-                print('scrolling');
-              } else if (overscroll is OverscrollNotification &&
-                  overscroll.overscroll != 0 &&
-                  overscroll.dragDetails != null) {
-                print(overscroll.overscroll);
+                onPressed: () => Scaffold.of(context).openDrawer())),
+      ),
+      title: Text(
+        titleName[pageIndex],
+        style: TextStyle(
+            fontFamily: 'Raleway', fontWeight: FontWeight.w500, fontSize: 18),
+      ),
+    );
+  }
 
-                //IF USER SCROLL DOWN ON TAB[0] => DO NOTHINGS
-                if (overscroll.overscroll > 25 && tabIndex == 0) {
-                  print('Scrolling on tab[0]');
-                }
-                //IF USER SWAP RIGHT ON TAB[1] => ANIMATE TO PAGE 3 (LOGIN)
-                else if (overscroll.overscroll > 20 && tabIndex == 1) {
-                  print('Swaping on tab[1]');
-                  _pageController.animateToPage(3,
-                      curve: Curves.easeOutQuad,
-                      duration: Duration(milliseconds: 300));
-                }
-                //IF USER SWAP LEFT ON TAB[0] => ANIMATE TO PAGE 1 (EDUCATON)
-                else if (overscroll.overscroll < -25 && tabIndex == 0) {
-                  print('Swapping on tab[0]');
-                  _pageController.animateToPage(1,
-                      curve: Curves.easeOutQuad,
-                      duration: Duration(milliseconds: 300));
-                }
-              }
-              return true;
-            },
-            child: TabBarView(controller: _tabController, children: [
-              AboutMember(),
-              TeamReputation(),
-            ]),
-          ),
-        ));
+  BubbledNavigationBarItem buildBubbledNavigationBar(
+      String label, IconData icon) {
+    return BubbledNavigationBarItem(
+      icon: Icon(icon, size: 30, color: Colors.white),
+      activeIcon: Icon(
+        icon,
+        size: 30,
+        color: Hexcolor('172634'),
+      ),
+      title: Text(
+        label,
+        style: TextStyle(color: Hexcolor('172634'), fontSize: 12),
+      ),
+    );
   }
 
   //HUDDLE BACK PRESSED
@@ -381,26 +250,5 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
           ),
         ) ??
         false;
-  }
-}
-
-//YES or NO BUTTON ON DIALOG
-class DialogBtn extends StatelessWidget {
-  final String yRN;
-  DialogBtn(this.yRN);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Text(
-        yRN,
-        style: TextStyle(
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-            fontSize: 16),
-      ),
-    );
   }
 }

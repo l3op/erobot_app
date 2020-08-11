@@ -1,11 +1,10 @@
+import 'package:erobot_app/widgets/circlebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/screens/ir_remoter/ir_remoter_setting.dart';
 import 'package:erobot_app/models/models.dart';
 
 class IrRemoter extends StatefulWidget {
-  IrRemoter({Key key}) : super(key: key);
-
   @override
   _IrRemoterState createState() => _IrRemoterState();
 }
@@ -120,106 +119,173 @@ class _IrRemoterState extends State<IrRemoter> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnText('CH-', chm, 'b6142c'),
-                buildBtnText('CH', ch, 'b6142c'),
-                buildBtnText('CH+', chp, 'b6142c')
+                CircleButtonText(
+                    onPressed: () => print(chm),
+                    isShow: isShow,
+                    display: 'CH-',
+                    value: chm,
+                    color: 'b6142c'),
+                CircleButtonText(
+                    onPressed: () => print(ch),
+                    isShow: isShow,
+                    display: 'CH',
+                    value: ch,
+                    color: 'b6142c'),
+                CircleButtonText(
+                    onPressed: () => print(chp),
+                    isShow: isShow,
+                    display: 'CH+',
+                    value: chp,
+                    color: 'b6142c')
               ],
             ),
             buildTextLine("Prev", "Next", "Play"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnIcons(prev, 'prev.png', '03a0b0'),
-                buildBtnIcons(next, 'next.png', '03a0b0'),
-                buildBtnIcons(playpause, 'playpause.png', '006f3c'),
+                CircleButtonIcon(
+                    onPressed: () => print(prev),
+                    isShow: isShow,
+                    value: prev,
+                    path: 'prev.png',
+                    color: '03a0b0'),
+                CircleButtonIcon(
+                    onPressed: () => print(next),
+                    isShow: isShow,
+                    value: next,
+                    path: 'next.png',
+                    color: '03a0b0'),
+                CircleButtonIcon(
+                    onPressed: () => print(playpause),
+                    isShow: isShow,
+                    value: playpause,
+                    path: 'playpause.png',
+                    color: '006f3c'),
               ],
             ),
             buildTextLine("Vol-", "Vol+", ''),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnIcons(volm, 'volm.png', '264b96'),
-                buildBtnIcons(volp, 'volp.png', '264b96'),
-                buildBtnText("EQ", eq, 'e77e4e'),
+                CircleButtonIcon(
+                    onPressed: () => print(volm),
+                    isShow: isShow,
+                    value: volm,
+                    path: 'volm.png',
+                    color: '264b96'),
+                CircleButtonIcon(
+                    onPressed: () => print(volp),
+                    isShow: isShow,
+                    value: volp,
+                    path: 'volp.png',
+                    color: '264b96'),
+                CircleButtonText(
+                    onPressed: () => print(eq),
+                    isShow: isShow,
+                    display: "EQ",
+                    value: eq,
+                    color: 'e77e4e'),
               ],
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnText('0', zero, 'ffffff'),
-                buildBtnText('100+', onehunp, '03a0b0'),
-                buildBtnText('200+', twohunp, '03a0b0')
+                CircleButtonText(
+                    onPressed: () => print(zero),
+                    isShow: isShow,
+                    display: '0',
+                    value: zero,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(onehunp),
+                    isShow: isShow,
+                    display: '100+',
+                    value: onehunp,
+                    color: '03a0b0'),
+                CircleButtonText(
+                    onPressed: () => print(twohunp),
+                    isShow: isShow,
+                    display: '200+',
+                    value: twohunp,
+                    color: '03a0b0')
               ],
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnText('1', one, 'ffffff'),
-                buildBtnText('2', two, 'ffffff'),
-                buildBtnText('3', three, 'ffffff')
+                CircleButtonText(
+                    onPressed: () => print(one),
+                    isShow: isShow,
+                    display: '1',
+                    value: one,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(two),
+                    isShow: isShow,
+                    display: '2',
+                    value: two,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(three),
+                    isShow: isShow,
+                    display: '3',
+                    value: three,
+                    color: 'ffffff')
               ],
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnText('4', four, 'ffffff'),
-                buildBtnText('5', five, 'ffffff'),
-                buildBtnText('6', six, 'ffffff')
+                CircleButtonText(
+                    onPressed: () => print(four),
+                    isShow: isShow,
+                    display: '4',
+                    value: four,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(five),
+                    isShow: isShow,
+                    display: '5',
+                    value: five,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(six),
+                    isShow: isShow,
+                    display: '6',
+                    value: six,
+                    color: 'ffffff')
               ],
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildBtnText('7', seven, 'ffffff'),
-                buildBtnText('8', edge, 'ffffff'),
-                buildBtnText('9', nine, 'ffffff')
+                CircleButtonText(
+                    onPressed: () => print(seven),
+                    isShow: isShow,
+                    display: '7',
+                    value: seven,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(edge),
+                    isShow: isShow,
+                    display: '8',
+                    value: edge,
+                    color: 'ffffff'),
+                CircleButtonText(
+                    onPressed: () => print(nine),
+                    isShow: isShow,
+                    display: '9',
+                    value: nine,
+                    color: 'ffffff')
               ],
             ),
           ]),
         ),
       ),
-    );
-  }
-
-  Container buildBtnText(String display, String value, String color) {
-    return Container(
-      width: 55,
-      height: 55,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50), color: Hexcolor(color)),
-      child: IconButton(
-          icon: Text(!isShow ? display : value,
-              style: TextStyle(
-                  color:
-                      color != 'ffffff' ? Colors.white : Hexcolor('161f28'))),
-          onPressed: () {
-            print(value);
-          }),
-    );
-  }
-
-  Container buildBtnIcons(String value, String path, String color) {
-    return Container(
-      width: 55,
-      height: 55,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: Hexcolor(color),
-      ),
-      child: IconButton(
-          icon: !isShow
-              ? Padding(
-                  padding: EdgeInsets.all(path == 'playpause.png' ? 11.0 : 8.0),
-                  child: Image.asset('assets/sender/$path'),
-                )
-              : Text(value, style: TextStyle(color: Colors.white)),
-          onPressed: () {
-            print(value);
-          }),
     );
   }
 
@@ -241,3 +307,4 @@ class _IrRemoterState extends State<IrRemoter> {
         ));
   }
 }
+

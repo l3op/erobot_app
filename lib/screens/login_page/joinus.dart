@@ -37,29 +37,24 @@ class _JoinUsState extends State<JoinUs> {
       body: ScrollConfiguration(
         behavior: ScrollBehavior()
           ..buildViewportChrome(context, null, AxisDirection.down),
-        child: ListView(
+        child: Column(
           children: <Widget>[
-            SizedBox(height: 10),
-            Text(
-              'Want to be a member?',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 25,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 5),
-            Text(
-              'Please enter your info',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
+            Material(
+                textStyle: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Raleway'),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Text('Want to be a member?',
+                        style: TextStyle(fontSize: 25)),
+                    SizedBox(height: 5),
+                    Text('Please enter your info',
+                        style: TextStyle(fontSize: 18)),
+                    SizedBox(height: 20),
+                  ],
+                )),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Form(
@@ -73,174 +68,71 @@ class _JoinUsState extends State<JoinUs> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             //FIRST NAME INPUT
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.55,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8)),
-                              padding: EdgeInsets.only(bottom: 5),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: "First Name",
-                                    labelStyle: TextStyle(
-                                        color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                                validator: (val) {
-                                  RequestMember.firstName = val;
-                                  if (val.isEmpty)
-                                    return 'Enter your first name';
-                                  else
-                                    return null;
-                                },
-                                keyboardType: TextInputType.text,
-                              ),
+                            InputStyle(
+                              weight: 0.55,
+                              labelText: 'First Name',
+                              validator: (val) {
+                                RequestMember.firstName = val;
+                                return val.isEmpty
+                                    ? 'Enter your first name'
+                                    : null;
+                              },
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             //LAST NAME INPUT
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.55,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8)),
-                              padding: EdgeInsets.only(bottom: 5),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    labelText: 'Last name',
-                                    labelStyle: TextStyle(
-                                        color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                                validator: (val) {
-                                  RequestMember.lastName = val;
-                                  if (val.isEmpty)
-                                    return 'Enter your last name';
-                                  else
-                                    return null;
-                                },
-                                keyboardType: TextInputType.text,
-                              ),
+                            InputStyle(
+                              weight: 0.55,
+                              labelText: 'Last Name',
+                              validator: (val) {
+                                RequestMember.lastName = val;
+                                return val.isEmpty
+                                    ? 'Enter your last name'
+                                    : null;
+                              },
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        SizedBox(width: 10),
                         //IMAGE PICKER
-                        CircleAvatar(
-                          backgroundColor: Hexcolor('03a0b0'),
-                          radius: 55,
-                          child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 50,
-                              backgroundImage: FileImage(File(_filepath)),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  var filepath = await FilePicker.getFilePath(
-                                      type: FileType.image);
-                                  if (filepath != null) {
-                                    setState(() {
-                                      _filepath = filepath;
-                                    });
-                                  }
-                                  print(_filepath);
-                                },
-                                child: _filepath == '0'
-                                    ? CircleAvatar(
-                                        radius: 55,
-                                        backgroundColor:
-                                            Color.fromRGBO(255, 255, 255, .5),
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Hexcolor('03a0b0'),
-                                          size: 35,
-                                        ),
-                                      )
-                                    : null,
-                              )),
-                        ),
+                        buildImagePciker(),
                       ],
                     ),
                     SizedBox(height: 10),
-                    
+
                     //EMAIL INPUT
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            labelText: 'Enter your email address',
-                            labelStyle:
-                                TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                            contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                        validator: (val) {
-                          RequestMember.email = val;
-                          return validateEmail(val);
-                        },
-                        keyboardType: TextInputType.text,
-                      ),
+                    InputStyle(
+                      labelText: 'Enter your email address',
+                      validator: (val) {
+                        RequestMember.email = val;
+                        return validateEmail(val);
+                      },
                     ),
                     SizedBox(height: 10),
-
                     //INTRODUCING INPUT
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            labelText: 'Please introduces yourself',
-                            labelStyle:
-                                TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                            contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                        validator: (val) {
-                          RequestMember.memberInfo = val;
-                          if (val.isEmpty)
-                            return 'Please introduces yourself';
-                          else
-                            return null;
-                        },
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                      ),
+                    InputStyle(
+                      labelText: 'Please introduces yourself',
+                      validator: (val) {
+                        RequestMember.memberInfo = val;
+                        return val.isEmpty
+                            ? 'Please introduces yourself'
+                            : null;
+                      },
                     ),
                     SizedBox(height: 10),
 
                     //WHY JOIN INPUT
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            labelText: 'Why do you want to join us?',
-                            labelStyle:
-                                TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                            contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                        validator: (val) {
-                          RequestMember.whyJoin = val;
-                          if (val.isEmpty)
-                            return 'Please answer the question';
-                          else
-                            return null;
-                        },
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                      ),
+                    InputStyle(
+                      labelText: 'Why do you want to join us?',
+                      validator: (val) {
+                        RequestMember.whyJoin = val;
+                        return val.isEmpty
+                            ? 'Please answer the question'
+                            : null;
+                      },
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                     ),
                     SizedBox(height: 10),
-                    
                     //SUBMIT BUTTON
                     Center(
                       child: Container(
@@ -290,6 +182,81 @@ class _JoinUsState extends State<JoinUs> {
             ),
             SizedBox(height: 30),
           ],
+        ),
+      ),
+    );
+  }
+
+  CircleAvatar buildImagePciker() {
+    return CircleAvatar(
+      backgroundColor: Hexcolor('03a0b0'),
+      radius: 55,
+      child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 50,
+          backgroundImage: FileImage(File(_filepath)),
+          child: GestureDetector(
+            onTap: () async {
+              var filepath = await FilePicker.getFilePath(type: FileType.image);
+              if (filepath != null) {
+                setState(() {
+                  _filepath = filepath;
+                });
+              }
+              print(_filepath);
+            },
+            child: _filepath == '0'
+                ? CircleAvatar(
+                    radius: 55,
+                    backgroundColor: Color.fromRGBO(255, 255, 255, .5),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Hexcolor('03a0b0'),
+                      size: 35,
+                    ),
+                  )
+                : null,
+          )),
+    );
+  }
+}
+
+class InputStyle extends StatelessWidget {
+  final String labelText;
+  final Function validator;
+  final double weight;
+  final dynamic keyboardType;
+  final int maxLines;
+
+  const InputStyle(
+      {Key key,
+      @required this.labelText,
+      @required this.validator,
+      this.weight = 1,
+      this.keyboardType = TextInputType.text,
+      this.maxLines = 1})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * weight,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(8)),
+      padding: EdgeInsets.only(bottom: 5),
+      child: Positioned(
+        left: 0,
+        right: 0,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        child: TextFormField(
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              labelText: labelText,
+              labelStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
+              contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
+          validator: validator,
+          maxLines: maxLines,
+          keyboardType: TextInputType.text,
         ),
       ),
     );

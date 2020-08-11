@@ -2,6 +2,7 @@ import 'package:erobot_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';
+import 'package:erobot_app/data/ir_controller.dart';
 
 class IRremoterSetting extends StatefulWidget {
   final List<IRremoteSetting> _setting;
@@ -114,60 +115,14 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
 
   //RESET TO DEFAULT CHARACTER SETTING
   void resetDefaultChar() {
-    List<String> _defaultChar = [
-      'M',
-      'P',
-      'C',
-      'p',
-      'n',
-      'Y',
-      'v',
-      'V',
-      'E',
-      'T',
-      'O',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '0'
-    ];
-    print("${_defaultChar.length} vs ${setting.length}");
-    for (int i = 0; i < setting.length; i++) setting[i].value = _defaultChar[i];
+    print("${defaultChar.length} vs ${setting.length}");
+    for (int i = 0; i < setting.length; i++) setting[i].value = defaultChar[i];
     setState(() {});
   }
 
   //RESET TO DEFAULT HEX SETTING
   void resetDefaultHex() {
-    List<String> _defaultHex = [
-      '0xFFA25D',
-      '0xFFE21D',
-      '0xFF629D',
-      '0xFF22DD',
-      '0xFF02FD',
-      '0xFFC23D',
-      '0xFFE01F',
-      '0xFFA857',
-      '0xFF906F',
-      '0xFFB04F',
-      '0xFF9867',
-      '0xFF30CF',
-      '0xFF18E7',
-      '0xFF7A85',
-      '0xFF10EF',
-      '0xFF38C7',
-      '0xFF5AA5',
-      '0xFF42BD',
-      '0xFF4AB5',
-      '0xFF52AD',
-      '0XFF6897',
-    ];
-    for (int i = 0; i < setting.length; i++) setting[i].value = _defaultHex[i];
+    for (int i = 0; i < setting.length; i++) setting[i].value = defaultHex[i];
     setState(() {});
   }
 

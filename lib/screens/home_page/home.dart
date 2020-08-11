@@ -1,7 +1,7 @@
+import 'package:erobot_app/widgets/layerscard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:erobot_app/reusable_widget/widget_supplier.dart';
-import 'package:erobot_app/screens/controller/controller.dart';
+import 'package:erobot_app/screens/car_controller/controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -16,18 +16,47 @@ class HomeScreen extends StatelessWidget {
         crossAxisSpacing: 3,
         mainAxisSpacing: 3,
         children: <Widget>[
-          buildBtn('Farm Assistant', 'Make your farming smarter', 0, context),
-          buildBtn(
-              'Sender', 'to Send text to arduino via Bluetooth', 1, context),
-          buildBtn(
-              'Ball Shooter',
-              'to Control ball shooter arduino car, servo, and speed',
-              2,
-              context),
-          buildBtn('Arduino Car', 'Remoter to Control Arduino Car with speed',
-              3, context),
-          buildBtn(
-              'IR Remoter', 'to Control Light and Buzzer Arduino', 4, context),
+          ThreeLayerCard(
+              title: 'Farm Assitant',
+              desription: 'Make your farming smarter',
+              cardIndex: 0,
+              path: 'assets/home/arduino_doc.png',
+              onPressed: () {
+                Navigator.pushNamed(context, '/farm_assistant');
+              }),
+          ThreeLayerCard(
+              title: 'Sender',
+              desription: 'to Send text to arduino via Bluetooth',
+              cardIndex: 1,
+              path: 'assets/home/our_team.png',
+              onPressed: () {
+                Navigator.pushNamed(context, '/sender');
+              }),
+          ThreeLayerCard(
+              title: 'Ball Shooter',
+              desription:
+                  'to Control ball shooter arduino car, servo, and speed',
+              cardIndex: 2,
+              path: 'assets/home/ball_shooter.png',
+              onPressed: () {
+                buildtoCarController(context, 1);
+              }),
+          ThreeLayerCard(
+              title: 'Arduino Car',
+              desription: 'Remoter to Control Arduino Car with speed',
+              cardIndex: 3,
+              path: 'assets/home/car_runner.png',
+              onPressed: () {
+                buildtoCarController(context, 2);
+              }),
+          ThreeLayerCard(
+              title: 'IR Remoter',
+              desription: 'to Control Light and Buzzer Arduino',
+              cardIndex: 4,
+              path: 'assets/home/ir_controller.png',
+              onPressed: () {
+                Navigator.pushNamed(context, '/ir_remote');
+              })
         ],
         staggeredTiles: [
           StaggeredTile.extent(2, 150),
@@ -37,102 +66,6 @@ class HomeScreen extends StatelessWidget {
           StaggeredTile.extent(1, 150),
         ],
       ),
-    );
-  }
-
-  Widget buildBtn(
-      String title, String desription, int cardIndex, BuildContext context) {
-    String pathlogo = 'mdi_bluetooth.png';
-    double widtht = 15;
-    double heightt = 20;
-    double boxSizz = 10;
-    if (cardIndex == 0) {
-      boxSizz = 0;
-      widtht = 30;
-      heightt = 35;
-      pathlogo = 'arduino_logo.png';
-    }
-    return Container(
-      child: Padding(
-          padding: cardIndex == 0
-              ? EdgeInsets.fromLTRB(18.0, 10.0, 18.0, 10.0)
-              : cardIndex.isEven
-                  ? EdgeInsets.fromLTRB(5.0, 0.0, 18.0, 10.0)
-                  : EdgeInsets.fromLTRB(18.0, 0.0, 5.0, 10.0),
-          child: Stack(children: <Widget>[
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: imageBackground(cardIndex),
-              ),
-            ),
-            Positioned.fill(
-              child: randBackground(cardIndex),
-            ),
-            Positioned.fill(
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(14.0))),
-                onPressed: () {
-                  String routeP;
-                  if (cardIndex == 2 || cardIndex == 3) {
-                    if (cardIndex == 2) buildtoCarController(context, 1);
-                    if (cardIndex == 3) buildtoCarController(context, 2);
-                  } else {
-                    if (cardIndex == 0) routeP = '/farm_assistant';
-                    if (cardIndex == 1) routeP = '/sender';
-                    if (cardIndex == 4) routeP = '/ir_remote';
-                    Navigator.pushNamed(context, routeP);
-                  }
-                },
-                splashColor: Color.fromRGBO(255, 255, 255, .2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          title,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Raleway',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: .7),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          desription,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Raleway',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: .5),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Image.asset('assets/$pathlogo',
-                        width: widtht, height: heightt),
-                    SizedBox(
-                      height: boxSizz,
-                    )
-                  ],
-                ),
-              ),
-            )
-          ])),
     );
   }
 
