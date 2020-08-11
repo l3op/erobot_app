@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:erobot_app/config/palette.dart';
-import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:erobot_app/validation/validation.dart';
-import 'package:erobot_app/models/models.dart';
-import 'package:file_picker/file_picker.dart';
+
+import 'package:erobot_app/config/palette.dart';
+import 'package:erobot_app/import/models.dart';
 
 class JoinUs extends StatefulWidget {
   @override

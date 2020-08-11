@@ -1,4 +1,4 @@
-import 'package:erobot_app/models/models.dart';
+import 'package:erobot_app/import/models.dart';
 
 final List<Doc> docs = [
   Doc('Arduino Documents', 'Learn how to build a robot', 0, 'arduino_doc.png'),

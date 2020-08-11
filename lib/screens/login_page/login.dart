@@ -1,7 +1,7 @@
-import 'package:erobot_app/config/palette.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:erobot_app/validation/validation.dart';
+
+import 'package:erobot_app/config/palette.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);

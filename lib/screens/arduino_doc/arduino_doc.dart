@@ -1,8 +1,7 @@
-import 'package:erobot_app/widgets/layerscard.dart';
-import 'package:flutter/material.dart';
-import 'package:erobot_app/models/models.dart';
-import 'package:erobot_app/data/arduino_docs.dart';
-import 'package:erobot_app/screens/arduino_doc/document_template.dart';
+import 'package:erobot_app/import/widgets.dart';
+import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/screens.dart';
+import 'package:erobot_app/import/data.dart';
 
 class ArduinoDoc extends StatelessWidget {
   @override

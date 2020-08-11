@@ -1,4 +1,4 @@
-import 'package:erobot_app/models/models.dart';
+import 'package:erobot_app/import/models.dart';
 
 final List<Reputation> reputation = [
   Reputation('pnc.png', 'PNC Event', '19th Jul, 2019', 0),

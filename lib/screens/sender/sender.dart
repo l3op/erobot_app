@@ -1,7 +1,8 @@
-import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/models/models.dart';
 import 'package:erobot_app/service/save_preference.dart';
-import 'package:flutter/material.dart';
+
+import 'package:erobot_app/config/palette.dart';
+import 'package:erobot_app/import/models.dart';
+
 
 class Sender extends StatefulWidget {
   @override

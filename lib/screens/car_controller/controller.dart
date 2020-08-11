@@ -1,13 +1,13 @@
-import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/service/save_preference.dart';
-import 'package:erobot_app/widgets/padIcons.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:erobot_app/screens/car_controller/controller_setting.dart';
-import 'package:erobot_app/models/models.dart';
 import 'package:toast/toast.dart';
+
+import 'package:erobot_app/config/palette.dart';
+import 'package:erobot_app/import/widgets.dart';
+import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/screens.dart';
 
 class Controller extends StatefulWidget {
   final int _cardIndex;

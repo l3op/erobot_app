@@ -1,9 +1,8 @@
-import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/screens/aboutus/tabs.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+import 'package:erobot_app/screens/aboutus/tabs.dart';
+import 'package:erobot_app/config/palette.dart';
 
 //ABOUT US SCREEN WITH TWO TABS
 class AboutUs extends StatelessWidget {

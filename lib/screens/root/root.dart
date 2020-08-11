@@ -1,16 +1,13 @@
-import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/data/data.dart';
-import 'package:erobot_app/screens/aboutus/aboutus.dart';
-import 'package:erobot_app/widgets/dialogButton.dart';
-import 'package:flutter/material.dart';
-
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:erobot_app/screens.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+
+import 'package:erobot_app/config/palette.dart';
+import 'package:erobot_app/import/widgets.dart';
+import 'package:erobot_app/import/screens.dart';
 
 //ROOT PAGE
 class Root extends StatefulWidget {
@@ -69,6 +66,13 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
   void handlePageChange() {
     _menuPositionController.absolutePosition = _pageController.page;
   }
+
+  final List<String> titleName = [
+    'E-Robot',
+    'Education',
+    'About Us',
+    'Profile'
+  ];
 
   @override
   Widget build(BuildContext context) {

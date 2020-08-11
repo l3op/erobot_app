@@ -1,10 +1,10 @@
 import 'package:erobot_app/service/save_preference.dart';
-import 'package:erobot_app/validation/validation.dart';
-import 'package:flutter/material.dart';
-import 'package:erobot_app/widgets/padIcons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:erobot_app/models/models.dart';
 import 'package:toast/toast.dart';
+import 'package:erobot_app/validation/validation.dart';
+
+import 'package:erobot_app/import/widgets.dart';
+import 'package:erobot_app/import/models.dart';
 
 class BallShooterSetting extends StatefulWidget {
   final int _cardIndex;

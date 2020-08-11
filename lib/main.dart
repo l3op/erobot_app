@@ -1,5 +1,5 @@
 import 'config/palette.dart';
-import 'package:erobot_app/screens.dart';
+import 'package:erobot_app/import/screens.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(

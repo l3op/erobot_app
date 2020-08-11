@@ -1,5 +1,4 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:flutter/material.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);

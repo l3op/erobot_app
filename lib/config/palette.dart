@@ -1,4 +1,5 @@
 import 'dart:ui';
+export 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
 class Palette {

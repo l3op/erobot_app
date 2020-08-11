@@ -1,7 +1,5 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/widgets/bluewhitebutton.dart';
-import 'package:flutter/material.dart';
-import 'package:erobot_app/widgets/layerscard.dart';
+import 'package:erobot_app/import/widgets.dart';
 
 class LogInChoice extends StatefulWidget {
   @override

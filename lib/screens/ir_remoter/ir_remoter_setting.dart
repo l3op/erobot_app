@@ -1,8 +1,8 @@
-import 'package:erobot_app/models/models.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';
-import 'package:erobot_app/data/ir_controller.dart';
+
+import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/data.dart';
 
 class IRremoterSetting extends StatefulWidget {
   final List<IRremoteSetting> _setting;

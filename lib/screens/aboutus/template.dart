@@ -1,7 +1,6 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:flutter/material.dart';
-import 'package:erobot_app/models/models.dart';
-import 'package:erobot_app/data/events.dart';
+import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/data.dart';
 
 class AboutTeamTemplate extends StatefulWidget {
   final int index; //ARTICLE INDEX FROM TeamReputation();

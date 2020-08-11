@@ -1,8 +1,7 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/widgets/circlebutton.dart';
-import 'package:flutter/material.dart';
-import 'package:erobot_app/screens/ir_remoter/ir_remoter_setting.dart';
-import 'package:erobot_app/models/models.dart';
+import 'package:erobot_app/import/widgets.dart';
+import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/screens.dart';
 
 class IrRemoter extends StatefulWidget {
   @override
