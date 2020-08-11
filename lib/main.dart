@@ -6,6 +6,9 @@ import 'package:flutter/rendering.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/services.dart';
 
+//Palette
+import 'config/palette.dart';
+
 //Screens
 import 'screens/root/root.dart';
 import 'package:erobot_app/screens/sender/sender.dart';
@@ -15,23 +18,6 @@ import 'package:erobot_app/screens/login_page/login.dart';
 import 'package:erobot_app/screens/farm_assistant/farm_assistant.dart';
 import 'package:erobot_app/screens/login_page/joinus.dart';
 import 'screens/feedback/feedback.dart';
-
-Map<int, Color> color = {
-  50: Color.fromRGBO(136, 14, 79, .1),
-  100: Color.fromRGBO(136, 14, 79, .2),
-  200: Color.fromRGBO(136, 14, 79, .3),
-  300: Color.fromRGBO(136, 14, 79, .4),
-  400: Color.fromRGBO(136, 14, 79, .5),
-  500: Color.fromRGBO(136, 14, 79, .6),
-  600: Color.fromRGBO(136, 14, 79, .7),
-  700: Color.fromRGBO(136, 14, 79, .8),
-  800: Color.fromRGBO(136, 14, 79, .9),
-  900: Color.fromRGBO(136, 14, 79, 1),
-};
-
-//0xAARRGGBB
-MaterialColor colorCustom = MaterialColor(0xFF172634, color);
-MaterialColor colorCustom2 = MaterialColor(0xFF161F28, color);
 
 void main() => runApp(MaterialApp(
       builder: (context, navigator) {

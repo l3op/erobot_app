@@ -1,6 +1,6 @@
 import 'package:erobot_app/reusable_widget/widget_supplier.dart';
 import 'package:flutter/material.dart';
-import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/models/models.dart';
 import 'package:erobot_app/screens/arduino_doc/document_template.dart';
 
 class ArduinoDoc extends StatelessWidget {

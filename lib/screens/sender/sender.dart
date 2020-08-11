@@ -1,4 +1,4 @@
-import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/models/models.dart';
 import 'package:erobot_app/save_preference/save_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

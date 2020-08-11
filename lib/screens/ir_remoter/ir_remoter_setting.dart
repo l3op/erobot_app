@@ -1,4 +1,4 @@
-import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';

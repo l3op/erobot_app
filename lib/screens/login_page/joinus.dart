@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/validation/validation.dart';
-import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/models/models.dart';
 import 'package:file_picker/file_picker.dart';
 
 class JoinUs extends StatefulWidget {

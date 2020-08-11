@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:erobot_app/screens/aboutus/about_team_template.dart';
-import 'package:erobot_app/object_class/classes.dart';
+import 'package:erobot_app/models/models.dart';
 
 class TeamReputation extends StatefulWidget {
   TeamReputation({Key key}) : super(key: key);
