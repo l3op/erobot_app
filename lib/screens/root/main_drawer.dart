@@ -33,7 +33,7 @@ class _MainDrawerState extends State<MainDrawer> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage('assets/erobotlogo.png'),
+                              image: AssetImage('assets/mostused/erobotlogo.png'),
                               fit: BoxFit.fill,
                             ),
                           ),

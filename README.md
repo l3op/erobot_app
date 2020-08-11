@@ -24,10 +24,9 @@ Prototype and design here: https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-R
 <img src="./assets/screenshots/2screen.png"><br>
 Build release to test:<br>
 @Method1:<br>
-$ flutter build apk --release<br>
-$ build/app/outputs/flutter-apk/app-release.apk
+$ flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
 <br><br>
-@Method2: this produce 3 apk, choose 1 for your device.<br>
+@Method2:<br>
 $ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
 <br>
 $ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk

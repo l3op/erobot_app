@@ -10,3 +10,4 @@ export 'package:erobot_app/screens/home_page/home.dart';
 export 'package:erobot_app/screens/root/main_drawer.dart';
 export 'package:erobot_app/screens/aboutus/tabs.dart';
 export 'package:erobot_app/screens/login_page/log_choice.dart';
+export 'package:erobot_app/screens/splashscreen/splashscreen.dart';

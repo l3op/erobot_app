@@ -109,7 +109,7 @@ class ThreeLayerCard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-                    Image.asset('assets/$pathlogo',
+                    Image.asset('assets/mostused/$pathlogo',
                         width: width, height: height),
                     SizedBox(
                       height: boxSize,
