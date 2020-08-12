@@ -1,5 +1,6 @@
 import 'package:erobot_app/import/models.dart';
 import 'package:erobot_app/import/data.dart';
+import 'package:erobot_app/import/screens.dart';
 import 'package:erobot_app/import/widgets.dart';
 
 class AboutMember extends StatelessWidget {
@@ -29,15 +30,23 @@ class TeamReputation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: reputation.length,
+          itemCount: event.length,
           itemBuilder: (context, index) {
-            Reputation card = reputation[index];
+            Event card = event[index];
             return EventCard(
-                name: card.name,
-                role: card.date,
-                pathIMG: card.path,
-                index: card.index,
-                context: context);
+              name: card.eventName,
+              role: card.eventDate,
+              pathIMG: card.eventPath,
+              index: card.index,
+              context: context,
+              onPressed: () {
+                print('see more clicked $index');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AboutTeamTemplate(index)));
+              },
+            );
           }),
     );
   }

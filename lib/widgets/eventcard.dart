@@ -1,5 +1,4 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/screens/aboutus/template.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
@@ -10,12 +9,14 @@ class EventCard extends StatelessWidget {
     @required this.pathIMG,
     @required this.index,
     @required this.context,
+    @required this.onPressed,
   }) : super(key: key);
 
   final String name;
   final String role;
   final String pathIMG;
   final int index;
+  final Function onPressed;
   final BuildContext context;
 
   @override
@@ -78,14 +79,7 @@ class EventCard extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50)),
                                 color: Palette.shark,
-                                onPressed: () {
-                                  print('see more clicked $index');
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AboutTeamTemplate(index)));
-                                },
+                                onPressed: onPressed,
                                 child: Text(
                                   'Read More',
                                   style: TextStyle(

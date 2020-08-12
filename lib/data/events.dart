@@ -1,11 +1,5 @@
 import 'package:erobot_app/import/models.dart';
 
-final List<Reputation> reputation = [
-  Reputation('pnc.png', 'PNC Event', '19th Jul, 2019', 0),
-  Reputation('smart.png', 'Smart Event', '19th Jul, 2019', 1),
-  Reputation('stem.png', 'Stem Event', '19th Jul, 2019', 2),
-];
-
 //DATA FOR ABOUT TEAM TEMPLATE
 final List<Event> event = [
   Event('PNC Event', 'pnc.png', 'Coming Soon', imagePath, partmember,

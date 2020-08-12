@@ -25,7 +25,7 @@ class AboutUs extends StatelessWidget {
         initialIndex: 0,
         length: 2,
         child: Scaffold(
-          backgroundColor: Palette.shark,
+          backgroundColor: Palette.bigstone,
           //CENTERING APP BAR
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
@@ -34,7 +34,7 @@ class AboutUs extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Palette.shark,
+                    color: Palette.bigstone,
                     blurRadius: 30.0,
                     spreadRadius: 0.0,
                     offset: Offset(0.0, 0.0),
