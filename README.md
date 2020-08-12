@@ -26,16 +26,6 @@ Build release to test:<br>
 @Method1:<br>
 $ flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
 <br><br>
-@Method2:<br>
-$ flutter build apk --target-platform android-arm, android-arm64, android-x64 --split-per-abi
-<br>
-$ flutter install build/app/outputs/apk/release/app-arm64-v8a-release.apk
-<br><br>
-@Method3:<br>
-$ flutter build appbundle --target-platform android-arm, android-arm64, android-x64
-<br>
-$ flutter install build/app/outputs/bundle/release/app-release.aab
-<br><br>
 Best wishes, <br>
 Erobot
 

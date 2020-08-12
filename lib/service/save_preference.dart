@@ -1,3 +1,4 @@
+import 'package:erobot_app/data/ir_model.dart';
 import 'package:erobot_app/import/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,6 +61,6 @@ Future<void> savetoCacheIRremoterData(List<String> data) async {
 
 Future<List<String>> loadCacheIRremoterData() async {
   final prefs = await SharedPreferences.getInstance();
-  List<String> values = prefs.getStringList('irremoter') ?? [''];
+  List<String> values = prefs.getStringList('irremoter') ?? defaultChar;
   return values;
 }

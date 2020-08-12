@@ -19,80 +19,85 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
   @override
   Widget build(BuildContext context) {
     settingTMP = setting;
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context, setting),
-          icon: Icon(Icons.arrow_back),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, setting);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context, setting),
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: Text('Setting',
+              style: TextStyle(fontSize: 18, color: Colors.white)),
+          //RESET TO DEFAUL BUTTON
+          actions: [],
         ),
-        title: Text('Setting', style: TextStyle(fontSize: 18)),
-        //RESET TO DEFAUL BUTTON
-        actions: [],
-      ),
-      body: ScrollConfiguration(
-        //ScrollConfiguration IS USED TO HIDE SCROLL EFFECT (WHITE EFFECT)
-        behavior: ScrollBehavior()
-          ..buildViewportChrome(context, null, AxisDirection.down),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 40,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color.fromRGBO(255, 255, 255, .1)),
-                child: Row(
-                  children: [
-                    Text(' Reset to '),
-                    Container(
-                      width: 51,
-                      height: 30,
-                      child: FlatButton(
-                          color: Color.fromRGBO(255, 255, 255, .2),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          splashColor: Colors.white,
-                          child: Text(
-                            'Hex',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                          onPressed: () {
-                            resetDefaultHex();
-                          }),
-                    ),
-                    Text(' '),
-                    Container(
-                      width: 78,
-                      height: 30,
-                      child: FlatButton(
-                          color: Color.fromRGBO(255, 255, 255, .2),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          splashColor: Colors.white,
-                          child: Text(
-                            'Character',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                          onPressed: () {
-                            resetDefaultChar();
-                          }),
-                    ),
-                  ],
+        body: ScrollConfiguration(
+          //ScrollConfiguration IS USED TO HIDE SCROLL EFFECT (WHITE EFFECT)
+          behavior: ScrollBehavior()
+            ..buildViewportChrome(context, null, AxisDirection.down),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Color.fromRGBO(255, 255, 255, .1)),
+                  child: Row(
+                    children: [
+                      Text(' Reset to ', style: TextStyle(color: Colors.white)),
+                      Container(
+                        width: 51,
+                        height: 30,
+                        child: FlatButton(
+                            color: Color.fromRGBO(255, 255, 255, .2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            splashColor: Colors.white,
+                            child: Text('Hex',
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.white)),
+                            onPressed: () {
+                              resetDefaultHex();
+                            }),
+                      ),
+                      Text(' '),
+                      Container(
+                        width: 78,
+                        height: 30,
+                        child: FlatButton(
+                            color: Color.fromRGBO(255, 255, 255, .2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            splashColor: Colors.white,
+                            child: Text('Character',
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.white)),
+                            onPressed: () {
+                              resetDefaultChar();
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: setting.length,
-                itemBuilder: (context, index) {
-                  IRremoteSetting settings = setting[index];
-                  return buildSetting(context, settings.name, settings.describe,
-                      settings.value, index);
-                }),
-          ],
+              ListView.builder(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: setting.length,
+                  itemBuilder: (context, index) {
+                    IRremoteSetting settings = setting[index];
+                    return buildSetting(context, settings.name,
+                        settings.describe, settings.value, index);
+                  }),
+            ],
+          ),
         ),
       ),
     );

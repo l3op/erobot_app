@@ -36,7 +36,7 @@ class _IrRemoterState extends State<IrRemoter> {
   void _loadCacheData() async {
     defaultVal = await loadCacheIRremoterData();
     setState(() {
-      for (int i = 0; i < 21; i++)
+      for (int i = 0; i < defaultVal.length; i++)
         setting.insert(
             i, IRremoteSetting(btnTitle[i], btnDescribe[i], defaultVal[i]));
     });
@@ -71,7 +71,10 @@ class _IrRemoterState extends State<IrRemoter> {
               MaterialPageRoute(
                   builder: (context) => IRremoterSetting(setting)));
           if (setting1 != null)
-            setState(() => setting.replaceRange(0, 21, setting1));
+            setState(() {
+              isShow = false;
+              setting.replaceRange(0, 21, setting1);
+            });
         },
       ),
 
