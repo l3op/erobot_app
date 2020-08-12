@@ -21,6 +21,13 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
     settingTMP = setting;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
+            Navigator.pop(context, setting);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Text('Setting', style: TextStyle(fontSize: 18)),
         //RESET TO DEFAUL BUTTON
         actions: [],

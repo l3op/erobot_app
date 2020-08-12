@@ -5,5 +5,5 @@ export '../models/reputation.dart';
 export '../models/events.dart';
 export '../models/docs.dart';
 export '../models/resentsendertext.dart';
-export '../models/irremoter.dart';
+export '../models/ir_model.dart';
 export 'package:flutter/material.dart';

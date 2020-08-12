@@ -1,3 +1,4 @@
+import 'package:erobot_app/data/ir_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -65,8 +66,71 @@ class CircleButtonIcon extends StatelessWidget {
                   padding: EdgeInsets.all(path == 'playpause.png' ? 11.0 : 8.0),
                   child: Image.asset('assets/sender/$path'),
                 )
-              : Text(value, style: TextStyle(color: Colors.white)),
+              : Text(
+                  value,
+                  style: TextStyle(
+                      color: color != 'ffffff'
+                          ? Colors.white
+                          : Hexcolor('161f28')),
+                ),
           onPressed: onPressed),
+    );
+  }
+}
+
+class ThreeCircleButtons extends StatelessWidget {
+  const ThreeCircleButtons({
+    Key key,
+    @required this.isShow,
+    @required this.value,
+    @required this.index,
+  }) : super(key: key);
+
+  final int index;
+  final bool isShow;
+  final List<String> value;
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> colors = [
+      btnColors[index],
+      btnColors[index + 1],
+      btnColors[index + 2],
+    ];
+
+    List<String> title = [titles[index], titles[index + 1], titles[index + 2]];
+    List<String> path = [paths[index], paths[index + 1], paths[index + 2]];
+    
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        for (int i = 0; i < 3; i++)
+          path[i] == null
+              ? CircleButtonText(
+                  onPressed: () => print(value[i]),
+                  isShow: isShow,
+                  display: title[i],
+                  value: value[i],
+                  color: '${colors[i]}')
+              : CircleButtonIcon(
+                  onPressed: () => print(value[i]),
+                  isShow: isShow,
+                  value: value[i],
+                  path: path[i],
+                  color: '${colors[i]}'),
+        // CircleButtonText(
+        //     onPressed: () => print(value[1]),
+        //     isShow: isShow,
+        //     display: title[1],
+        //     value: value[1],
+        //     color: '${colors[1]}'),
+        // CircleButtonText(
+        //     onPressed: () => print(value[2]),
+        //     isShow: isShow,
+        //     display: title[2],
+        //     value: value[2],
+        //     color: '${colors[2]}')
+      ],
     );
   }
 }
