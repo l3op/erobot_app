@@ -22,9 +22,7 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context, setting);
-          },
+          onPressed: () => Navigator.pop(context, setting),
           icon: Icon(Icons.arrow_back),
         ),
         title: Text('Setting', style: TextStyle(fontSize: 18)),
