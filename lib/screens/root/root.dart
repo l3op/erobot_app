@@ -124,21 +124,17 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
 
               //FROM PAGE[0] TO PAGE[3] => ANIMATE TO PAGE[2] THEN PAGE[3]
               if (_index == 3 && pageIndex == 0) {
-                await _pageController.animateToPage(2,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                _pageController.jumpToPage(2);
                 _pageController.animateToPage(3,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 100));
+                    duration: Duration(milliseconds: duration));
               }
               //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
               if (_index == 0 && pageIndex == 3) {
-                await _pageController.animateToPage(1,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                _pageController.jumpToPage(1);
                 _pageController.animateToPage(0,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 100));
+                    duration: Duration(milliseconds: duration));
               }
               //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
               if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
@@ -147,18 +143,16 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                   _indexR = pageIndex;
                 else
                   _indexR = _index;
-                await _pageController.animateToPage(_indexR + 1,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                _pageController.jumpToPage(_indexR + 1);
                 _pageController.animateToPage(_index,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 100));
+                    duration: Duration(milliseconds: duration)); //+100
               }
               //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
               else {
                 _pageController.animateToPage(_index,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 100));
+                    duration: Duration(milliseconds: duration));
               }
             },
             //BOTTOM NAVIGATION ITEMS
