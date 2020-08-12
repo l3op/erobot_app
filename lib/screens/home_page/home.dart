@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         mainAxisSpacing: 3,
         children: <Widget>[
           ThreeLayerCard(
-              title: 'Farm Assitant',
+              title: 'Farm Assistant',
               desription: 'Make your farming smarter',
               cardIndex: 0,
               path: 'assets/home/arduino_doc.png',
