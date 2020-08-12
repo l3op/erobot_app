@@ -3,6 +3,7 @@ import 'package:erobot_app/data/ir_model.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/models.dart';
 import 'package:erobot_app/import/screens.dart';
+import 'package:erobot_app/service/save_preference.dart';
 
 class IrRemoter extends StatefulWidget {
   @override
@@ -11,21 +12,34 @@ class IrRemoter extends StatefulWidget {
 
 class _IrRemoterState extends State<IrRemoter> {
   bool isShow = false;
-  List<String> defaultVal;
+  List<String> defaultVal = [''];
   List<IRremoteSetting> setting = [];
 
   @override
   void initState() {
     super.initState();
-    defaultVal = defaultChar;
-    _loadCacheDate();
+    _loadCacheData();
   }
 
-  void _loadCacheDate() {
-    for (int i = 0; i < defaultVal.length; i++) {
-      setting.insert(
-          i, IRremoteSetting(btnTitle[i], btnDescribe[i], defaultVal[i]));
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    _saveCacheData();
+  }
+
+  void _saveCacheData() async {
+    List<String> values = [];
+    for (int i = 0; i < setting.length; i++) values.insert(i, setting[i].value);
+    await savetoCacheIRremoterData(values);
+  }
+
+  void _loadCacheData() async {
+    defaultVal = await loadCacheIRremoterData();
+    setState(() {
+      for (int i = 0; i < 21; i++)
+        setting.insert(
+            i, IRremoteSetting(btnTitle[i], btnDescribe[i], defaultVal[i]));
+    });
   }
 
   @override
@@ -52,15 +66,16 @@ class _IrRemoterState extends State<IrRemoter> {
         backgroundColor: Colors.white,
         child: Icon(Icons.settings, color: Palette.blue_pacific, size: 25),
         onPressed: () async {
-          setting = await Navigator.push(
+          List<IRremoteSetting> setting1 = await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => IRremoterSetting(setting)));
-          if (setting != null) {
-            setState(() {});
-          }
+          if (setting1 != null)
+            setState(() => setting.replaceRange(0, 21, setting1));
         },
       ),
+
+      //BODY
       body: Center(
         child: Container(
           width: 225,
@@ -70,9 +85,7 @@ class _IrRemoterState extends State<IrRemoter> {
             //CHANNEL
             Padding(
               padding: const EdgeInsets.only(left: 26, right: 26),
-              child: Image.asset(
-                'assets/sender/channel.png',
-              ),
+              child: Image.asset('assets/sender/channel.png'),
             ),
             ThreeCircleButtons(index: 0, isShow: isShow, value: <String>[
                   setting[0].value, // CHANNEL -
@@ -120,26 +133,26 @@ class _IrRemoterState extends State<IrRemoter> {
             // ONE + TWO + THREE
             ThreeCircleButtons(index: 12, isShow: isShow, value: <String>[
                   setting[12].value,
-                 setting[13].value,
                   setting[13].value,
+                  setting[14].value,
                 ]) ??
                 SizedBox(height: 0),
             SizedBox(height: 10),
 
             // FOUR + FIVE + SIX
             ThreeCircleButtons(index: 15, isShow: isShow, value: <String>[
-                  setting[13].value,
-                  setting[13].value,
-                  setting[13].value,
+                  setting[15].value,
+                  setting[16].value,
+                  setting[17].value,
                 ]) ??
                 SizedBox(height: 0),
             SizedBox(height: 10),
 
             // SEVEN + EIGHT + NINE
             ThreeCircleButtons(index: 18, isShow: isShow, value: <String>[
-                  setting[13].value,
-                  setting[13].value,
-                  setting[13].value,
+                  setting[18].value,
+                  setting[19].value,
+                  setting[20].value,
                 ]) ??
                 SizedBox(height: 0)
           ]),

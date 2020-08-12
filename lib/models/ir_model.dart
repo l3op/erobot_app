@@ -1,4 +1,4 @@
-class IRremoteSetting{
+class IRremoteSetting {
   final String name;
   final String describe;
   String value;

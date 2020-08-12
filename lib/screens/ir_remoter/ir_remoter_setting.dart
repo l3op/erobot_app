@@ -23,7 +23,6 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
             Navigator.pop(context, setting);
           },
           icon: Icon(Icons.arrow_back),

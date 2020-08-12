@@ -52,3 +52,14 @@ Future<List<String>> loadRecentSenderData() async {
   List<String> values = prefs.getStringList('values') ?? [''];
   return values;
 }
+
+Future<void> savetoCacheIRremoterData(List<String> data) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('irremoter', data);
+}
+
+Future<List<String>> loadCacheIRremoterData() async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> values = prefs.getStringList('irremoter') ?? [''];
+  return values;
+}
