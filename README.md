@@ -18,12 +18,11 @@ Functions of the app are:<br>
 * About Us : Information about Erobot team.
 
 <br>
-<img src="./assets/screenshots/4screen.png"><br>
+<img src="./assets/screenshots/4screen.png">
 Prototype and design here: https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-Robot-App?node-id=0%3A1
 <br>
 <img src="./assets/screenshots/2screen.png"><br>
 Build release to test:<br>
-@Method1:<br>
 $ flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
 <br><br>
 Best wishes, <br>
