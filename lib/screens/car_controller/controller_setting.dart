@@ -42,64 +42,78 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
       btnRight,
       _cardIndex == 1 ? btnShoot : btnSpeed,
     );
-    return Scaffold(
-      resizeToAvoidBottomPadding: true,
-      appBar: AppBar(
-        title: Text(
-          'Setting',
-          style: TextStyle(fontSize: 18),
-        ),
-        leading: IconButton(
-          onPressed: () async {
-            //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
-            var button = Button(
-              btnTop,
-              btnLeft,
-              btnBottom,
-              btnRight,
-              _cardIndex == 1 ? btnShoot : btnSpeed,
-            );
-            Navigator.pop(context, button);
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
-        //RESET TO DEFAUL BUTTON
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: FlatButton(
-              color: Color.fromRGBO(255, 255, 255, .1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+    return WillPopScope(
+      onWillPop: () async {
+        //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
+        var button = Button(
+          btnTop,
+          btnLeft,
+          btnBottom,
+          btnRight,
+          _cardIndex == 1 ? btnShoot : btnSpeed,
+        );
+        Navigator.pop(context, button);
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomPadding: true,
+        appBar: AppBar(
+          title: Text(
+            'Setting',
+            style: TextStyle(fontSize: 18),
+          ),
+          leading: IconButton(
+            onPressed: () async {
+              //STORE DATA IN CLASS TO POP WITH DATA AS A CLASS
+              var button = Button(
+                btnTop,
+                btnLeft,
+                btnBottom,
+                btnRight,
+                _cardIndex == 1 ? btnShoot : btnSpeed,
+              );
+              Navigator.pop(context, button);
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          //RESET TO DEFAUL BUTTON
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: FlatButton(
+                color: Color.fromRGBO(255, 255, 255, .1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                child: Text(
+                  'Reset to defauLt',
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  setState(() {
+                    resetDefault();
+                  });
+                },
               ),
-              child: Text(
-                'Reset to defauLt',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                setState(() {
-                  resetDefault();
-                });
-              },
-            ),
-          )
-        ],
-      ),
-      //SETTINGS CONTAINER
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: ListView(
-          children: <Widget>[
-            buildSetting(context, 'Up Button', btnTop, 1),
-            buildSetting(context, 'Left Button', btnLeft, 2),
-            buildSetting(context, 'Right Button', btnRight, 3),
-            buildSetting(context, 'Down Button', btnBottom, 4),
-            SizedBox(height: _cardIndex == 1 ? 8 : 0),
-            _cardIndex == 1
-                ? buildSetting(context, 'Shoot Button', btnShoot, 5)
-                : buildSetting(context, 'Speed Up', btnSpeed, 6),
+            )
           ],
+        ),
+        //SETTINGS CONTAINER
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: ListView(
+            children: <Widget>[
+              buildSetting(context, 'Up Button', btnTop, 1),
+              buildSetting(context, 'Left Button', btnLeft, 2),
+              buildSetting(context, 'Right Button', btnRight, 3),
+              buildSetting(context, 'Down Button', btnBottom, 4),
+              SizedBox(height: _cardIndex == 1 ? 8 : 0),
+              _cardIndex == 1
+                  ? buildSetting(context, 'Shoot Button', btnShoot, 5)
+                  : buildSetting(context, 'Speed Up', btnSpeed, 6),
+            ],
+          ),
         ),
       ),
     );

@@ -84,8 +84,10 @@ class ThreeCircleButtons extends StatelessWidget {
     @required this.isShow,
     @required this.value,
     @required this.index,
+    this.onPressed,
   }) : super(key: key);
 
+  final Function onPressed;
   final int index;
   final bool isShow;
   final List<String> value;
@@ -100,7 +102,7 @@ class ThreeCircleButtons extends StatelessWidget {
 
     List<String> title = [titles[index], titles[index + 1], titles[index + 2]];
     List<String> path = [paths[index], paths[index + 1], paths[index + 2]];
-    
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -113,23 +115,12 @@ class ThreeCircleButtons extends StatelessWidget {
                   value: value[i],
                   color: '${colors[i]}')
               : CircleButtonIcon(
-                  onPressed: () => print(value[i]),
+                  onPressed: 
+                      i == 2 && index == 3 ? onPressed : () => print(value[i]),
                   isShow: isShow,
                   value: value[i],
                   path: path[i],
                   color: '${colors[i]}'),
-        // CircleButtonText(
-        //     onPressed: () => print(value[1]),
-        //     isShow: isShow,
-        //     display: title[1],
-        //     value: value[1],
-        //     color: '${colors[1]}'),
-        // CircleButtonText(
-        //     onPressed: () => print(value[2]),
-        //     isShow: isShow,
-        //     display: title[2],
-        //     value: value[2],
-        //     color: '${colors[2]}')
       ],
     );
   }

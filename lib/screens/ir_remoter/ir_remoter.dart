@@ -12,6 +12,7 @@ class IrRemoter extends StatefulWidget {
 
 class _IrRemoterState extends State<IrRemoter> {
   bool isShow = false;
+  bool isPlay = false;
   List<String> defaultVal = [''];
   List<IRremoteSetting> setting = [];
 
@@ -98,9 +99,13 @@ class _IrRemoterState extends State<IrRemoter> {
                 SizedBox(height: 0),
 
             //PREVIEW + NEXT + PLAY OR PAUSE
-            buildTextLine("Prev", "Next", "Play"),
+            buildTextLine("Prev", "Next", !isPlay ? "Play" : "Pause"),
             ThreeCircleButtons(
                   index: 3,
+                  onPressed: () {
+                    setState(() => isPlay = !isPlay);
+                    print(setting[5].value);
+                  },
                   isShow: isShow,
                   value: <String>[
                     setting[3].value, // VOL -
@@ -126,36 +131,36 @@ class _IrRemoterState extends State<IrRemoter> {
 
             // 0 + 100 + 200
             ThreeCircleButtons(index: 9, isShow: isShow, value: <String>[
-                  setting[9].value,
-                  setting[10].value,
-                  setting[11].value,
+                  setting[9].value, //
+                  setting[10].value, //
+                  setting[11].value, //
                 ]) ??
                 SizedBox(height: 0),
             SizedBox(height: 10),
 
             // ONE + TWO + THREE
             ThreeCircleButtons(index: 12, isShow: isShow, value: <String>[
-                  setting[12].value,
-                  setting[13].value,
-                  setting[14].value,
+                  setting[12].value, //
+                  setting[13].value, // 
+                  setting[14].value, //
                 ]) ??
                 SizedBox(height: 0),
             SizedBox(height: 10),
 
             // FOUR + FIVE + SIX
             ThreeCircleButtons(index: 15, isShow: isShow, value: <String>[
-                  setting[15].value,
-                  setting[16].value,
-                  setting[17].value,
+                  setting[15].value, //
+                  setting[16].value, //
+                  setting[17].value, //
                 ]) ??
                 SizedBox(height: 0),
             SizedBox(height: 10),
 
             // SEVEN + EIGHT + NINE
             ThreeCircleButtons(index: 18, isShow: isShow, value: <String>[
-                  setting[18].value,
-                  setting[19].value,
-                  setting[20].value,
+                  setting[18].value, //
+                  setting[19].value, //
+                  setting[20].value, //
                 ]) ??
                 SizedBox(height: 0)
           ]),
