@@ -26,6 +26,16 @@ Build release to test:<br>
 ```python
 $flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
 ```
+
+
+```python
+import foobar
+
+foobar.pluralize('word') # returns 'words'
+foobar.pluralize('goose') # returns 'geese'
+foobar.singularize('phenomena') # returns 'phenomenon'
+```
+
 <br>
 Best wishes, <br>
 Erobot
