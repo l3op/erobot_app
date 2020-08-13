@@ -23,17 +23,9 @@ Prototype and design here: <p><a href="https://www.figma.com/file/x1edWP3L1by9QW
 <br>
 <img src="./assets/screenshots/2screen.png"><br>
 Build release to test:<br>
-```python
+
+```console
 $flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
-```
-
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
 ```
 
 <br>
