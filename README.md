@@ -23,8 +23,10 @@ Prototype and design here: <p><a href="https://www.figma.com/file/x1edWP3L1by9QW
 <br>
 <img src="./assets/screenshots/2screen.png"><br>
 Build release to test:<br>
+```python
 $flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
-<br><br>
+```
+<br>
 Best wishes, <br>
 Erobot
 
