@@ -6,3 +6,4 @@ export '../widgets/layerscard.dart';
 export '../widgets/padIcons.dart';
 export '../widgets/profilecard.dart';
 export 'package:flutter/material.dart';
+export '../widgets/document_template.dart';

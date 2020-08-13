@@ -7,3 +7,4 @@ export '../models/docs.dart';
 export '../models/resentsendertext.dart';
 export '../models/ir_model.dart';
 export 'package:flutter/material.dart';
+export '../models/document_models.dart';

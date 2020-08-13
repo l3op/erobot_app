@@ -91,8 +91,9 @@ class ThreeLayerCard extends StatelessWidget {
                               color: Colors.white,
                               fontFamily: 'Raleway',
                               fontSize: 20,
+                              height: 1.3,
                               fontWeight: FontWeight.w600,
-                              letterSpacing: .7),
+                              letterSpacing: .7, ),
                         ),
                         SizedBox(
                           height: 5,
