@@ -118,7 +118,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             itemMargin: EdgeInsets.symmetric(horizontal: 0),
             iconRightMargin: 10,
 
-            //TAB BAR SWITCHING INSPIRED BY FACEBOOK APP
             onTap: (_index) async {
               var duration = 250;
 
@@ -127,14 +126,14 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 _pageController.jumpToPage(2);
                 _pageController.animateToPage(3,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                    duration: Duration(milliseconds: duration + 50));
               }
               //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
               if (_index == 0 && pageIndex == 3) {
                 _pageController.jumpToPage(1);
                 _pageController.animateToPage(0,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                    duration: Duration(milliseconds: duration + 50));
               }
               //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
               if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
@@ -146,13 +145,13 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 _pageController.jumpToPage(_indexR + 1);
                 _pageController.animateToPage(_index,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration)); //+100
+                    duration: Duration(milliseconds: duration - 50)); //+100
               }
               //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
               else {
                 _pageController.animateToPage(_index,
                     curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration));
+                    duration: Duration(milliseconds: duration - 100));
               }
             },
             //BOTTOM NAVIGATION ITEMS
