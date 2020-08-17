@@ -13,3 +13,4 @@ export '../widgets/paragraph.dart';
 export '../widgets/imagelistHorizontal.dart';
 export '../widgets/titlecard.dart';
 export '../config/palette.dart';
+export '../widgets/textfieldstyle.dart';

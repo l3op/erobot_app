@@ -29,11 +29,15 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    );
 
     _menuPositionController = MenuPositionController(initPosition: 0);
     _pageController = PreloadPageController(
-        initialPage: pageIndex, keepPage: true, viewportFraction: 1);
+      initialPage: pageIndex,
+      keepPage: true,
+      viewportFraction: 1,
+    );
     _pageController.addListener(handlePageChange);
 
     _tabController = TabController(
@@ -57,9 +61,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
   }
 
   void handleTabChange() {
-    setState(() {
-      tabIndex = _tabController.index;
-    });
+    setState(() => tabIndex = _tabController.index);
     print('Tab Change $tabIndex');
   }
 
@@ -94,18 +96,17 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 HomeScreen(),
                 ArduinoDoc(),
                 AboutUs(
-                    tabController: _tabController,
-                    tabIndex: tabIndex,
-                    pageController: _pageController),
+                  tabController: _tabController,
+                  tabIndex: tabIndex,
+                  pageController: _pageController,
+                ),
                 LogInChoice()
               ],
               physics: const AlwaysScrollableScrollPhysics(),
               preloadPagesCount: 4,
               controller: _pageController,
               onPageChanged: (index) {
-                setState(() {
-                  pageIndex = index;
-                });
+                setState(() => pageIndex = index);
               },
             ),
           ),
@@ -124,16 +125,20 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
               //FROM PAGE[0] TO PAGE[3] => ANIMATE TO PAGE[2] THEN PAGE[3]
               if (_index == 3 && pageIndex == 0) {
                 _pageController.jumpToPage(2);
-                _pageController.animateToPage(3,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 50));
+                _pageController.animateToPage(
+                  3,
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: duration + 50),
+                );
               }
               //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
               if (_index == 0 && pageIndex == 3) {
                 _pageController.jumpToPage(1);
-                _pageController.animateToPage(0,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration + 50));
+                _pageController.animateToPage(
+                  0,
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: duration + 50),
+                );
               }
               //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
               if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
@@ -143,15 +148,19 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 else
                   _indexR = _index;
                 _pageController.jumpToPage(_indexR + 1);
-                _pageController.animateToPage(_index,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration - 50)); //+100
+                _pageController.animateToPage(
+                  _index,
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: duration - 50),
+                ); //+100
               }
               //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
               else {
-                _pageController.animateToPage(_index,
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: duration - 100));
+                _pageController.animateToPage(
+                  _index,
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: duration - 100),
+                );
               }
             },
             //BOTTOM NAVIGATION ITEMS
@@ -177,17 +186,22 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
       leading: Padding(
         padding: const EdgeInsets.only(left: 13),
         child: Builder(
-            builder: (context) => IconButton(
-                icon: FaIcon(
-                  FontAwesomeIcons.alignLeft,
-                  size: 20,
-                ),
-                onPressed: () => Scaffold.of(context).openDrawer())),
+          builder: (context) => IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.alignLeft,
+              size: 20,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
       ),
       title: Text(
         titleName[pageIndex],
         style: TextStyle(
-            fontFamily: 'Raleway', fontWeight: FontWeight.w500, fontSize: 18),
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
       ),
     );
   }
@@ -217,18 +231,20 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             title: Text(
               'Are you sure?',
               style: TextStyle(
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontSize: 18),
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
             content: Text(
               'Do you want to exit an App',
               style: TextStyle(
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  fontSize: 16),
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+                fontSize: 16,
+              ),
             ),
             actions: <Widget>[
               InkWell(
@@ -240,9 +256,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                 onTap: () => Navigator.of(context).pop(true),
                 child: DialogBtn('Yes'),
               ),
-              SizedBox(
-                width: 10,
-              )
+              SizedBox(width: 10)
             ],
           ),
         ) ??

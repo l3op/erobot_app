@@ -12,7 +12,10 @@ class _FeedbackAppState extends State<FeedbackApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Feedback', style: TextStyle(fontSize: 18),),
+        title: Text(
+          'Feedback',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     );
   }

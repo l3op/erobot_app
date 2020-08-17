@@ -9,7 +9,10 @@ class SectionLabel extends StatelessWidget {
     return Text(
       '   ' + text,
       style: TextStyle(
-          color: Palette.shark, fontWeight: FontWeight.w500, fontSize: 18),
+        color: Palette.shark,
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+      ),
     );
   }
 }
@@ -21,7 +24,13 @@ class Paragraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
-        child: Text(paragraph));
+      padding: const EdgeInsets.only(
+        left: 15,
+        right: 15,
+        top: 5,
+        bottom: 5,
+      ),
+      child: Text(paragraph),
+    );
   }
 }

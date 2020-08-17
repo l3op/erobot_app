@@ -27,10 +27,11 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          title: Text(
-        'Login',
-        style: TextStyle(fontSize: 18),
-      )),
+        title: Text(
+          'Login',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,81 +52,80 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   //FORM
                   Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 10),
+                        //EMAIL INPUT
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          //EMAIL INPUT
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: EdgeInsets.only(bottom: 5),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                labelText: "Enter your email address",
-                                labelStyle: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(10, 5, 20, 0),
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              labelText: "Enter your email address",
+                              labelStyle: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.6),
                               ),
-                              validator: (val) {
-                                _email = val;
-                                return validateEmail(val);
-                              },
-                              keyboardType: TextInputType.emailAddress,
+                              contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0),
                             ),
+                            validator: (val) {
+                              _email = val;
+                              return validateEmail(val);
+                            },
+                            keyboardType: TextInputType.emailAddress,
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                        ),
+                        SizedBox(height: 10),
 
-                          //PASSWORD INPUT
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: EdgeInsets.only(bottom: 5),
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    isDense: false,
-                                    labelText: "Enter your password",
-                                    labelStyle: TextStyle(
-                                        color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(10, 5, 20, 0),
-                                    suffixIcon: Padding(
-                                      padding: const EdgeInsets.only(right: 5),
-                                      child: IconButton(
-                                          onPressed: _toggle,
-                                          icon: Icon(_obscureText
-                                              ? Icons.visibility
-                                              : Icons.visibility_off)),
+                        //PASSWORD INPUT
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  isDense: false,
+                                  labelText: "Enter your password",
+                                  labelStyle: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.6),
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(10, 5, 20, 0),
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: IconButton(
+                                      onPressed: _toggle,
+                                      icon: Icon(
+                                        _obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
                                     ),
                                   ),
-                                  validator: (val) {
-                                    _password = val;
-                                    return validatePassword(val);
-                                  },
-                                  obscureText: _obscureText,
-                                  keyboardType: TextInputType.visiblePassword,
                                 ),
-                              ],
-                            ),
-                          )
-                        ],
-                      )),
-                  SizedBox(
-                    height: 15,
+                                validator: (val) {
+                                  _password = val;
+                                  return validatePassword(val);
+                                },
+                                obscureText: _obscureText,
+                                keyboardType: TextInputType.visiblePassword,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                  SizedBox(height: 15),
                   Center(
                     child: Container(
                       height: 50,
@@ -151,9 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Center(
                     child: GestureDetector(
                       child: Text(
@@ -175,9 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                   'Or login with social account',
                   style: TextStyle(color: Colors.white),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Center(
@@ -207,9 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        SizedBox(width: 10),
                         //LOGIN WITH FACEBOOK
                         ClipOval(
                           child: Material(
@@ -220,8 +214,12 @@ class _LoginPageState extends State<LoginPage> {
                                 width: 40,
                                 height: 40,
                                 child: Center(
-                                    child: FaIcon(FontAwesomeIcons.facebookF,
-                                        size: 20, color: Colors.white)),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.facebookF,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                               onTap: () {
                                 print('facebook login clicked!');

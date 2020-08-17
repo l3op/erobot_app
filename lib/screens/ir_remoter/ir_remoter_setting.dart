@@ -30,8 +30,13 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
             onPressed: () => Navigator.pop(context, setting),
             icon: Icon(Icons.arrow_back),
           ),
-          title: Text('Setting',
-              style: TextStyle(fontSize: 18, color: Colors.white)),
+          title: Text(
+            'Setting',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+            ),
+          ),
           //RESET TO DEFAUL BUTTON
           actions: [],
         ),
@@ -56,46 +61,62 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                         width: 51,
                         height: 30,
                         child: FlatButton(
-                            color: Color.fromRGBO(255, 255, 255, .2),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            splashColor: Colors.white,
-                            child: Text('Hex',
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white)),
-                            onPressed: () {
-                              resetDefaultHex();
-                            }),
+                          color: Color.fromRGBO(255, 255, 255, .2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          splashColor: Colors.white,
+                          child: Text(
+                            'Hex',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            resetDefaultHex();
+                          },
+                        ),
                       ),
                       Text(' '),
                       Container(
                         width: 78,
                         height: 30,
                         child: FlatButton(
-                            color: Color.fromRGBO(255, 255, 255, .2),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            splashColor: Colors.white,
-                            child: Text('Character',
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.white)),
-                            onPressed: () {
-                              resetDefaultChar();
-                            }),
+                          color: Color.fromRGBO(255, 255, 255, .2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          splashColor: Colors.white,
+                          child: Text(
+                            'Character',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            resetDefaultChar();
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
               ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: setting.length,
-                  itemBuilder: (context, index) {
-                    IRremoteSetting settings = setting[index];
-                    return buildSetting(context, settings.name,
-                        settings.describe, settings.value, index);
-                  }),
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: setting.length,
+                itemBuilder: (context, index) {
+                  IRremoteSetting settings = setting[index];
+                  return buildSetting(
+                    context,
+                    settings.name,
+                    settings.describe,
+                    settings.value,
+                    index,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -135,64 +156,83 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
     setState(() {});
   }
 
-  Padding buildSetting(context, final String title, final String describe,
-      final String _value, final int index) {
+  Padding buildSetting(
+    context,
+    final String title,
+    final String describe,
+    final String _value,
+    final int index,
+  ) {
     return Padding(
       padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: index == 0 ? 10 : 10,
-          bottom: index == setting.length - 1 ? 20 : 0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Row(
-          children: [
-            Container(
-              width: 40,
-              child: !isContainPNG(title)
-                  ? Text(title,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ))
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                          left: 5, right: 15, top: 5, bottom: 5),
-                      child: Image.asset('assets/sender/$title'),
-                    ),
-            ),
-            SizedBox(width: 10),
-            Text(
-              ':  $describe',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400),
-            ),
-          ],
-        ),
-        InkWell(
-          splashColor: null,
-          onTap: () {
-            buildShowModalBottomSheet(context, _value);
-          },
-          child: Row(
+        left: 20,
+        right: 20,
+        top: index == 0 ? 10 : 10,
+        bottom: index == setting.length - 1 ? 20 : 0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             children: [
-              Text(_value, style: TextStyle(color: Colors.white, fontSize: 17)),
-              SizedBox(
-                width: 10,
+              Container(
+                width: 40,
+                child: !isContainPNG(title)
+                    ? Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(
+                            left: 5, right: 15, top: 5, bottom: 5),
+                        child: Image.asset('assets/sender/$title'),
+                      ),
               ),
-              FaIcon(FontAwesomeIcons.angleRight, size: 20, color: Colors.white)
+              SizedBox(width: 10),
+              Text(
+                ':  $describe',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400),
+              ),
             ],
           ),
-        )
-      ]),
+          InkWell(
+            splashColor: null,
+            onTap: () => buildShowModalBottomSheet(context, _value),
+            child: Row(
+              children: [
+                Text(
+                  _value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                FaIcon(
+                  FontAwesomeIcons.angleRight,
+                  size: 20,
+                  color: Colors.white,
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
   bool isDubicateValue(String value) {
-    for (int i = 0; i < setting.length; i++) {
+    for (int i = 0; i < setting.length; i++)
       if (value == setting[i].value) return true;
-    }
+
     return false;
   }
 
@@ -210,48 +250,62 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                 print('changed value to ${setting[i].value}');
               });
             } else if (isDubicateValue(value)) {
-              Toast.show("Cannot save, dublicated value '$value'", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+              Toast.show(
+                "Cannot save, dublicated value '$value'",
+                context,
+                duration: Toast.LENGTH_LONG,
+                gravity: Toast.CENTER,
+              );
             }
           }
         }
       } else {
-        Toast.show("Cannot save!", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+        Toast.show(
+          "Cannot save!",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.CENTER,
+        );
       }
     }
 
     return showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: TextFormField(
-                  autofocus: true,
-                  initialValue: btnValue,
-                  decoration: InputDecoration(
-                    counterText: '',
-                  ),
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                  maxLines: 1,
-                  onChanged: (value) {
-                    print("changing to " + value);
-                    if (_btnTMP != value && isDubicateValue(value)) {
-                      Toast.show("Dublicated value '$value'", context,
-                          duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
-                    }
-                  },
-                  onFieldSubmitted: (value) {
-                    changeValue(value);
-                  },
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: TextFormField(
+                autofocus: true,
+                initialValue: btnValue,
+                decoration: InputDecoration(
+                  counterText: '',
                 ),
+                style: TextStyle(fontSize: 18, color: Colors.white),
+                maxLines: 1,
+                onChanged: (value) {
+                  print("changing to " + value);
+                  if (_btnTMP != value && isDubicateValue(value)) {
+                    Toast.show(
+                      "Dublicated value '$value'",
+                      context,
+                      duration: Toast.LENGTH_SHORT,
+                      gravity: Toast.TOP,
+                    );
+                  }
+                },
+                onFieldSubmitted: (value) {
+                  changeValue(value);
+                },
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

@@ -32,14 +32,14 @@ class _MainDrawerState extends State<MainDrawer> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage('assets/erobot-logo/erobotlogo.png'),
+                              image: AssetImage(
+                                'assets/erobot-logo/erobotlogo.png',
+                              ),
                               fit: BoxFit.fill,
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Text(
                           "E-Robot",
                           style: TextStyle(
@@ -51,10 +51,11 @@ class _MainDrawerState extends State<MainDrawer> {
                         Text(
                           "erobotappdev@gmail.com",
                           style: TextStyle(
-                              fontFamily: 'Raleway',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w100),
+                            fontFamily: 'Raleway',
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w100,
+                          ),
                         )
                       ],
                     ),
@@ -77,13 +78,14 @@ class _MainDrawerState extends State<MainDrawer> {
                             style: TextStyle(color: Colors.white),
                           ),
                           Switch(
-                              activeColor: Colors.white,
-                              value: isSwitched,
-                              onChanged: (value) {
-                                setState(() {
-                                  isSwitched = value;
-                                });
-                              })
+                            activeColor: Colors.white,
+                            value: isSwitched,
+                            onChanged: (value) {
+                              setState(() {
+                                isSwitched = value;
+                              });
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -96,14 +98,13 @@ class _MainDrawerState extends State<MainDrawer> {
                     title: Text(
                       'Feedback',
                       style: TextStyle(
-                          fontFamily: 'Raleway',
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
+                        fontFamily: 'Raleway',
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/feedback');
-                    },
+                    onTap: () => Navigator.pushNamed(context, '/feedback'),
                   ),
                   ListTile(
                     leading: Icon(
@@ -113,10 +114,11 @@ class _MainDrawerState extends State<MainDrawer> {
                     title: Text(
                       'Exit',
                       style: TextStyle(
-                          fontFamily: 'Raleway',
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
+                        fontFamily: 'Raleway',
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     onTap: () {
                       Navigator.pushReplacementNamed(context, '/');

@@ -30,23 +30,24 @@ class _LogInChoiceState extends State<LogInChoice> {
             TwoLayerCard(),
             SizedBox(height: 10),
             Text(
-                'Member will have access all privilege to see post, oportunity, and team reputation',
-                style: TextStyle(fontSize: 15, color: Colors.white)),
+              'Member will have access all privilege to see post, oportunity, and team reputation',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
             SizedBox(height: 15),
             FlatTextButton(
-                isblue: true,
-                text: 'Login as member',
-                splashColor: Palette.blueSplash,
-                color: Palette.blue_pacific,
-                onPressed: () {
-                  Navigator.pushNamed(context, '/loginP');
-                }),
+              isblue: true,
+              text: 'Login as member',
+              splashColor: Palette.blueSplash,
+              color: Palette.blue_pacific,
+              onPressed: () => Navigator.pushNamed(context, '/loginP'),
+            ),
             SizedBox(height: 10),
             FlatTextButton(
               text: 'Join Us',
-              onPressed: () {
-                Navigator.pushNamed(context, '/joinus');
-              },
+              onPressed: () => Navigator.pushNamed(context, '/joinus'),
             ),
           ],
         ),

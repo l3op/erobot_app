@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:erobot_app/validation/validation.dart';
-
-import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/import/models.dart';
+import 'package:erobot_app/import/importall.dart';
 
 class JoinUs extends StatefulWidget {
   @override
@@ -40,21 +38,29 @@ class _JoinUsState extends State<JoinUs> {
         child: Column(
           children: <Widget>[
             Material(
-                textStyle: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Raleway'),
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    Text('Want to be a member?',
-                        style: TextStyle(fontSize: 25)),
-                    SizedBox(height: 5),
-                    Text('Please enter your info',
-                        style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 20),
-                  ],
-                )),
+              textStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Raleway',
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    'Want to be a member?',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Please enter your info',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Form(
@@ -148,14 +154,17 @@ class _JoinUsState extends State<JoinUs> {
                           child: Center(
                             child: Text(
                               'Submit',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
                               print(
-                                  'Entered validation: \nFirstName: ${RequestMember.firstName}\nLastName: ${RequestMember.lastName}\nEmail: ${RequestMember.email}\nIntroduces: ${RequestMember.memberInfo}\nWhyJoin: ${RequestMember.whyJoin}');
+                                'Entered validation: \nFirstName: ${RequestMember.firstName}\nLastName: ${RequestMember.lastName}\nEmail: ${RequestMember.email}\nIntroduces: ${RequestMember.memberInfo}\nWhyJoin: ${RequestMember.whyJoin}',
+                              );
                             }
                           },
                         ),
@@ -192,67 +201,31 @@ class _JoinUsState extends State<JoinUs> {
       backgroundColor: Palette.blue_pacific,
       radius: 55,
       child: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 50,
-          backgroundImage: _filepath != '0' ? FileImage(File(_filepath)) : null,
-          child: GestureDetector(
-            onTap: () async {
-              var filepath = await FilePicker.getFilePath(type: FileType.image);
-              if (filepath != null) {
-                setState(() {
-                  _filepath = filepath;
-                });
-              }
-              print(_filepath);
-            },
-            child: _filepath == '0'
-                ? CircleAvatar(
-                    radius: 55,
-                    backgroundColor: Color.fromRGBO(255, 255, 255, .5),
-                    child: Icon(
-                      Icons.camera_alt,
-                      color: Palette.blue_pacific,
-                      size: 35,
-                    ),
-                  )
-                : null,
-          )),
-    );
-  }
-}
-
-class InputStyle extends StatelessWidget {
-  final String labelText;
-  final Function validator;
-  final double weight;
-  final dynamic keyboardType;
-  final int maxLines;
-
-  const InputStyle(
-      {Key key,
-      @required this.labelText,
-      @required this.validator,
-      this.weight = 1,
-      this.keyboardType = TextInputType.text,
-      this.maxLines = 1})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * weight,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.only(bottom: 5),
-      child: TextFormField(
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            labelText: labelText,
-            labelStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-            contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-        validator: validator,
-        maxLines: maxLines,
-        keyboardType: TextInputType.text,
+        backgroundColor: Colors.white,
+        radius: 50,
+        backgroundImage: _filepath != '0' ? FileImage(File(_filepath)) : null,
+        child: GestureDetector(
+          onTap: () async {
+            var filepath = await FilePicker.getFilePath(type: FileType.image);
+            if (filepath != null) {
+              setState(() {
+                _filepath = filepath;
+              });
+            }
+            print(_filepath);
+          },
+          child: _filepath == '0'
+              ? CircleAvatar(
+                  radius: 55,
+                  backgroundColor: Color.fromRGBO(255, 255, 255, .5),
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Palette.blue_pacific,
+                    size: 35,
+                  ),
+                )
+              : null,
+        ),
       ),
     );
   }

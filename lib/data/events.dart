@@ -2,12 +2,39 @@ import 'package:erobot_app/import/models.dart';
 
 //DATA FOR ABOUT TEAM TEMPLATE
 final List<Event> event = [
-  Event('PNC Event', 'pnc.png', 'Coming Soon', imagePath, partmember,
-      partmemberPNG, robot, robotPath, 1),
-  Event('Smart Event', 'smart.png', '19th Jul 2019', imagePath, partmember,
-      partmemberPNG, robot, robotPath, 2),
-  Event('Stem Event', 'stem.png', '12th Feb 2019', imagePath, partmember,
-      partmemberPNG, robot, robotPath, 3),
+  Event(
+    'PNC Event',
+    'pnc.png',
+    'Coming Soon',
+    imagePath,
+    partmember,
+    partmemberPNG,
+    robot,
+    robotPath,
+    1,
+  ),
+  Event(
+    'Smart Event',
+    'smart.png',
+    '19th Jul 2019',
+    imagePath,
+    partmember,
+    partmemberPNG,
+    robot,
+    robotPath,
+    2,
+  ),
+  Event(
+    'Stem Event',
+    'stem.png',
+    '12th Feb 2019',
+    imagePath,
+    partmember,
+    partmemberPNG,
+    robot,
+    robotPath,
+    3,
+  ),
 ];
 
 //SECTION 1 - MEMORIES - PICTURES COLLECTION
@@ -17,15 +44,28 @@ final List<String> imagePath = [
   'our_team.png',
   'our_team.png',
   'our_team.png',
-  'our_team.png'
+  'our_team.png',
 ];
 
 //SECTION 2 - PARTICIPATING MEMBER
-final List<String> partmember = ['Suy Kosal', 'Han Leangsiv', 'Run Seyha'];
-final List<String> partmemberPNG = ['kosal.png', 'leangsiv.png', 'seyha.png'];
+final List<String> partmember = [
+  'Suy Kosal',
+  'Han Leangsiv',
+  'Run Seyha',
+];
+final List<String> partmemberPNG = [
+  'kosal.png',
+  'leangsiv.png',
+  'seyha.png',
+];
 
 //SECTION 3 - ROBOT USED
-final List<String> robot = ['Car runner', 'Ball shooter', 'Car runner'];
+final List<String> robot = [
+  'Car runner',
+  'Ball shooter',
+  'Car runner',
+];
+
 final List<String> robotPath = [
   'car_runner.png',
   'ball_shooter.png',

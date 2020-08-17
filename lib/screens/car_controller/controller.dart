@@ -30,7 +30,8 @@ class _ControllerState extends State<Controller> {
     speedTMP = 5;
     speed = 5;
     SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
+      [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft],
+    );
     super.initState();
     _loadSavedData();
   }
@@ -38,13 +39,15 @@ class _ControllerState extends State<Controller> {
   //LOAD CACHE DATA
   _loadSavedData() async {
     button = await loadPadData(_cardIndex);
-    setState(() {
-      btnRight = button.right;
-      btnLeft = button.left;
-      btnBottom = button.bottom;
-      btnTop = button.top;
-      _cardIndex == 1 ? btnShoot = button.power : btnSpeed = button.power;
-    });
+    setState(
+      () {
+        btnRight = button.right;
+        btnLeft = button.left;
+        btnBottom = button.bottom;
+        btnTop = button.top;
+        _cardIndex == 1 ? btnShoot = button.power : btnSpeed = button.power;
+      },
+    );
   }
 
   @override
@@ -93,9 +96,10 @@ class _ControllerState extends State<Controller> {
           title: Text(
             tille,
             style: TextStyle(
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.w500,
-                fontSize: 18),
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
           ),
           flexibleSpace: Image(
             image: _cardIndex == 1
@@ -111,36 +115,46 @@ class _ControllerState extends State<Controller> {
         //FLOATING SETTING BUTTON
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
-          child: Icon(Icons.settings,
-              color:
-                  _cardIndex == 1 ? Palette.red_milano : Palette.blue_pacific,
-              size: 25),
+          child: Icon(
+            Icons.settings,
+            color: _cardIndex == 1 ? Palette.red_milano : Palette.blue_pacific,
+            size: 25,
+          ),
           onPressed: () async {
             Button button = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BallShooterSetting(btnTop, btnLeft,
-                        btnRight, btnBottom, btnShoot, btnSpeed, _cardIndex)));
-            setState(() {
-              if (button != null) {
-                btnRight = button.right;
-                btnLeft = button.left;
-                btnBottom = button.bottom;
-                btnTop = button.top;
-                _cardIndex == 1
-                    ? btnShoot = button.power
-                    : btnSpeed = button.power;
-              }
-            });
+              context,
+              MaterialPageRoute(
+                builder: (context) => BallShooterSetting(
+                  btnTop,
+                  btnLeft,
+                  btnRight,
+                  btnBottom,
+                  btnShoot,
+                  btnSpeed,
+                  _cardIndex,
+                ),
+              ),
+            );
+            setState(
+              () {
+                if (button != null) {
+                  btnRight = button.right;
+                  btnLeft = button.left;
+                  btnBottom = button.bottom;
+                  btnTop = button.top;
+                  _cardIndex == 1
+                      ? btnShoot = button.power
+                      : btnSpeed = button.power;
+                }
+              },
+            );
           },
         ),
         // BUTTON CONTAINER
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -150,13 +164,13 @@ class _ControllerState extends State<Controller> {
                     child: Column(
                       children: <Widget>[
                         buildPadButton(1, _cardIndex, btnTop),
-                        Row(children: <Widget>[
-                          buildPadButton(2, _cardIndex, btnLeft),
-                          SizedBox(
-                            width: widthBtn,
-                          ),
-                          buildPadButton(3, _cardIndex, btnRight),
-                        ]),
+                        Row(
+                          children: <Widget>[
+                            buildPadButton(2, _cardIndex, btnLeft),
+                            SizedBox(width: widthBtn),
+                            buildPadButton(3, _cardIndex, btnRight),
+                          ],
+                        ),
                         buildPadButton(4, _cardIndex, btnBottom),
                       ],
                     ),
@@ -175,7 +189,9 @@ class _ControllerState extends State<Controller> {
                         child: Text(
                           'Speed: $speed',
                           style: TextStyle(
-                              color: Colors.white, fontFamily: 'Quicksand'),
+                            color: Colors.white,
+                            fontFamily: 'Quicksand',
+                          ),
                         ),
                       ),
                       //SPEED SLIDER
@@ -190,12 +206,13 @@ class _ControllerState extends State<Controller> {
                               handlerSize: 3,
                             ),
                             customColors: CustomSliderColors(
-                                trackColor: Palette.whitesmoke,
-                                progressBarColor: _cardIndex == 1
-                                    ? Palette.red_milano
-                                    : Palette.blue_pacific,
-                                hideShadow: true,
-                                dotColor: Palette.whitesmoke),
+                              trackColor: Palette.whitesmoke,
+                              progressBarColor: _cardIndex == 1
+                                  ? Palette.red_milano
+                                  : Palette.blue_pacific,
+                              hideShadow: true,
+                              dotColor: Palette.whitesmoke,
+                            ),
                             startAngle: 90,
                             angleRange: 180,
                             counterClockwise: true,
@@ -220,34 +237,42 @@ class _ControllerState extends State<Controller> {
                             child: InkWell(
                               splashColor: Colors.black12,
                               child: SizedBox(
-                                  width: widthBtn * 2.2,
-                                  height: heightBtn * 2.2,
-                                  child: _cardIndex == 1
-                                      ? Icon(
-                                          Icons.gps_fixed,
-                                          size: widthBtn,
+                                width: widthBtn * 2.2,
+                                height: heightBtn * 2.2,
+                                child: _cardIndex == 1
+                                    ? Icon(
+                                        Icons.gps_fixed,
+                                        size: widthBtn,
+                                        color: Colors.white,
+                                      )
+                                    : Center(
+                                        child: FaIcon(
+                                          FontAwesomeIcons.angleDoubleUp,
+                                          size: widthBtn - 10,
                                           color: Colors.white,
-                                        )
-                                      : Center(
-                                          child: FaIcon(
-                                              FontAwesomeIcons.angleDoubleUp,
-                                              size: widthBtn - 10,
-                                              color: Colors.white))),
+                                        ),
+                                      ),
+                              ),
                               onTap: () {
                                 if (_cardIndex == 1) {
                                 } else if (_cardIndex == 2) {
                                   if (speed >= 9) {
-                                    Toast.show("Max Speed!", context,
-                                        duration: Toast.LENGTH_SHORT,
-                                        gravity: Toast.BOTTOM);
+                                    Toast.show(
+                                      "Max Speed!",
+                                      context,
+                                      duration: Toast.LENGTH_SHORT,
+                                      gravity: Toast.BOTTOM,
+                                    );
                                   } else if (speed < 9 ||
                                       speedTMP < 9 ||
                                       speedTMP >= 0 ||
                                       speed >= 0) {
-                                    setState(() {
-                                      updateSpeed();
-                                      speedTMP = speed.roundToDouble();
-                                    });
+                                    setState(
+                                      () {
+                                        updateSpeed();
+                                        speedTMP = speed.roundToDouble();
+                                      },
+                                    );
                                     print(speed);
                                   }
                                 }
@@ -264,9 +289,7 @@ class _ControllerState extends State<Controller> {
             //SERVO SLIDER ON BOTTOM
             Column(
               children: <Widget>[
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 _cardIndex == 1
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -286,9 +309,11 @@ class _ControllerState extends State<Controller> {
                                 trackHeight: 2,
                                 thumbColor: Colors.white,
                                 thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 8.0),
+                                  enabledThumbRadius: 8.0,
+                                ),
                                 overlayShape: RoundSliderOverlayShape(
-                                    overlayRadius: 40.0),
+                                  overlayRadius: 40.0,
+                                ),
                               ),
                               child: Slider(
                                 value: servo,
@@ -312,7 +337,9 @@ class _ControllerState extends State<Controller> {
                           Text(
                             '$servo',
                             style: TextStyle(
-                                color: Colors.white, fontFamily: 'Quicksand'),
+                              color: Colors.white,
+                              fontFamily: 'Quicksand',
+                            ),
                           ),
                         ],
                       )

@@ -8,6 +8,15 @@ class Event {
   final List<String> robot;
   final List<String> robotPath;
   final int index;
-  Event(this.eventName, this.eventPath, this.eventDate, this.imagePath,
-      this.member, this.memberPath, this.robot, this.robotPath, this.index);
+  Event(
+    this.eventName,
+    this.eventPath,
+    this.eventDate,
+    this.imagePath,
+    this.member,
+    this.memberPath,
+    this.robot,
+    this.robotPath,
+    this.index,
+  );
 }

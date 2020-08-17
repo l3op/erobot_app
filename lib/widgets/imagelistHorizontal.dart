@@ -22,48 +22,51 @@ class ImageListHorizontal extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.20,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: section == 2 ? components.length : software.length,
-          itemBuilder: (context, index) {
-            //CLICK TO CHANGE IMAGE (SECTION 1 ONLY)
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(14, 8, 2, 8),
+        scrollDirection: Axis.horizontal,
+        itemCount: section == 2 ? components.length : software.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(14, 8, 2, 8),
+            child: Container(
+              // COMPONENT OR SOFTWARE USED
               child: Container(
-                // COMPONENT OR SOFTWARE USED
-                child: Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    ' ' +
-                        (section == 2
-                            ? components[index].name
-                            : software[index].name) +
-                        ' ',
-                    style: TextStyle(
-                        backgroundColor: Palette.blue_pacific,
-                        color: Colors.white),
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  ' ' +
+                      (section == 2
+                          ? components[index].name
+                          : software[index].name) +
+                      ' ',
+                  style: TextStyle(
+                    backgroundColor: Palette.blue_pacific,
+                    color: Colors.white,
                   ),
                 ),
-                width: MediaQuery.of(context).size.width * widthContainer,
-                //BACKGROUND IMAGE WITH SHADOW
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 0,
-                        blurRadius: 5,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
-                    image: DecorationImage(
-                        image: AssetImage(section == 2
-                            ? 'assets/document/components/${components[index].path}'
-                            : 'assets/document/software/${software[index].path}'),
-                        fit: BoxFit.cover)),
               ),
-            );
-          }),
+              width: MediaQuery.of(context).size.width * widthContainer,
+              //BACKGROUND IMAGE WITH SHADOW
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 0,
+                    blurRadius: 5,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+                image: DecorationImage(
+                  image: AssetImage(section == 2
+                      ? 'assets/document/components/${components[index].path}'
+                      : 'assets/document/software/${software[index].path}'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -8,17 +8,18 @@ class AboutMember extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: erobotmembers.length,
-          itemBuilder: (context, index) {
-            Member member = erobotmembers[index];
-            return ProfileCard(
-              name: member.name,
-              role: member.role,
-              image: member.path,
-              onFBpressed: () {},
-              onTGpressed: () {},
-            );
-          }),
+        itemCount: erobotmembers.length,
+        itemBuilder: (context, index) {
+          Member member = erobotmembers[index];
+          return ProfileCard(
+            name: member.name,
+            role: member.role,
+            image: member.path,
+            onFBpressed: () {},
+            onTGpressed: () {},
+          );
+        },
+      ),
     );
   }
 }
@@ -30,24 +31,27 @@ class TeamReputation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: event.length,
-          itemBuilder: (context, index) {
-            Event card = event[index];
-            return EventCard(
-              name: card.eventName,
-              role: card.eventDate,
-              pathIMG: card.eventPath,
-              index: card.index,
-              context: context,
-              onPressed: () {
-                print('see more clicked $index');
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutTeamTemplate(index)));
-              },
-            );
-          }),
+        itemCount: event.length,
+        itemBuilder: (context, index) {
+          Event card = event[index];
+          return EventCard(
+            name: card.eventName,
+            role: card.eventDate,
+            pathIMG: card.eventPath,
+            index: card.index,
+            context: context,
+            onPressed: () {
+              print('see more clicked $index');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AboutTeamTemplate(index),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

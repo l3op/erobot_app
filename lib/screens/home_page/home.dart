@@ -16,46 +16,40 @@ class HomeScreen extends StatelessWidget {
         mainAxisSpacing: 3,
         children: <Widget>[
           ThreeLayerCard(
-              title: 'Farm Assistant',
-              desription: 'Make your farming smarter',
-              cardIndex: 0,
-              path: 'assets/home/arduino_doc.png',
-              onPressed: () {
-                Navigator.pushNamed(context, '/farm_assistant');
-              }),
+            title: 'Farm Assistant',
+            desription: 'Make your farming smarter',
+            cardIndex: 0,
+            path: 'assets/home/arduino_doc.png',
+            onPressed: () => Navigator.pushNamed(context, '/farm_assistant'),
+          ),
           ThreeLayerCard(
-              title: 'Sender',
-              desription: 'to Send text to arduino via Bluetooth',
-              cardIndex: 1,
-              path: 'assets/home/our_team.png',
-              onPressed: () {
-                Navigator.pushNamed(context, '/sender');
-              }),
+            title: 'Sender',
+            desription: 'to Send text to arduino via Bluetooth',
+            cardIndex: 1,
+            path: 'assets/home/our_team.png',
+            onPressed: () => Navigator.pushNamed(context, '/sender'),
+          ),
           ThreeLayerCard(
-              title: 'Ball Shooter',
-              desription:
-                  'to Control ball shooter arduino car, servo, and speed',
-              cardIndex: 2,
-              path: 'assets/home/ball_shooter.png',
-              onPressed: () {
-                buildtoCarController(context, 1);
-              }),
+            title: 'Ball Shooter',
+            desription: 'to Control ball shooter arduino car, servo, and speed',
+            cardIndex: 2,
+            path: 'assets/home/ball_shooter.png',
+            onPressed: () => buildtoCarController(context, 1),
+          ),
           ThreeLayerCard(
-              title: 'Arduino Car',
-              desription: 'Remoter to Control Arduino Car with speed',
-              cardIndex: 3,
-              path: 'assets/home/car_runner.png',
-              onPressed: () {
-                buildtoCarController(context, 2);
-              }),
+            title: 'Arduino Car',
+            desription: 'Remoter to Control Arduino Car with speed',
+            cardIndex: 3,
+            path: 'assets/home/car_runner.png',
+            onPressed: () => buildtoCarController(context, 2),
+          ),
           ThreeLayerCard(
-              title: 'IR Remoter',
-              desription: 'to Control Light and Buzzer Arduino',
-              cardIndex: 4,
-              path: 'assets/home/ir_controller.png',
-              onPressed: () {
-                Navigator.pushNamed(context, '/ir_remote');
-              })
+            title: 'IR Remoter',
+            desription: 'to Control Light and Buzzer Arduino',
+            cardIndex: 4,
+            path: 'assets/home/ir_controller.png',
+            onPressed: () => Navigator.pushNamed(context, '/ir_remote'),
+          )
         ],
         staggeredTiles: [
           StaggeredTile.extent(2, 150),
@@ -69,7 +63,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   Future buildtoCarController(BuildContext context, int _cardIndex) {
-    return Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Controller(_cardIndex)));
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Controller(_cardIndex),
+      ),
+    );
   }
 }

@@ -24,13 +24,18 @@ class CircleButtonText extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50), color: Hexcolor(color)),
+        borderRadius: BorderRadius.circular(50),
+        color: Hexcolor(color),
+      ),
       child: IconButton(
-          icon: Text(!isShow ? display : value,
-              style: TextStyle(
-                  color:
-                      color != 'ffffff' ? Colors.white : Hexcolor('161f28'))),
-          onPressed: onPressed),
+        icon: Text(
+          !isShow ? display : value,
+          style: TextStyle(
+            color: color != 'ffffff' ? Colors.white : Hexcolor('161f28'),
+          ),
+        ),
+        onPressed: onPressed,
+      ),
     );
   }
 }
@@ -61,19 +66,19 @@ class CircleButtonIcon extends StatelessWidget {
         color: Hexcolor(color),
       ),
       child: IconButton(
-          icon: !isShow
-              ? Padding(
-                  padding: EdgeInsets.all(path == 'playpause.png' ? 11.0 : 8.0),
-                  child: Image.asset('assets/sender/$path'),
-                )
-              : Text(
-                  value,
-                  style: TextStyle(
-                      color: color != 'ffffff'
-                          ? Colors.white
-                          : Hexcolor('161f28')),
+        icon: !isShow
+            ? Padding(
+                padding: EdgeInsets.all(path == 'playpause.png' ? 11.0 : 8.0),
+                child: Image.asset('assets/sender/$path'),
+              )
+            : Text(
+                value,
+                style: TextStyle(
+                  color: color != 'ffffff' ? Colors.white : Hexcolor('161f28'),
                 ),
-          onPressed: onPressed),
+              ),
+        onPressed: onPressed,
+      ),
     );
   }
 }
@@ -100,8 +105,16 @@ class ThreeCircleButtons extends StatelessWidget {
       btnColors[index + 2],
     ];
 
-    List<String> title = [titles[index], titles[index + 1], titles[index + 2]];
-    List<String> path = [paths[index], paths[index + 1], paths[index + 2]];
+    List<String> title = [
+      titles[index],
+      titles[index + 1],
+      titles[index + 2],
+    ];
+    List<String> path = [
+      paths[index],
+      paths[index + 1],
+      paths[index + 2],
+    ];
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,14 +126,16 @@ class ThreeCircleButtons extends StatelessWidget {
                   isShow: isShow,
                   display: title[i],
                   value: value[i],
-                  color: '${colors[i]}')
+                  color: '${colors[i]}',
+                )
               : CircleButtonIcon(
-                  onPressed: 
+                  onPressed:
                       i == 2 && index == 3 ? onPressed : () => print(value[i]),
                   isShow: isShow,
                   value: value[i],
                   path: path[i],
-                  color: '${colors[i]}'),
+                  color: '${colors[i]}',
+                ),
       ],
     );
   }

@@ -9,12 +9,27 @@ import 'package:erobot_app/import/models.dart';
 class BallShooterSetting extends StatefulWidget {
   final int _cardIndex;
   final String btnTop, btnLeft, btnRight, btnBottom, btnShoot, btnSpeed;
-  BallShooterSetting(this.btnTop, this.btnLeft, this.btnRight, this.btnBottom,
-      this.btnShoot, this.btnSpeed, this._cardIndex);
+
+  BallShooterSetting(
+    this.btnTop,
+    this.btnLeft,
+    this.btnRight,
+    this.btnBottom,
+    this.btnShoot,
+    this.btnSpeed,
+    this._cardIndex,
+  );
 
   @override
   _BallShooterSettingState createState() => _BallShooterSettingState(
-      btnTop, btnLeft, btnRight, btnBottom, btnShoot, btnSpeed, _cardIndex);
+        btnTop,
+        btnLeft,
+        btnRight,
+        btnBottom,
+        btnShoot,
+        btnSpeed,
+        _cardIndex,
+      );
 }
 
 class _BallShooterSettingState extends State<BallShooterSetting> {
@@ -139,11 +154,17 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
 
   //BUILD EACH BUTTON SETTING
   Row buildSetting(
-      context, final String title, final String btnValue, final int btnIndex) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Row(
-        children: [
-          Container(
+    context,
+    final String title,
+    final String btnValue,
+    final int btnIndex,
+  ) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Container(
               width: 40,
               child: btnIndex == 5
                   ? Icon(
@@ -153,58 +174,85 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
                     )
                   : btnIndex == 6
                       ? Center(
-                          child: FaIcon(FontAwesomeIcons.angleDoubleUp,
-                              size: 30, color: Colors.white),
+                          child: FaIcon(
+                            FontAwesomeIcons.angleDoubleUp,
+                            size: 30,
+                            color: Colors.white,
+                          ),
                         )
-                      : ReturnIcon(btnIndex, 55, _cardIndex)),
-          SizedBox(width: 10),
-          Text(
-            ':  $title',
-            style: TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
-          ),
-        ],
-      ),
-      InkWell(
-        splashColor: null,
-        onTap: () {
-          buildShowModalBottomSheet(context, btnValue).whenComplete(() async {
-            List<String> _validate = [
-              btnTop,
-              btnLeft,
-              btnRight,
-              btnBottom,
-              _cardIndex == 1 ? btnShoot : btnSpeed
-            ];
-            //CLARIFY THAT THERE IS NO DULICATE CHAR
-            var distinctBtn = _validate.toSet().toList();
-            if (distinctBtn.length == 5) {
-              print('btn changed');
-              setState(() {});
-              //SAVE CACHE DATA
-              var button = Button(btnTop, btnLeft, btnBottom, btnRight,
-                  _cardIndex == 1 ? btnShoot : btnSpeed);
-              await savePadData(button, _cardIndex);
-              Toast.show("Saved change'", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-            } else {
-              reset();
-              Toast.show("Value can't be saved", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.TOP);
-            }
-          });
-        },
-        child: Row(
-          children: [
-            Text(btnValue, style: TextStyle(color: Colors.white, fontSize: 18)),
-            SizedBox(
-              width: 10,
+                      : ReturnIcon(btnIndex, 55, _cardIndex),
             ),
-            FaIcon(FontAwesomeIcons.angleRight, size: 20, color: Colors.white)
+            SizedBox(width: 10),
+            Text(
+              ':  $title',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ],
         ),
-      )
-    ]);
+        InkWell(
+          splashColor: null,
+          onTap: () {
+            buildShowModalBottomSheet(context, btnValue).whenComplete(
+              () async {
+                List<String> _validate = [
+                  btnTop,
+                  btnLeft,
+                  btnRight,
+                  btnBottom,
+                  _cardIndex == 1 ? btnShoot : btnSpeed
+                ];
+                //CLARIFY THAT THERE IS NO DULICATE CHAR
+                var distinctBtn = _validate.toSet().toList();
+                if (distinctBtn.length == 5) {
+                  print('btn changed');
+                  setState(() {});
+                  //SAVE CACHE DATA
+                  var button = Button(
+                    btnTop,
+                    btnLeft,
+                    btnBottom,
+                    btnRight,
+                    _cardIndex == 1 ? btnShoot : btnSpeed,
+                  );
+                  await savePadData(button, _cardIndex);
+                  Toast.show(
+                    "Saved change'",
+                    context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.TOP,
+                  );
+                } else {
+                  reset();
+                  Toast.show(
+                    "Value can't be saved",
+                    context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.TOP,
+                  );
+                }
+              },
+            );
+          },
+          child: Row(
+            children: [
+              Text(
+                btnValue,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(width: 10),
+              FaIcon(FontAwesomeIcons.angleRight, size: 20, color: Colors.white)
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   //OPEN TEXT FIELD TO CHANGE BUTTON DATA
@@ -232,39 +280,48 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
     }
 
     return showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: TextFormField(
-                  autofocus: true,
-                  initialValue: btnValue,
-                  decoration: InputDecoration(
-                    counterText: '',
-                  ),
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                  maxLines: 1,
-                  maxLength: 1,
-                  onChanged: (value) {
-                    print("changing to " + value);
-                    if (_btnTMP != value && isDublicate(value, _validate)) {
-                      Toast.show("Dublicated value '$value'", context,
-                          duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
-                      reset();
-                    }
-                  },
-                  onFieldSubmitted: (value) {
-                    print('changed value to $value');
-                    changeValue(value);
-                  },
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: TextFormField(
+                autofocus: true,
+                initialValue: btnValue,
+                decoration: InputDecoration(
+                  counterText: '',
                 ),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+                maxLines: 1,
+                maxLength: 1,
+                onChanged: (value) {
+                  print("changing to " + value);
+                  if (_btnTMP != value && isDublicate(value, _validate)) {
+                    Toast.show(
+                      "Dublicated value '$value'",
+                      context,
+                      duration: Toast.LENGTH_SHORT,
+                      gravity: Toast.TOP,
+                    );
+                    reset();
+                  }
+                },
+                onFieldSubmitted: (value) {
+                  print('changed value to $value');
+                  changeValue(value);
+                },
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

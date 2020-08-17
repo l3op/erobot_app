@@ -7,7 +7,11 @@ class ReturnIcon extends StatelessWidget {
   final int index;
   final double widthBtn;
   final int screenNum;
-  ReturnIcon(this.index, this.widthBtn, this.screenNum);
+  ReturnIcon(
+    this.index,
+    this.widthBtn,
+    this.screenNum,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +21,11 @@ class ReturnIcon extends StatelessWidget {
     if (index == 3) icon = FontAwesomeIcons.angleRight;
     if (index == 4) icon = FontAwesomeIcons.angleDown;
     return Center(
-        child: FaIcon(
-      icon,
-      size: widthBtn - 20,
-      color: screenNum == 1 ? Palette.red_milano : Palette.blue_pacific,
-    ));
+      child: FaIcon(
+        icon,
+        size: widthBtn - 20,
+        color: screenNum == 1 ? Palette.red_milano : Palette.blue_pacific,
+      ),
+    );
   }
 }

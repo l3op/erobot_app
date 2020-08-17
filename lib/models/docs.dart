@@ -3,5 +3,10 @@ class Doc {
   final String describe;
   final int index;
   final String imagePath;
-  Doc(this.title, this.describe, this.index, this.imagePath);
+  Doc(
+    this.title,
+    this.describe,
+    this.index,
+    this.imagePath,
+  );
 }

@@ -12,7 +12,9 @@ final List<Doc> docs = [
   Doc('Arduino Documents', 'Learn how to build a robot', 6, 'arduino_doc.png'),
 ];
 
-List<Document> doc = [Document(quiz, components, software, steps)];
+List<Document> doc = [
+  Document(quiz, components, software, steps),
+];
 
 List<Steps> steps = [
   Steps(
@@ -41,12 +43,12 @@ List<Quiz> quiz = [
   Quiz("Why we have to change Arduino name?", answer),
   Quiz("Why we have to change Arduino name?", answer),
   Quiz("Why we have to change Arduino name?", answer),
-  Quiz("Why we have to change Arduino name?", answer)
+  Quiz("Why we have to change Arduino name?", answer),
 ];
 
 List<String> answer = [
   'Because we have to change Arduino HC-05 name',
   'Because we have to change Arduino HC-05 name',
   'Because we have to change Arduino HC-05 name',
-  'Because we have to change Arduino HC-05 name'
+  'Because we have to change Arduino HC-05 name',
 ];

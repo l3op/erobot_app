@@ -8,14 +8,18 @@ class DialogBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 20,
+      ),
       child: Text(
         yRN,
         style: TextStyle(
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-            fontSize: 16),
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+          fontSize: 16,
+        ),
       ),
     );
   }

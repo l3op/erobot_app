@@ -8,26 +8,28 @@ class ThreeLayerCard extends StatelessWidget {
   final String path;
   final bool isCenter;
 
-  const ThreeLayerCard(
-      {Key key,
-      @required this.title,
-      @required this.desription,
-      @required this.cardIndex,
-      @required this.onPressed,
-      @required this.path,
-      this.isCenter = false})
-      : super(key: key);
+  const ThreeLayerCard({
+    Key key,
+    @required this.title,
+    @required this.desription,
+    @required this.cardIndex,
+    @required this.onPressed,
+    @required this.path,
+    this.isCenter = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String pathlogo = 'mdi_bluetooth.png';
     double width = 15, height = 20, boxSize = 10;
+
     if (cardIndex == 0) {
       boxSize = 0;
       width = 30;
       height = 35;
       pathlogo = 'arduino_logo.png';
     }
+
     double left, top, right, bottom;
     left = top = right = bottom = 0;
     if (isCenter) {
@@ -60,8 +62,9 @@ class ThreeLayerCard extends StatelessWidget {
     return Container(
       height: 145,
       child: Padding(
-          padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-          child: Stack(children: <Widget>[
+        padding: EdgeInsets.fromLTRB(left, top, right, bottom),
+        child: Stack(
+          children: <Widget>[
             Positioned.fill(
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(14),
@@ -88,38 +91,41 @@ class ThreeLayerCard extends StatelessWidget {
                         Text(
                           title,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Raleway',
-                              fontSize: 20,
-                              height: 1.3,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: .7, ),
+                            color: Colors.white,
+                            fontFamily: 'Raleway',
+                            fontSize: 20,
+                            height: 1.3,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: .7,
+                          ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        SizedBox(height: 5),
                         Text(
                           desription,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Raleway',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: .5),
+                            color: Colors.white,
+                            fontFamily: 'Raleway',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: .5,
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    Image.asset('assets/arduinologo/$pathlogo',
-                        width: width, height: height),
-                    SizedBox(
-                      height: boxSize,
-                    )
+                    Image.asset(
+                      'assets/arduinologo/$pathlogo',
+                      width: width,
+                      height: height,
+                    ),
+                    SizedBox(height: boxSize)
                   ],
                 ),
               ),
             )
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -140,15 +146,14 @@ class TwoLayerCard extends StatelessWidget {
           children: <Widget>[
             Positioned.fill(
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Image.asset(
-                    'assets/home/our_team.png',
-                    fit: BoxFit.cover,
-                  )),
+                borderRadius: BorderRadius.circular(14),
+                child: Image.asset(
+                  'assets/home/our_team.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            Positioned.fill(
-              child: randBackground(3),
-            ),
+            Positioned.fill(child: randBackground(3)),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -208,12 +213,18 @@ Widget randBackground(int index) {
   if (cardIndex == 4) colorRGBO = color5;
 
   return ClipRRect(
-      borderRadius: BorderRadius.circular(14),
-      child: Image.asset(
-        'assets/colors/$indexColor',
-        fit: BoxFit.cover,
-        //DECREASE OPERCITY TO 0.8 WITH COLOR ABOVE
-        color: Color.fromRGBO(colorRGBO[0], colorRGBO[1], colorRGBO[2], 0.8),
-        colorBlendMode: BlendMode.modulate,
-      ));
+    borderRadius: BorderRadius.circular(14),
+    child: Image.asset(
+      'assets/colors/$indexColor',
+      fit: BoxFit.cover,
+      //DECREASE OPERCITY TO 0.8 WITH COLOR ABOVE
+      color: Color.fromRGBO(
+        colorRGBO[0],
+        colorRGBO[1],
+        colorRGBO[2],
+        0.8,
+      ),
+      colorBlendMode: BlendMode.modulate,
+    ),
+  );
 }

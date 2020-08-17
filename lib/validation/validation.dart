@@ -2,6 +2,7 @@ String validateEmail(String value) {
   Pattern pattern =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   RegExp regex = RegExp(pattern);
+
   if (value.isEmpty)
     return 'Please enter your email address';
   else {
@@ -45,9 +46,8 @@ String validatePassword(String value) {
 
 bool isDublicate(String value, List<String> buttons) {
   int k = 0;
-  for (String i in buttons) {
-    if (i == value) k++;
-  }
+  for (String i in buttons) if (i == value) k++;
+
   if (k == 0)
     return false;
   else if (k > 0)

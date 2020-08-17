@@ -15,17 +15,20 @@ class Author extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            color: Color.fromRGBO(22, 31, 40, 1),
-            fontWeight: FontWeight.w400,
-            fontSize: fontSize,
+        style: TextStyle(
+          fontFamily: 'Raleway',
+          color: Color.fromRGBO(22, 31, 40, 1),
+          fontWeight: FontWeight.w400,
+          fontSize: fontSize,
+        ),
+        children: <TextSpan>[
+          TextSpan(text: 'Written by '),
+          TextSpan(
+            text: author,
+            style: TextStyle(color: Palette.blue_pacific),
           ),
-          children: <TextSpan>[
-            TextSpan(text: 'Written by '),
-            TextSpan(
-                text: author, style: TextStyle(color: Palette.blue_pacific)),
-          ]),
+        ],
+      ),
     );
   }
 }

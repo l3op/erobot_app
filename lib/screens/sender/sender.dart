@@ -3,7 +3,6 @@ import 'package:erobot_app/service/save_preference.dart';
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/models.dart';
 
-
 class Sender extends StatefulWidget {
   @override
   _SenderState createState() => _SenderState();
@@ -96,17 +95,13 @@ class _SenderState extends State<Sender> {
 
     if (_values.length > 10) {
       //ONLY STORE 10 VALUE IN LIST
-      //IF VALUE > 10 REMOVE THE LAST VALUE
+      //IF VALUE > 10 REMOVE THE FIRST ADDED VALUE
 
       _values.removeAt(1);
-      //REMOVE AT INDEX[1] BECAUSE WE ADD AT LAST INDEX
-      //WHEN ADD: values[1, 2, 3, .., (add value here[LAST INDEX])]
-      //SO REMOVE AT INDEX[1] CAUSE IT IS FIRST ADDED VALUE
+      //REMOVE AT INDEX[1] CAUSE IT IS FIRST ADDED VALUE IN _values
 
       listRecent.removeAt(10);
-      //REMOVE AT INDEX[10] BECAUSE WE ADD AT INDEX[1]
-      //WHEN ADD: value[(add value here), 2, 3, ....]
-      //SO REMOVE AT 10 WHICH IS FIRST ADDED VALUE
+      //REMOVE AT INDEX[10] CAUSE IS IS FIRST ADDED VALUE IN listRecent
     }
     if (_valueTMP != '') {
       for (int i = 0; i < listRecent.length; i++) {
@@ -141,66 +136,77 @@ class _SenderState extends State<Sender> {
       appBar: AppBar(
         title: Text('Sender', style: TextStyle(fontSize: 18)),
       ),
-      body: Column(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
                     color: Palette.whitesmoke,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.only(bottom: 0),
-                child: TextFormField(
-                  controller: _textController,
-                  decoration: InputDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: EdgeInsets.only(bottom: 0),
+                  child: TextFormField(
+                    controller: _textController,
+                    decoration: InputDecoration(
                       suffixIcon: IconButton(
-                          //BUTTON TO CLEAR TEXT FIELD VALUE
-                          icon: Icon(Icons.clear, size: 20),
-                          onPressed: () {
-                            setState(() {
-                              _textController.clear();
-                            });
-                          }),
+                        //BUTTON TO CLEAR TEXT FIELD VALUE
+                        icon: Icon(Icons.clear, size: 20),
+                        onPressed: () {
+                          setState(() => _textController.clear());
+                        },
+                      ),
                       border: InputBorder.none,
                       labelText: "Type anything here...",
                       labelStyle:
                           TextStyle(color: Color.fromRGBO(0, 0, 0, 0.6)),
-                      contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0)),
-                  keyboardType: TextInputType.text,
-                  onChanged: (_value) {
-                    _valueTMP = _value;
+                      contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 0),
+                    ),
+                    keyboardType: TextInputType.text,
+                    onChanged: (_value) => _valueTMP = _value,
+                  ),
+                ),
+                SizedBox(height: 5),
+
+                //SEND TO BLUETOOTH BUTTON & SAVE DATA TO LIST
+                FlatButton(
+                  child: Text(
+                    'Send',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  color: Palette.blue_pacific,
+                  onPressed: () {
+                    if (_valueTMP != null) {
+                      print(listRecent.length.toString());
+                      addtoRecent();
+                    }
                   },
                 ),
-              ),
-              SizedBox(height: 5),
-
-              //SEND TO BLUETOOTH BUTTON & SAVE DATA TO LIST
-              FlatButton(
-                child: Text('Send',
-                    style: TextStyle(color: Colors.white, fontSize: 15)),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                color: Palette.blue_pacific,
-                onPressed: () {
-                  if (_valueTMP != null) {
-                    print(listRecent.length.toString());
-                    addtoRecent();
-                  }
-                },
-              ),
-              Divider(color: Palette.whitesmoke),
-              Text(listRecent.length > 1 ? 'Recently' : 'No recent data',
-                  style: TextStyle(color: Colors.white, fontSize: 15)),
-            ],
+                Divider(color: Palette.whitesmoke),
+                Text(
+                  listRecent.length > 1 ? 'Recently' : 'No recent data',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 5),
-        Container(
-          height: 37,
-          //BUILDER LIST OF RECENT TEXT VALUE
-          child: ListView.builder(
+          SizedBox(height: 5),
+          Container(
+            height: 37,
+            //BUILDER LIST OF RECENT TEXT VALUE
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: listRecent.length,
               itemBuilder: (context, index) {
@@ -210,33 +216,35 @@ class _SenderState extends State<Sender> {
                         children: [
                           //RECENT TEXT THAT CLICKABLE
                           GestureDetector(
-                            onTap: () {
-                              onRecentClick(recentVal);
-                            },
+                            onTap: () => onRecentClick(recentVal),
                             child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: recentVal.color,
-                                ),
-                                child: Center(
-                                    child: Padding(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: recentVal.color,
+                              ),
+                              child: Center(
+                                child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 17, right: 17),
+                                    left: 17,
+                                    right: 17,
+                                  ),
                                   child: Text(
                                     recentVal.recent,
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                ))),
+                                ),
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          SizedBox(width: 5),
                         ],
                       )
                     : Text('');
-              }),
-        )
-      ]),
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
