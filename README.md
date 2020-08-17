@@ -19,12 +19,16 @@ Functions of the app are:<br>
 
 <br>
 <img src="./assets/screenshots/4screen.png">
-Prototype and design here: <p><a href="https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-Robot-App?node-id=0%3A1" title="Figma">Figma</a></p>
+<p>Prototype and design here: <a href="https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-Robot-App?node-id=0%3A1" title="Figma">Figma</a></p>
 <br>
 <img src="./assets/screenshots/2screen.png"><br>
 Build release to test:<br>
+
+```console
 $flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
-<br><br>
+```
+
+<br>
 Best wishes, <br>
 Erobot
 
