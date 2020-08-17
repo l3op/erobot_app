@@ -6,14 +6,14 @@ class InputStyle extends StatelessWidget {
   final double weight;
   final dynamic keyboardType;
   final int maxLines;
-
+  final bool alignwithhint;
   const InputStyle({
     Key key,
     @required this.labelText,
     @required this.validator,
     this.weight = 1,
     this.keyboardType = TextInputType.text,
-    this.maxLines = 1,
+    this.maxLines = 1, this.alignwithhint = false,
   }) : super(key: key);
 
   @override
@@ -27,6 +27,7 @@ class InputStyle extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 5),
       child: TextFormField(
         decoration: InputDecoration(
+          alignLabelWithHint: alignwithhint,
           border: InputBorder.none,
           labelText: labelText,
           labelStyle: TextStyle(

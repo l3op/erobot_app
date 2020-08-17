@@ -12,8 +12,8 @@ class _FarmAssistantState extends State<FarmAssistant> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Farm Assistant'),
+        title: Text('Farm Assistant', style: TextStyle(fontSize: 18)),
       ),
-    );  
+    );
   }
 }
