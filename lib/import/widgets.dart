@@ -7,3 +7,4 @@ export '../widgets/padIcons.dart';
 export '../widgets/profilecard.dart';
 export 'package:flutter/material.dart';
 export '../widgets/document_template.dart';
+export '../widgets/documentcard.dart';

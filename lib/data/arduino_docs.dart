@@ -21,7 +21,7 @@ List<Steps> steps = [
   ),
   Steps(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet et nulla euismod facilisis lectus orci malesuada viverra sit. Felis rhoncus, est ultrices habitant ut felis ultricies. Scelerisque iaculis est fermentum, dis nisl. Diam sed dapibus lorem eget at aenean semper suspendisse. Nec facilisi enim donec tristique. Pulvinar libero, nulla purus id malesuada rhoncus volutpat amet mi. Varius massa amet ultrices ipsum gravida ac vitae id. Ipsum nisl congue lacus a, enim diam. Velit, faucibus dis sed turpis eu ultricies nibh non.',
-    'step1.png',
+    null,
   ),
   Steps(
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet et nulla euismod facilisis lectus orci malesuada viverra sit. Felis rhoncus, est ultrices habitant ut felis ultricies. Scelerisque iaculis est fermentum, dis nisl. Diam sed dapibus lorem eget at aenean semper suspendisse. Nec facilisi enim donec tristique. Pulvinar libero, nulla purus id malesuada rhoncus volutpat amet mi. Varius massa amet ultrices ipsum gravida ac vitae id. Ipsum nisl congue lacus a, enim diam. Velit, faucibus dis sed turpis eu ultricies nibh non.',
@@ -30,12 +30,12 @@ List<Steps> steps = [
 ];
 List<ThingsUsed> software = [ThingsUsed('Arduino IDE', 'com1.png', 'link')];
 List<ThingsUsed> components = [
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com1.png', 'link'),
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com2.png', 'link'),
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com3.png', 'link'),
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com4.png', 'link'),
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com3.png', 'link'),
-  ThingsUsed('Arduino HC-05 Bluetooth module', 'com4.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com1.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com2.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com3.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com4.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com3.png', 'link'),
+  ThingsUsed('Arduino HC-05', 'com4.png', 'link'),
 ];
 List<Quiz> quiz = [
   Quiz("Why we have to change Arduino name?", answer),
