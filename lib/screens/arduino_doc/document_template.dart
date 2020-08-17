@@ -1,7 +1,6 @@
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/screens.dart';
 import 'package:erobot_app/import/widgets.dart';
-import 'package:erobot_app/screens/arduino_doc/videoplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:erobot_app/import/data.dart';
 import 'package:erobot_app/import/models.dart';

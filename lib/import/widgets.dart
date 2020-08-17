@@ -8,3 +8,4 @@ export '../widgets/profilecard.dart';
 export 'package:flutter/material.dart';
 export '../widgets/document_template.dart';
 export '../widgets/documentcard.dart';
+export '../widgets/videoplayer.dart';
