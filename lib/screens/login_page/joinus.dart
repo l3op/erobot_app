@@ -1,17 +1,20 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:erobot_app/validation/validation.dart';
 import 'package:erobot_app/import/importall.dart';
+import 'package:keyboard_avoider/keyboard_avoider.dart';
 
 class JoinUs extends StatefulWidget {
   @override
   _JoinUsState createState() => _JoinUsState();
 }
 
-class _JoinUsState extends State<JoinUs> {
+class _JoinUsState extends State<JoinUs> with WidgetsBindingObserver {
   final _formKey = GlobalKey<FormState>();
   var _filepath = '0';
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -20,6 +23,11 @@ class _JoinUsState extends State<JoinUs> {
       DeviceOrientation.portraitDown,
     ]);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -32,10 +40,10 @@ class _JoinUsState extends State<JoinUs> {
           style: TextStyle(fontSize: 18),
         ),
       ),
-      body: ScrollConfiguration(
-        behavior: ScrollBehavior()
-          ..buildViewportChrome(context, null, AxisDirection.down),
-        child: Column(
+      body: KeyboardAvoider(
+        autoScroll: true,
+        child: ListView(
+          controller: _scrollController,
           children: <Widget>[
             Material(
               textStyle: TextStyle(
