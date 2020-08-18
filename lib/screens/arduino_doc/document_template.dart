@@ -22,7 +22,7 @@ class _DocumentTemplateState extends State<DocumentTemplate> {
   _DocumentTemplateState(this.index);
   @override
   Widget build(BuildContext context) {
-    Document docs = doc[index];
+    Document docs = doc[0];
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
