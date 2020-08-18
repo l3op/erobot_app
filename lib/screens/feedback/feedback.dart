@@ -11,7 +11,8 @@ class FeedbackApp extends StatefulWidget {
 }
 
 class _FeedbackAppState extends State<FeedbackApp> {
-  String _filepath = '0';
+  String _filepath = '0', _filepathTMP = '0';
+  String value;
   final _formkey2 = GlobalKey<FormState>();
 
   @override
@@ -34,6 +35,7 @@ class _FeedbackAppState extends State<FeedbackApp> {
                 alignwithhint: true,
                 labelText: 'Write down your feedback here...',
                 validator: (val) {
+                  if (!val.isEmpty) value = val;
                   return val.isEmpty ? 'Please write your feedback!' : null;
                 },
                 keyboardType: TextInputType.multiline,
@@ -53,20 +55,22 @@ class _FeedbackAppState extends State<FeedbackApp> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        _filepath == '0' ? 'Attachment(Optional)' : _filepath,
+                        _filepathTMP == '0'
+                            ? 'Attachment(Optional)'
+                            : _filepathTMP,
                       ),
                       IconButton(
                         icon: Icon(Icons.attach_file),
                         iconSize: 20,
                         onPressed: () async {
-                          var filepath = await FilePicker.getFilePath(
+                          _filepath = await FilePicker.getFilePath(
                             type: FileType.any,
                           );
-                          _filepath = File(filepath).path.split('/').last;
-                          if (filepath != null) {
+                          _filepathTMP = File(_filepath).path.split('/').last;
+                          if (_filepath != null) {
                             setState(
                               () {
-                                _filepath = _filepath.toString();
+                                _filepathTMP = _filepathTMP.toString();
                               },
                             );
                           }
@@ -100,8 +104,8 @@ class _FeedbackAppState extends State<FeedbackApp> {
                     ),
                     onPressed: () {
                       if (_formkey2.currentState.validate()) {
-                        print(_formkey2.currentState.toString());
-                        print('');
+                        print(_filepath);
+                        print(value);
                       }
                     },
                   ),
