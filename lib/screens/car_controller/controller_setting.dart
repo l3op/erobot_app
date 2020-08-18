@@ -101,7 +101,7 @@ class _BallShooterSettingState extends State<BallShooterSetting> {
                   borderRadius: BorderRadius.circular(18.0),
                 ),
                 child: Text(
-                  'Reset to defauLt',
+                  'Reset to default',
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
