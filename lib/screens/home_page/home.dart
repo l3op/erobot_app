@@ -20,7 +20,21 @@ class HomeScreen extends StatelessWidget {
             desription: 'Make your farming smarter',
             cardIndex: 0,
             path: 'assets/home/arduino_doc.png',
-            onPressed: () => Navigator.pushNamed(context, '/farm_assistant'),
+            onPressed: () {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Palette.red_milano,
+                  content: Text('Farm Assistant is in Development.'),
+                  action: SnackBarAction(
+                    textColor: Colors.white,
+                    label: "OK",
+                    onPressed: () {
+                      Scaffold.of(context).hideCurrentSnackBar();
+                    },
+                  ),
+                ),
+              );
+            },
           ),
           ThreeLayerCard(
             title: 'Sender',
