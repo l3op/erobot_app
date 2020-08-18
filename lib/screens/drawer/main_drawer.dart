@@ -1,5 +1,6 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/service/bluetooh_service.dart';
+
+import 'bluetooth.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -90,6 +91,12 @@ class _MainDrawerState extends State<MainDrawer> {
                         ],
                       ),
                     ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (c) => FlutterBlueApp(),
+                      ),
+                    ),
                   ),
                   ListTile(
                     leading: Icon(
@@ -106,26 +113,6 @@ class _MainDrawerState extends State<MainDrawer> {
                       ),
                     ),
                     onTap: () => Navigator.pushNamed(context, '/feedback'),
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.bluetooth,
-                      color: Colors.white,
-                    ),
-                    title: Text(
-                      'Bluetooth List',
-                      style: TextStyle(
-                        fontFamily: 'Raleway',
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => BluetoothList()));
-                      //exit(0);
-                    },
                   ),
                   ListTile(
                     leading: Icon(
