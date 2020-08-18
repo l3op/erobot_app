@@ -1,3 +1,4 @@
+import 'package:erobot_app/service/bluetooh_service.dart';
 import 'package:erobot_app/service/save_preference.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -96,7 +97,6 @@ class _ControllerState extends State<Controller> {
           title: Text(
             tille,
             style: TextStyle(
-              fontFamily: 'Raleway',
               fontWeight: FontWeight.w500,
               fontSize: 18,
             ),
@@ -108,7 +108,17 @@ class _ControllerState extends State<Controller> {
             fit: BoxFit.fill,
           ),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.bluetooth_disabled), onPressed: () {})
+            IconButton(
+              icon: Icon(Icons.bluetooth_disabled),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BluetoothList(),
+                  ),
+                );
+              },
+            )
           ],
           elevation: 0.0,
         ),

@@ -66,5 +66,16 @@
   		<key>NSAllowsArbitraryLoads</key>
   		<true/>
 	</dict>
-</dict>
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need BLE permission</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Need BLE permission</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Need Location permission</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Need Location permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need Location permission</string>
+	</dict>
 </plist>
