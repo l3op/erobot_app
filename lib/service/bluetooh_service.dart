@@ -1,5 +1,6 @@
 import 'package:erobot_app/import/importall.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:toast/toast.dart';
 
 class BluetoothList extends StatefulWidget {
   BluetoothList({Key key}) : super(key: key);
@@ -12,7 +13,7 @@ class _BluetoothListState extends State<BluetoothList> {
   final List<BluetoothDevice> devicesList = List<BluetoothDevice>();
   final Map<Guid, List<int>> readValues = new Map<Guid, List<int>>();
   BluetoothDevice _connectedDevice;
-  List<BluetoothService> _services;
+  //List<BluetoothService> _services;
 
   @override
   void initState() {
@@ -21,15 +22,21 @@ class _BluetoothListState extends State<BluetoothList> {
   }
 
   _scanDevices() {
-    flutterBlue.startScan();
+    flutterBlue.startScan(timeout: Duration(seconds: 4));
+
+    //ADD CONNECTED DEVICES TO LIST
     flutterBlue.connectedDevices.asStream().listen(
       (List<BluetoothDevice> devices) {
         for (BluetoothDevice device in devices) _addDeviceTolist(device);
       },
     );
-    flutterBlue.scanResults.listen((List<ScanResult> results) {
-      for (ScanResult result in results) _addDeviceTolist(result.device);
-    });
+
+    //ADD SCANNED RESULTS TO LIST
+    flutterBlue.scanResults.listen(
+      (List<ScanResult> results) {
+        for (ScanResult result in results) _addDeviceTolist(result.device);
+      },
+    );
   }
 
   _addDeviceTolist(final BluetoothDevice device) {
@@ -52,65 +59,7 @@ class _BluetoothListState extends State<BluetoothList> {
           ),
         ),
       ),
-      body: _buildView(),
-    );
-  }
-
-  ListView _buildView() {
-    if (_connectedDevice != null) {
-      return _buildConnectDeviceView();
-    }
-    return _buildListViewOfDevices();
-  }
-
-  ListView _buildConnectDeviceView() {
-    List<Container> containers = List<Container>();
-
-    for (BluetoothService service in _services) {
-      List<Widget> characteristicsWidget = List<Widget>();
-
-      for (BluetoothCharacteristic characteristic in service.characteristics) {
-        characteristicsWidget.add(
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      characteristic.uuid.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      'Value: ' + readValues[characteristic.uuid].toString(),
-                    ),
-                  ],
-                ),
-                Divider(),
-              ],
-            ),
-          ),
-        );
-      }
-      containers.add(
-        Container(
-          child: ExpansionTile(
-            title: Text(service.uuid.toString()),
-            children: characteristicsWidget,
-          ),
-        ),
-      );
-    }
-
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: <Widget>[
-        ...containers,
-      ],
+      body: _buildListViewOfDevices(),
     );
   }
 
@@ -122,23 +71,28 @@ class _BluetoothListState extends State<BluetoothList> {
           Container(
             height: 50,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        device.name == '' ? '(Unknown device)' : device.name,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        device.id.toString(),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          device.name == '' ? '(Unknown device)' : device.name,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          device.id.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 FlatButton(
-                  color: Colors.blue,
+                  color: Palette.blue_pacific,
                   child: Text(
                     'Connect',
                     style: TextStyle(color: Colors.white),
@@ -156,7 +110,13 @@ class _BluetoothListState extends State<BluetoothList> {
                       }
                     } finally {
                       print('Finally!');
-                      _services = await device.discoverServices();
+                      Toast.show(
+                        "Connected to ${device.name != null ? device.name : device.id}",
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.TOP,
+                      );
+                      //_services = await device.discoverServices();
                     }
                     setState(() {
                       _connectedDevice = device;

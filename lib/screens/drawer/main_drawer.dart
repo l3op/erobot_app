@@ -113,7 +113,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       color: Colors.white,
                     ),
                     title: Text(
-                      'Exit',
+                      'Bluetooth List',
                       style: TextStyle(
                         fontFamily: 'Raleway',
                         color: Colors.white,
