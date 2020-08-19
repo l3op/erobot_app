@@ -26,7 +26,7 @@ class _ControllerState extends State<Controller> {
   Button button;
 
   //BLUETOOTH FUNCTIONALITY
-  BluetoothDevice server;
+  BluetoothDevice selectedDevice;
   BluetoothConnection connection;
   bool isConnecting = true;
   bool get isConnected => connection != null && connection.isConnected;
@@ -43,7 +43,7 @@ class _ControllerState extends State<Controller> {
     );
     super.initState();
     _loadSavedData();
-    if (server != null) _connectBT();
+    if (selectedDevice != null) _connectBT();
   }
 
   //LOAD CACHE DATA
@@ -61,7 +61,7 @@ class _ControllerState extends State<Controller> {
   }
 
   _connectBT() {
-    BluetoothConnection.toAddress(server.address).then((_connection) {
+    BluetoothConnection.toAddress(selectedDevice.address).then((_connection) {
       print('Connected to the device');
       connection = _connection;
       setState(() {
@@ -379,6 +379,7 @@ class _ControllerState extends State<Controller> {
       });
   }
 
+  //BLUETOOTH FUNCTIONALITY
   void sendtoBT(String value) async {
     if (!isConnected) {
       print("value $value can't be sent");
@@ -391,14 +392,16 @@ class _ControllerState extends State<Controller> {
   }
 
   Future<void> getServer() async {
-    server = await Navigator.push(
+    selectedDevice = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BluetoothList(),
       ),
     );
     print(
-      "Selected Server:" + server.name.toString() + server.address.toString(),
+      "Selected Server:" +
+          selectedDevice.name.toString() +
+          selectedDevice.address.toString(),
     );
   }
 

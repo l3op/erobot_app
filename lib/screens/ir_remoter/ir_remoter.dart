@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/data/ir_model.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/models.dart';
 import 'package:erobot_app/import/screens.dart';
+import 'package:erobot_app/service/bluetooh_service.dart';
 import 'package:erobot_app/service/save_preference.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class IrRemoter extends StatefulWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   _IrRemoterState createState() => _IrRemoterState();
 }
@@ -15,6 +21,14 @@ class _IrRemoterState extends State<IrRemoter> {
   bool isPlay = false;
   List<String> defaultVal = [''];
   List<IRremoteSetting> setting = [];
+
+  //BLUETOOTH FUNCTIONALITY
+  BluetoothDevice selectedDevice;
+  BluetoothConnection connection;
+  bool isConnecting = true;
+  bool get isConnected => connection != null && connection.isConnected;
+
+  bool isDisconnecting = false;
 
   @override
   void initState() {
@@ -55,6 +69,7 @@ class _IrRemoterState extends State<IrRemoter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: widget._scaffoldKey,
       appBar: AppBar(
         title: Text('IR Remoter', style: TextStyle(fontSize: 18)),
         actions: [
@@ -66,9 +81,8 @@ class _IrRemoterState extends State<IrRemoter> {
             onPressed: () => setState(() => isShow = !isShow),
           ),
           IconButton(
-            icon: Icon(Icons.bluetooth_disabled, color: Colors.white),
-            onPressed: () {},
-          ),
+              icon: Icon(Icons.bluetooth_disabled, color: Colors.white),
+              onPressed: () => getServer()),
           SizedBox(width: 10),
         ],
       ),
@@ -89,12 +103,10 @@ class _IrRemoterState extends State<IrRemoter> {
             ),
           );
           if (setting1 != null) {
-            setState(
-              () {
-                isShow = false;
-                setting.replaceRange(0, 21, setting1);
-              },
-            );
+            setState(() {
+              isShow = false;
+              setting.replaceRange(0, 21, setting1);
+            });
           }
         },
       ),
@@ -115,6 +127,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 0,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[0].value),
+                    onPressed2: () => sendtoBT(setting[1].value),
+                    onPressed: () => sendtoBT(setting[2].value),
                     value: <String>[
                       setting[0].value, // CHANNEL -
                       setting[1].value, // CHANNEL
@@ -127,9 +142,11 @@ class _IrRemoterState extends State<IrRemoter> {
               buildTextLine("Prev", "Next", !isPlay ? "Play" : "Pause"),
               ThreeCircleButtons(
                     index: 3,
+                    onPressed1: () => sendtoBT(setting[3].value),
+                    onPressed2: () => sendtoBT(setting[4].value),
                     onPressed: () {
                       setState(() => isPlay = !isPlay);
-                      print(setting[5].value);
+                      sendtoBT(setting[5].value);
                     },
                     isShow: isShow,
                     value: <String>[
@@ -145,6 +162,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 6,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[6].value),
+                    onPressed2: () => sendtoBT(setting[7].value),
+                    onPressed: () => sendtoBT(setting[8].value),
                     value: <String>[
                       setting[6].value, //
                       setting[7].value, //
@@ -158,6 +178,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 9,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[9].value),
+                    onPressed2: () => sendtoBT(setting[10].value),
+                    onPressed: () => sendtoBT(setting[11].value),
                     value: <String>[
                       setting[9].value, //
                       setting[10].value, //
@@ -171,6 +194,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 12,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[12].value),
+                    onPressed2: () => sendtoBT(setting[13].value),
+                    onPressed: () => sendtoBT(setting[14].value),
                     value: <String>[
                       setting[12].value, //
                       setting[13].value, //
@@ -184,6 +210,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 15,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[15].value),
+                    onPressed2: () => sendtoBT(setting[16].value),
+                    onPressed: () => sendtoBT(setting[17].value),
                     value: <String>[
                       setting[15].value, //
                       setting[16].value, //
@@ -197,6 +226,9 @@ class _IrRemoterState extends State<IrRemoter> {
               ThreeCircleButtons(
                     index: 18,
                     isShow: isShow,
+                    onPressed1: () => sendtoBT(setting[18].value),
+                    onPressed2: () => sendtoBT(setting[19].value),
+                    onPressed: () => sendtoBT(setting[20].value),
                     value: <String>[
                       setting[18].value, //
                       setting[19].value, //
@@ -226,6 +258,52 @@ class _IrRemoterState extends State<IrRemoter> {
           Container(width: 55, child: Center(child: Text(val2))),
           Container(width: 55, child: Center(child: Text(val3))),
         ],
+      ),
+    );
+  }
+
+  //BLUETOOTH FUNCTIONALITY
+  void sendtoBT(String value) async {
+    if (!isConnected) {
+      print("value $value can't be sent");
+      show('Please connect to a device!');
+    } else {
+      connection.output.add(utf8.encode(value + "\r\n"));
+      await connection.output.allSent;
+      print("value $value is sent");
+    }
+  }
+
+  Future<void> getServer() async {
+    selectedDevice = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BluetoothList(),
+      ),
+    );
+    print(
+      "Selected Server:" +
+          selectedDevice.name.toString() +
+          selectedDevice.address.toString(),
+    );
+  }
+
+  Future show(String message,
+      {Duration duration: const Duration(seconds: 3)}) async {
+    await Future.delayed(Duration(milliseconds: 100));
+    widget._scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        backgroundColor: Palette.red_milano,
+        content: Text(
+          message,
+          style: TextStyle(fontFamily: 'Raleway'),
+        ),
+        duration: duration,
+        action: SnackBarAction(
+            textColor: Colors.white,
+            label: "OK",
+            onPressed: () =>
+                widget._scaffoldKey.currentState.hideCurrentSnackBar()),
       ),
     );
   }
