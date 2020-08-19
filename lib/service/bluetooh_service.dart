@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'package:erobot_app/import/importall.dart';
 import 'package:flutter/services.dart';
-//import 'package:toast/toast.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothList extends StatefulWidget {
-  BluetoothList({Key key}) : super(key: key);
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   _BluetoothListState createState() => _BluetoothListState();
 }
@@ -17,14 +16,13 @@ class _BluetoothListState extends State<BluetoothList> {
   // Track the Bluetooth connection with the remote device
   BluetoothConnection connection;
 
-  int _deviceState;
   bool isDisconnecting = false;
+  BluetoothDevice selectedDevice;
 
   // To track whether the device is still connected to Bluetooth
   bool get isConnected => connection != null && connection.isConnected;
 
   List<BluetoothDevice> _devicesList = [];
-  BluetoothDevice _device;
   bool _connected = false;
 
   @override
@@ -34,8 +32,6 @@ class _BluetoothListState extends State<BluetoothList> {
     FlutterBluetoothSerial.instance.state.then((state) {
       setState(() => _bluetoothState = state);
     });
-
-    _deviceState = 0;
 
     enableBluetooth();
 
@@ -51,11 +47,21 @@ class _BluetoothListState extends State<BluetoothList> {
     );
   }
 
+  void sendToBluetooth(String data) async {
+    connection.output.add(utf8.encode(data + "\r\n"));
+    await connection.output.allSent;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget._scaffoldKey,
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context, selectedDevice);
+            }),
         title: Text(
           'Bluetooth List',
           style: TextStyle(fontSize: 18),
@@ -116,7 +122,7 @@ class _BluetoothListState extends State<BluetoothList> {
           ),
           Column(
             children: <Widget>[
-              for (BluetoothDevice devices in _devicesList)
+              for (BluetoothDevice _devices in _devicesList)
                 Container(
                   margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -127,14 +133,22 @@ class _BluetoothListState extends State<BluetoothList> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(devices.name),
+                      Text(_devices.name),
                       FlatButton(
-                        color: Palette.blueSplash,
+                        color: _connected
+                            ? Palette.red_milano
+                            : Palette.blueSplash,
                         child: Text(
                           _connected ? 'Disconnect' : 'Connect',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: _connected ? _disconnect : _connect,
+                        onPressed: () async {
+                          print("Device: " + _devices.address);
+                          print("Device: " + _devices.name);
+                          _connected
+                              ? _disconnect()
+                              : selectedDevice = await _connect(_devices);
+                        },
                       ),
                     ],
                   ),
@@ -172,62 +186,55 @@ class _BluetoothListState extends State<BluetoothList> {
   }
 
   Future<void> getPairedDevices() async {
-    List<BluetoothDevice> devices = [];
+    List<BluetoothDevice> _devices = [];
 
     // To get the list of paired devices
     try {
-      devices = await _bluetooth.getBondedDevices();
+      _devices = await _bluetooth.getBondedDevices();
     } on PlatformException {
       print("Error");
     }
 
     // It is an error to call [setState] unless [mounted] is true.
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _devicesList = devices;
-    });
+    if (!mounted) return setState(() => _devicesList = _devices);
   }
 
-  void _connect() async {
-    if (_device == null) {
+  Future<BluetoothDevice> _connect(BluetoothDevice _devices) async {
+    if (_devices == null) {
       show('No device selected');
     } else {
       if (!isConnected) {
-        await BluetoothConnection.toAddress(_device.address)
-            .then((_connection) {
-          print('Connected to the device');
-          connection = _connection;
-          setState(() {
-            _connected = true;
-          });
+        await BluetoothConnection.toAddress(_devices.address).then(
+          (_connection) {
+            print('Connected to the device');
+            connection = _connection;
+            setState(
+              () => _connected = true,
+            );
+            show('Device connected');
 
-          connection.input.listen(null).onDone(() {
-            if (isDisconnecting) {
-              print('Disconnecting locally!');
-            } else {
-              print('Disconnected remotely!');
-            }
-            if (this.mounted) {
-              setState(() {});
-            }
-          });
-        }).catchError((error) {
-          print('Cannot connect, exception occurred');
-          print(error);
-        });
-        show('Device connected');
+            connection.input.listen(null).onDone(() {
+              if (isDisconnecting)
+                print('Disconnecting locally!');
+              else
+                print('Disconnected remotely!');
+              if (this.mounted) setState(() {});
+            });
+            return _devices;
+          },
+        ).catchError(
+          (error) {
+            print('Cannot connect, exception occurred');
+            show('Cannot connect to device');
+            print(error);
+          },
+        );
       }
     }
+    return null;
   }
 
   void _disconnect() async {
-    setState(() {
-      _deviceState = 0;
-    });
-
     await connection.close();
     show('Device disconnected');
     if (!connection.isConnected) {
@@ -237,10 +244,8 @@ class _BluetoothListState extends State<BluetoothList> {
     }
   }
 
-  Future show(
-    String message, {
-    Duration duration: const Duration(seconds: 3),
-  }) async {
+  Future show(String message,
+      {Duration duration: const Duration(seconds: 3)}) async {
     await new Future.delayed(new Duration(milliseconds: 100));
     widget._scaffoldKey.currentState.showSnackBar(
       new SnackBar(

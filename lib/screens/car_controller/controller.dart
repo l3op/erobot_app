@@ -1,17 +1,17 @@
+import 'dart:convert';
+
 import 'package:erobot_app/service/bluetooh_service.dart';
 import 'package:erobot_app/service/save_preference.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:toast/toast.dart';
-
-import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/import/widgets.dart';
-import 'package:erobot_app/import/models.dart';
-import 'package:erobot_app/import/screens.dart';
+import 'package:erobot_app/import/importall.dart';
 
 class Controller extends StatefulWidget {
   final int _cardIndex;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Controller(this._cardIndex);
   @override
   _ControllerState createState() => _ControllerState(_cardIndex);
@@ -23,7 +23,15 @@ class _ControllerState extends State<Controller> {
 
   String btnRight, btnLeft, btnBottom, btnTop, btnShoot, btnSpeed;
   double speed, speedTMP, servo;
-  Button button; //BUTTON CLASS
+  Button button;
+
+  //BLUETOOTH FUNCTIONALITY
+  BluetoothDevice server;
+  BluetoothConnection connection;
+  bool isConnecting = true;
+  bool get isConnected => connection != null && connection.isConnected;
+
+  bool isDisconnecting = false;
 
   @override
   void initState() {
@@ -35,6 +43,7 @@ class _ControllerState extends State<Controller> {
     );
     super.initState();
     _loadSavedData();
+    if (server != null) _connectBT();
   }
 
   //LOAD CACHE DATA
@@ -51,18 +60,27 @@ class _ControllerState extends State<Controller> {
     );
   }
 
+  _connectBT() {
+    BluetoothConnection.toAddress(server.address).then((_connection) {
+      print('Connected to the device');
+      connection = _connection;
+      setState(() {
+        isConnecting = false;
+        isDisconnecting = false;
+      });
+    });
+  }
+
   @override
   dispose() {
+    if (isConnected) {
+      isDisconnecting = true;
+      connection.dispose();
+      connection = null;
+    }
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     super.dispose();
-  }
-
-  void updateSpeed() {
-    setState(() {
-      speed++;
-      speedTMP = speed.roundToDouble();
-    });
   }
 
   @override
@@ -71,7 +89,7 @@ class _ControllerState extends State<Controller> {
     double heightBtn = 55;
     String tille = _cardIndex == 1 ? 'Ball Shooter' : 'Arduino Card';
 
-    ClipOval buildPadButton(int btnIndex, int screenNum, toBluetooth) =>
+    ClipOval buildPadButton(int btnIndex, int screenNum, String value) =>
         ClipOval(
           child: Material(
             color: Palette.whitesmoke,
@@ -82,15 +100,14 @@ class _ControllerState extends State<Controller> {
                 height: 55,
                 child: ReturnIcon(btnIndex, 55, screenNum),
               ),
-              onTap: () {
-                print(toBluetooth);
-              },
+              onTap: () => sendtoBT(value),
             ),
           ),
         );
 
     return SafeArea(
       child: Scaffold(
+        key: widget._scaffoldKey,
         //APP BAR
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(22, 31, 40, 1),
@@ -110,14 +127,7 @@ class _ControllerState extends State<Controller> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.bluetooth_disabled),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BluetoothList(),
-                  ),
-                );
-              },
+              onPressed: () => getServer(),
             )
           ],
           elevation: 0.0,
@@ -145,19 +155,17 @@ class _ControllerState extends State<Controller> {
                 ),
               ),
             );
-            setState(
-              () {
-                if (button != null) {
-                  btnRight = button.right;
-                  btnLeft = button.left;
-                  btnBottom = button.bottom;
-                  btnTop = button.top;
-                  _cardIndex == 1
-                      ? btnShoot = button.power
-                      : btnSpeed = button.power;
-                }
-              },
-            );
+            setState(() {
+              if (button != null) {
+                btnRight = button.right;
+                btnLeft = button.left;
+                btnBottom = button.bottom;
+                btnTop = button.top;
+                _cardIndex == 1
+                    ? btnShoot = button.power
+                    : btnSpeed = button.power;
+              }
+            });
           },
         ),
         // BUTTON CONTAINER
@@ -228,13 +236,11 @@ class _ControllerState extends State<Controller> {
                             counterClockwise: true,
                           ),
                           onChange: (speedTMP) {
-                            setState(() {
-                              speed = speedTMP.roundToDouble();
-                            });
+                            setState(() => speed = speedTMP.roundToDouble());
                           },
-                          onChangeEnd: (speedTMP) {
-                            print(speed);
-                          },
+                          onChangeEnd: (speedTMP) => sendtoBT(
+                            speed.toString(),
+                          ),
                         ),
                       ),
                       //SHOOT BUTTON
@@ -265,6 +271,7 @@ class _ControllerState extends State<Controller> {
                               ),
                               onTap: () {
                                 if (_cardIndex == 1) {
+                                  sendtoBT(btnShoot);
                                 } else if (_cardIndex == 2) {
                                   if (speed >= 9) {
                                     Toast.show(
@@ -277,13 +284,11 @@ class _ControllerState extends State<Controller> {
                                       speedTMP < 9 ||
                                       speedTMP >= 0 ||
                                       speed >= 0) {
-                                    setState(
-                                      () {
-                                        updateSpeed();
-                                        speedTMP = speed.roundToDouble();
-                                      },
-                                    );
-                                    print(speed);
+                                    setState(() {
+                                      updateSpeed();
+                                      speedTMP = speed.roundToDouble();
+                                    });
+                                    sendtoBT(speed.toString());
                                   }
                                 }
                               },
@@ -339,7 +344,7 @@ class _ControllerState extends State<Controller> {
                                   });
                                 },
                                 onChangeEnd: (servoTMP) {
-                                  print(servo);
+                                  sendtoBT(servo.toString());
                                 },
                               ),
                             ),
@@ -357,6 +362,62 @@ class _ControllerState extends State<Controller> {
               ],
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  void updateSpeed() {
+    if (isConnected)
+      setState(() {
+        speed++;
+        speedTMP = speed.roundToDouble();
+      });
+    else
+      setState(() {
+        speed = speed;
+      });
+  }
+
+  void sendtoBT(String value) async {
+    if (!isConnected) {
+      print("value $value can't be sent");
+      show('Please connect to a device!');
+    } else {
+      connection.output.add(utf8.encode(value + "\r\n"));
+      await connection.output.allSent;
+      print("value $value is sent");
+    }
+  }
+
+  Future<void> getServer() async {
+    server = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BluetoothList(),
+      ),
+    );
+    print(
+      "Selected Server:" + server.name.toString() + server.address.toString(),
+    );
+  }
+
+  Future show(String message,
+      {Duration duration: const Duration(seconds: 3)}) async {
+    await Future.delayed(Duration(milliseconds: 100));
+    widget._scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        backgroundColor:
+            _cardIndex == 1 ? Palette.red_milano : Palette.blue_pacific,
+        content: Text(
+          message,
+          style: TextStyle(fontFamily: 'Raleway'),
+        ),
+        duration: duration,
+        action: SnackBarAction(
+          textColor: Colors.white,
+          label: "Open Bluetooth Setting",
+          onPressed: () => getServer(),
         ),
       ),
     );
