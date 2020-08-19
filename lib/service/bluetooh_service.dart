@@ -16,13 +16,15 @@ class _BluetoothListState extends State<BluetoothList> {
   BluetoothConnection connection;
 
   bool isDisconnecting = false;
-  BluetoothDevice selectedDevice;
 
   // To track whether the device is still connected to Bluetooth
   bool get isConnected => connection != null && connection.isConnected;
 
   List<BluetoothDevice> _devicesList = [];
+  BluetoothDevice _selectedDevice;
   bool _connected = false;
+
+  bool _isConnecting = false;
 
   @override
   void initState() {
@@ -51,15 +53,23 @@ class _BluetoothListState extends State<BluetoothList> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context, selectedDevice);
+              Navigator.pop(context, _selectedDevice);
             }),
         title: Text(
           'Bluetooth List',
           style: TextStyle(fontSize: 18),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
+          Visibility(
+            visible:
+                _isConnecting && _bluetoothState == BluetoothState.STATE_ON,
+            child: LinearProgressIndicator(
+              backgroundColor: Palette.background,
+              valueColor: AlwaysStoppedAnimation<Color>(Palette.blue_pacific),
+            ),
+          ),
           Container(
             margin: const EdgeInsets.fromLTRB(15, 15, 15, 5),
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -99,31 +109,37 @@ class _BluetoothListState extends State<BluetoothList> {
             ),
           ),
           Container(
-            height: 30,
+            height: 35,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  !_bluetoothState.isEnabled
-                      ? 'Please turn on Bluetooth'
-                      : _devicesList.isNotEmpty
-                          ? 'Devices found'
-                          : 'Device not found!',
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.left,
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    !_bluetoothState.isEnabled
+                        ? 'Please turn on Bluetooth'
+                        : _devicesList.isNotEmpty
+                            ? 'Devices found'
+                            : 'Device not found!',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
                 _bluetoothState.isEnabled
-                    ? FlatButton(
-                        color: Palette.blue_pacific,
-                        textColor: Colors.white,
-                        onPressed: () async {
-                          await getPairedDevices().then((_) {
-                            show('Device list refreshed');
-                          });
-                        },
-                        child: Text('Refresh'),
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: FlatButton(
+                          color: Palette.blue_pacific,
+                          textColor: Colors.white,
+                          onPressed: () async {
+                            await getPairedDevices().then((_) {
+                              show('Device list refreshed', true);
+                            });
+                          },
+                          child: Text('Refresh'),
+                        ),
                       )
                     : Container(),
               ],
@@ -156,7 +172,7 @@ class _BluetoothListState extends State<BluetoothList> {
                           print("Device: " + _devices.name);
                           _connected
                               ? _disconnect()
-                              : selectedDevice = await _connect(_devices);
+                              : _selectedDevice = await _connect(_devices);
                         },
                       ),
                     ],
@@ -202,14 +218,16 @@ class _BluetoothListState extends State<BluetoothList> {
     } on PlatformException {
       print("Error");
     }
-
     // It is an error to call [setState] unless [mounted] is true.
-    if (!mounted) return setState(() => _devicesList = _devices);
+    if (!mounted) return;
+
+    setState(() => _devicesList = _devices);
   }
 
   Future<BluetoothDevice> _connect(BluetoothDevice _devices) async {
+    setState(() => _isConnecting = true);
     if (_devices == null) {
-      show('No device selected');
+      show('No device selected', false);
     } else {
       if (!isConnected) {
         await BluetoothConnection.toAddress(_devices.address).then(
@@ -219,7 +237,7 @@ class _BluetoothListState extends State<BluetoothList> {
             setState(
               () => _connected = true,
             );
-            show('Device connected');
+            show('Device connected', true);
 
             connection.input.listen(null).onDone(() {
               if (isDisconnecting)
@@ -233,18 +251,19 @@ class _BluetoothListState extends State<BluetoothList> {
         ).catchError(
           (error) {
             print('Cannot connect, exception occurred');
-            show('Cannot connect to device');
+            show('Cannot connect to device', false);
             print(error);
           },
         );
       }
     }
+    setState(() => _isConnecting = false);
     return null;
   }
 
   void _disconnect() async {
     await connection.close();
-    show('Device disconnected');
+    show('Device disconnected', true);
     if (!connection.isConnected) {
       setState(() {
         _connected = false;
@@ -252,15 +271,22 @@ class _BluetoothListState extends State<BluetoothList> {
     }
   }
 
-  Future show(String message,
+  Future show(String message, bool isSuccess,
       {Duration duration: const Duration(seconds: 3)}) async {
     await Future.delayed(Duration(milliseconds: 100));
     widget._scaffoldKey.currentState.showSnackBar(
       SnackBar(
+        backgroundColor: isSuccess ? Palette.blue_pacific : Palette.red_milano,
         content: Text(
           message,
+          style: TextStyle(fontFamily: 'Raleway'),
         ),
         duration: duration,
+        action: SnackBarAction(
+            textColor: Colors.white,
+            label: "OK",
+            onPressed: () =>
+                widget._scaffoldKey.currentState.hideCurrentSnackBar()),
       ),
     );
   }
