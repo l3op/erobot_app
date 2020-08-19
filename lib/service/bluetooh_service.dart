@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:erobot_app/import/importall.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -34,22 +33,14 @@ class _BluetoothListState extends State<BluetoothList> {
     });
 
     enableBluetooth();
-
     FlutterBluetoothSerial.instance.onStateChanged().listen(
       (BluetoothState state) {
-        setState(
-          () {
-            _bluetoothState = state;
-            getPairedDevices();
-          },
-        );
+        setState(() {
+          _bluetoothState = state;
+          getPairedDevices();
+        });
       },
     );
-  }
-
-  void sendToBluetooth(String data) async {
-    connection.output.add(utf8.encode(data + "\r\n"));
-    await connection.output.allSent;
   }
 
   @override
@@ -108,16 +99,34 @@ class _BluetoothListState extends State<BluetoothList> {
             ),
           ),
           Container(
+            height: 30,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
-            child: Text(
-              !_bluetoothState.isEnabled
-                  ? 'Please turn on Bluetooth'
-                  : _devicesList.isNotEmpty
-                      ? 'Devices found'
-                      : 'Device not found!',
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.left,
+            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  !_bluetoothState.isEnabled
+                      ? 'Please turn on Bluetooth'
+                      : _devicesList.isNotEmpty
+                          ? 'Devices found'
+                          : 'Device not found!',
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
+                _bluetoothState.isEnabled
+                    ? FlatButton(
+                        color: Palette.blue_pacific,
+                        textColor: Colors.white,
+                        onPressed: () async {
+                          await getPairedDevices().then((_) {
+                            show('Device list refreshed');
+                          });
+                        },
+                        child: Text('Refresh'),
+                      )
+                    : Container(),
+              ],
             ),
           ),
           Column(
@@ -187,7 +196,6 @@ class _BluetoothListState extends State<BluetoothList> {
 
   Future<void> getPairedDevices() async {
     List<BluetoothDevice> _devices = [];
-
     // To get the list of paired devices
     try {
       _devices = await _bluetooth.getBondedDevices();
@@ -246,10 +254,10 @@ class _BluetoothListState extends State<BluetoothList> {
 
   Future show(String message,
       {Duration duration: const Duration(seconds: 3)}) async {
-    await new Future.delayed(new Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: 100));
     widget._scaffoldKey.currentState.showSnackBar(
-      new SnackBar(
-        content: new Text(
+      SnackBar(
+        content: Text(
           message,
         ),
         duration: duration,

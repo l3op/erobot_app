@@ -29,6 +29,10 @@ Build release to test:<br>
 ```console
 $flutter build apk --release && flutter install build/app/outputs/flutter-apk/app-release.apk
 ```
+Or
+```console
+$flutter build apk --target-platform android-arm64 --split-per-abi && flutter install build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+```
 
 <br>
 Best wishes, <br>

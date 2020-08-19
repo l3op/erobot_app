@@ -162,6 +162,12 @@ class _SenderState extends State<Sender> {
       key: widget._scaffoldKey,
       appBar: AppBar(
         title: Text('Sender', style: TextStyle(fontSize: 18)),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.bluetooth_disabled, color: Colors.white),
+              onPressed: () => getServer()),
+          SizedBox(width: 10),
+        ],
       ),
       body: Column(
         children: <Widget>[

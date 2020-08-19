@@ -1,5 +1,4 @@
 import 'package:erobot_app/config/palette.dart';
-import 'package:erobot_app/service/bluetooh_service.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -61,22 +60,22 @@ class _MainDrawerState extends State<MainDrawer> {
                       ],
                     ),
                   ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.bluetooth,
-                      color: Colors.white,
-                    ),
-                    title: Text(
-                      "Bluetooth",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (c) => BluetoothList(),
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   leading: Icon(
+                  //     Icons.bluetooth,
+                  //     color: Colors.white,
+                  //   ),
+                  //   title: Text(
+                  //     "Bluetooth",
+                  //     style: TextStyle(color: Colors.white),
+                  //   ),
+                  //   onTap: () => Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (c) => BluetoothList(),
+                  //     ),
+                  //   ),
+                  // ),
                   ListTile(
                     leading: Icon(
                       Icons.feedback,
