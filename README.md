@@ -22,6 +22,8 @@ Functions of the app are:<br>
 <p>Prototype and design here: <a href="https://www.figma.com/file/x1edWP3L1by9QWuI5EVUiP/E-Robot-App?node-id=0%3A1" title="Figma">Figma</a></p>
 <br>
 <img src="./assets/screenshots/2screen.png"><br>
+
+Use `flutter run --release` to test it or<br>
 Build release to test:<br>
 
 ```console

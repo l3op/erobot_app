@@ -1,6 +1,5 @@
 import 'package:erobot_app/config/palette.dart';
-
-import 'bluetooth.dart';
+import 'package:erobot_app/service/bluetooh_service.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -64,37 +63,17 @@ class _MainDrawerState extends State<MainDrawer> {
                   ),
                   ListTile(
                     leading: Icon(
-                      isConnected
-                          ? Icons.bluetooth_connected
-                          : isSwitched
-                              ? Icons.bluetooth
-                              : Icons.bluetooth_disabled,
+                      Icons.bluetooth,
                       color: Colors.white,
                     ),
-                    title: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Bluetooth",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Switch(
-                            activeColor: Colors.white,
-                            value: isSwitched,
-                            onChanged: (value) {
-                              setState(() {
-                                isSwitched = value;
-                              });
-                            },
-                          )
-                        ],
-                      ),
+                    title: Text(
+                      "Bluetooth",
+                      style: TextStyle(color: Colors.white),
                     ),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (c) => FlutterBlueApp(),
+                        builder: (c) => BluetoothList(),
                       ),
                     ),
                   ),
