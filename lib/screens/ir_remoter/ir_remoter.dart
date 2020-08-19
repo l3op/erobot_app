@@ -34,6 +34,18 @@ class _IrRemoterState extends State<IrRemoter> {
   void initState() {
     super.initState();
     _loadCacheData();
+    if (selectedDevice != null) _connectBT();
+  }
+
+  _connectBT() {
+    BluetoothConnection.toAddress(selectedDevice.address).then((_connection) {
+      print('Connected to the device');
+      connection = _connection;
+      setState(() {
+        isConnecting = false;
+        isDisconnecting = false;
+      });
+    });
   }
 
   @override

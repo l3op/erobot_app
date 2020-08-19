@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:erobot_app/service/bluetooh_service.dart';
 import 'package:erobot_app/service/save_preference.dart';
 
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/models.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class Sender extends StatefulWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   _SenderState createState() => _SenderState();
 }
@@ -31,12 +37,32 @@ class _SenderState extends State<Sender> {
     Palette.green_fun,
   ];
 
+  //BLUETOOTH FUNCTIONALITY
+  BluetoothDevice selectedDevice;
+  BluetoothConnection connection;
+  bool isConnecting = true;
+  bool get isConnected => connection != null && connection.isConnected;
+
+  bool isDisconnecting = false;
+
   @override
   void initState() {
     //LOAD CACHE DATA
     if (!_loaded) _loadData();
     _textController = TextEditingController();
     super.initState();
+    if (selectedDevice != null) _connectBT();
+  }
+
+  _connectBT() {
+    BluetoothConnection.toAddress(selectedDevice.address).then((_connection) {
+      print('Connected to the device');
+      connection = _connection;
+      setState(() {
+        isConnecting = false;
+        isDisconnecting = false;
+      });
+    });
   }
 
   @override
@@ -133,6 +159,7 @@ class _SenderState extends State<Sender> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: widget._scaffoldKey,
       appBar: AppBar(
         title: Text('Sender', style: TextStyle(fontSize: 18)),
       ),
@@ -186,8 +213,8 @@ class _SenderState extends State<Sender> {
                   color: Palette.blue_pacific,
                   onPressed: () {
                     if (_valueTMP != null) {
-                      print(listRecent.length.toString());
                       addtoRecent();
+                      sendtoBT(_valueTMP);
                     }
                   },
                 ),
@@ -244,6 +271,52 @@ class _SenderState extends State<Sender> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  //BLUETOOTH FUNCTIONALITY
+  void sendtoBT(String value) async {
+    if (!isConnected) {
+      print("value $value can't be sent");
+      show('Please connect to a device!');
+    } else {
+      connection.output.add(utf8.encode(value + "\r\n"));
+      await connection.output.allSent;
+      print("value $value is sent");
+    }
+  }
+
+  Future<void> getServer() async {
+    selectedDevice = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BluetoothList(),
+      ),
+    );
+    print(
+      "Selected Server:" +
+          selectedDevice.name.toString() +
+          selectedDevice.address.toString(),
+    );
+  }
+
+  Future show(String message,
+      {Duration duration: const Duration(seconds: 3)}) async {
+    await Future.delayed(Duration(milliseconds: 100));
+    widget._scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        backgroundColor: Palette.red_milano,
+        content: Text(
+          message,
+          style: TextStyle(fontFamily: 'Raleway'),
+        ),
+        duration: duration,
+        action: SnackBarAction(
+            textColor: Colors.white,
+            label: "OK",
+            onPressed: () =>
+                widget._scaffoldKey.currentState.hideCurrentSnackBar()),
       ),
     );
   }
