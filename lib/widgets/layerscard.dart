@@ -18,113 +18,107 @@ class ThreeLayerCard extends StatelessWidget {
     this.isCenter = false,
   }) : super(key: key);
 
+  final double borderRadius = 15;
+
   @override
   Widget build(BuildContext context) {
+    //BLUETOOTH OR ARDUINO LOGO HEIGHT
+    double width = 15, height = 20;
     String pathlogo = 'mdi_bluetooth.png';
-    double width = 15, height = 20, boxSize = 10;
+
+    double mediaWidth = MediaQuery.of(context).size.width;
+    double mediaHeight = MediaQuery.of(context).size.height;
 
     if (cardIndex == 0) {
-      boxSize = 0;
       width = 30;
       height = 35;
       pathlogo = 'arduino_logo.png';
     }
 
     double left, top, right, bottom;
-    left = top = right = bottom = 0;
+    top = bottom = 0;
+    left = right = mediaWidth * .05;
     if (isCenter) {
-      left = right = 18;
-      if (cardIndex == 0) {
-        top = 10;
-        bottom = 7;
-      }
-      if (cardIndex == 4) {
-        top = 7;
-        bottom = 10;
-      } else {
-        top = bottom = 7;
-      }
+      bottom = 7;
+      cardIndex == 0 ? top = mediaHeight * .015 : top = 7;
     } else if (!isCenter) {
-      if (cardIndex == 0) {
-        left = right = 18;
-        top = bottom = 10;
-      } else if (cardIndex.isEven) {
-        left = 5;
-        right = 18;
-        bottom = 10;
-      } else if (cardIndex.isOdd) {
-        left = 18;
-        right = 5.0;
-        bottom = 10.0;
-      }
+      top = 14;
+      cardIndex == 0
+          ? top = mediaHeight * .015
+          : cardIndex.isEven ? left = 7 : right = 7;
     }
 
     return Container(
-      height: 145,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Image.asset(path, fit: BoxFit.cover)),
+      height: !isCenter && (cardIndex == 2 || cardIndex == 3)
+          ? mediaHeight * .25
+          : mediaHeight * .20,
+      constraints: BoxConstraints(minHeight: 150, maxHeight: 180),
+      padding: EdgeInsets.fromLTRB(left, top, right, bottom),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(borderRadius),
+              child: Image.asset(path, fit: BoxFit.cover),
             ),
-            Positioned.fill(
-              child: randBackground(cardIndex),
-            ),
-            Positioned.fill(
-              child: FlatButton(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(14.0))),
-                onPressed: onPressed,
-                splashColor: const Color.fromRGBO(255, 255, 255, .2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15),
-                        Text(
+          ),
+          Positioned.fill(
+            child: randBackground(cardIndex, borderRadius),
+          ),
+          Positioned.fill(
+            child: FlatButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(borderRadius))),
+              onPressed: onPressed,
+              splashColor: const Color.fromRGBO(255, 255, 255, .2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0),
+                        child: Text(
                           title,
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Raleway',
-                            fontSize: 20,
+                            fontSize: isCenter ? 18 : 20,
                             height: 1.3,
                             fontWeight: FontWeight.w600,
                             letterSpacing: .7,
                           ),
                         ),
-                        SizedBox(height: 5),
-                        Text(
-                          desription,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Raleway',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            letterSpacing: .5,
-                          ),
+                      ),
+                      SizedBox(height: 3.0),
+                      Text(
+                        desription,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Raleway',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: .5,
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Image.asset(
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: cardIndex != 0 ? 10.0 : 5),
+                    child: Image.asset(
                       'assets/arduinologo/$pathlogo',
                       width: width,
                       height: height,
                     ),
-                    SizedBox(height: boxSize)
-                  ],
-                ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -153,7 +147,7 @@ class TwoLayerCard extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned.fill(child: randBackground(3)),
+            Positioned.fill(child: randBackground(3, 14)),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -185,7 +179,7 @@ class TwoLayerCard extends StatelessWidget {
   }
 }
 
-Widget randBackground(int index) {
+Widget randBackground(int index, double borderRadius) {
   int cardIndex = index % 5;
 
   //LIST OF COLOR
@@ -213,7 +207,7 @@ Widget randBackground(int index) {
   if (cardIndex == 4) colorRGBO = color5;
 
   return ClipRRect(
-    borderRadius: BorderRadius.circular(14),
+    borderRadius: BorderRadius.circular(borderRadius),
     child: Image.asset(
       'assets/colors/$indexColor',
       fit: BoxFit.cover,

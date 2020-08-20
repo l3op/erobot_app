@@ -29,43 +29,50 @@ class ProfileCard extends StatelessWidget {
           color: Colors.white,
         ),
         height: 85,
-        child: Padding(
+        child: Container(
+          width: MediaQuery.of(context).size.width * .95,
           padding: const EdgeInsets.all(5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               //IMAGE OF MEMBERS
-              Image.asset('assets/profiles/$image'),
+              Container(
+                width: MediaQuery.of(context).size.width * .2,
+                child: Image.asset(
+                  'assets/profiles/$image',
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
               SizedBox(width: 10),
               //INFO OF MEMBERS
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  //NAME AND ROLE
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
+              Container(
+                width: MediaQuery.of(context).size.width * .6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    //NAME AND ROLE
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      Text(
-                        role,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
+                        Text(
+                          role,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  //SOCIAL MEDIA INFO
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.625,
-                    child: Row(
+                      ],
+                    ),
+                    //SOCIAL MEDIA INFO
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         //TELEGRAM
@@ -117,8 +124,8 @@ class ProfileCard extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

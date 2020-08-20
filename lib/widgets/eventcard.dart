@@ -36,39 +36,43 @@ class EventCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               //EVENT LOGO
-              Image.asset('assets/events/$pathIMG'),
+              Container(
+                width: MediaQuery.of(context).size.width * .2,
+                child:
+                    Image.asset('assets/events/$pathIMG', fit: BoxFit.fitWidth),
+              ),
               SizedBox(width: 10),
               //EVENT INFO
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      //EVENT NAME
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
+              Container(
+                width: MediaQuery.of(context).size.width * .6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        //EVENT NAME
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      //EVENT ROLE
-                      Text(
-                        role,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
+                        //EVENT ROLE
+                        Text(
+                          role,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
-                  //READ MORE BUTTON
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.625,
-                    child: Row(
+                    //READ MORE BUTTON
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
@@ -96,8 +100,8 @@ class EventCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

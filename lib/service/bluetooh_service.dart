@@ -59,6 +59,12 @@ class _BluetoothListState extends State<BluetoothList> {
           'Bluetooth List',
           style: TextStyle(fontSize: 18),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => FlutterBluetoothSerial.instance.openSettings(),
+          )
+        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -283,10 +289,11 @@ class _BluetoothListState extends State<BluetoothList> {
         ),
         duration: duration,
         action: SnackBarAction(
-            textColor: Colors.white,
-            label: "OK",
-            onPressed: () =>
-                widget._scaffoldKey.currentState.hideCurrentSnackBar()),
+          textColor: Colors.white,
+          label: "OK",
+          onPressed: () =>
+              widget._scaffoldKey.currentState.hideCurrentSnackBar(),
+        ),
       ),
     );
   }

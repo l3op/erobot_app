@@ -178,7 +178,7 @@ class _SenderState extends State<Sender> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Palette.whitesmoke,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   padding: EdgeInsets.only(bottom: 0),

@@ -18,6 +18,8 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
 
   @override
   Widget build(BuildContext context) {
+    double mediaWidth = MediaQuery.of(context).size.width;
+    //double mediaHeight = MediaQuery.of(context).size.height;
     settingTMP = setting;
     return WillPopScope(
       onWillPop: () async {
@@ -47,7 +49,7 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
           child: ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                 child: Container(
                   height: 40,
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -55,11 +57,12 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                       borderRadius: BorderRadius.circular(50),
                       color: Color.fromRGBO(255, 255, 255, .1)),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(' Reset to ', style: TextStyle(color: Colors.white)),
+                      Text('Reset to', style: TextStyle(color: Colors.white)),
                       Container(
-                        width: 51,
                         height: 30,
+                        width: mediaWidth * .3,
                         child: FlatButton(
                           color: Color.fromRGBO(255, 255, 255, .2),
                           shape: RoundedRectangleBorder(
@@ -68,7 +71,7 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                           child: Text(
                             'Hex',
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 13,
                               color: Colors.white,
                             ),
                           ),
@@ -77,10 +80,9 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                           },
                         ),
                       ),
-                      Text(' '),
                       Container(
-                        width: 78,
                         height: 30,
+                        width: mediaWidth * .38,
                         child: FlatButton(
                           color: Color.fromRGBO(255, 255, 255, .2),
                           shape: RoundedRectangleBorder(
@@ -89,7 +91,7 @@ class _IRremoterSettingState extends State<IRremoterSetting> {
                           child: Text(
                             'Character',
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 13,
                               color: Colors.white,
                             ),
                           ),

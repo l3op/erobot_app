@@ -7,13 +7,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //double mediaWidth = MediaQuery.of(context).size.width;
+    // double mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: StaggeredGridView.count(
         physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 3,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 0,
         children: <Widget>[
           ThreeLayerCard(
             title: 'Farm Assistant',
@@ -63,14 +65,14 @@ class HomeScreen extends StatelessWidget {
             cardIndex: 4,
             path: 'assets/home/ir_controller.png',
             onPressed: () => Navigator.pushNamed(context, '/ir_remote'),
-          )
+          ),
         ],
         staggeredTiles: [
-          StaggeredTile.extent(2, 150),
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 150),
+          StaggeredTile.fit(2),
+          StaggeredTile.fit(1),
+          StaggeredTile.fit(1),
+          StaggeredTile.fit(1),
+          StaggeredTile.fit(1),
         ],
       ),
     );

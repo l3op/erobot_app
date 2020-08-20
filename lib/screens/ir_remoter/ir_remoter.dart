@@ -126,11 +126,10 @@ class _IrRemoterState extends State<IrRemoter> {
       //BODY
       body: Center(
         child: Container(
-          width: 225,
-          child: Column(
+          width: MediaQuery.of(context).size.width * .65,
+          child: ListView(
             children: <Widget>[
               SizedBox(height: 25),
-
               //CHANNEL
               Padding(
                 padding: const EdgeInsets.only(left: 26, right: 26),
