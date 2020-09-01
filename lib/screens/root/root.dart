@@ -100,7 +100,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                   tabIndex: tabIndex,
                   pageController: _pageController,
                 ),
-                LogInChoice()
+                Profile()
               ],
               physics: const AlwaysScrollableScrollPhysics(),
               preloadPagesCount: 4,

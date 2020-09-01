@@ -1,3 +1,4 @@
+import 'package:erobot_app/service/auth_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:erobot_app/validation/validation.dart';
 
@@ -11,8 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  String _email, _password;
+  String _email, _password, _error;
 
   //OBSCURE IS USE FOR SHOW/HIDE PASSWORD
   bool _obscureText = true;
@@ -125,6 +127,28 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
+                  _error != null
+                      ? Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 8),
+                              FaIcon(
+                                FontAwesomeIcons.info,
+                                color: Colors.red[400],
+                                size: 12,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                _error,
+                                style: TextStyle(color: Colors.red[400]),
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
                   SizedBox(height: 15),
                   Center(
                     child: Container(
@@ -143,9 +167,15 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             print('Entered $_email & $_password');
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(_email, _password);
+                            if (result != null)
+                              Navigator.pop(context);
+                            else
+                              setState(() => _error = "Wrong password");
                           }
                         },
                       ),

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "701642677613",
+    "firebase_url": "https://erobot-v2.firebaseio.com",
+    "project_id": "erobot-v2",
+    "storage_bucket": "erobot-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701642677613:android:9a5edc978edf6f20e50e64",
+        "android_client_info": {
+          "package_name": "com.erobot.erobot_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701642677613-s9h6fe3m8hojj72a6bdgh9fd5o8g1ta5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnCPZ_26EjP5cBjG9FJpD9BmlQv4_-adY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701642677613-s9h6fe3m8hojj72a6bdgh9fd5o8g1ta5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,11 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.14.0+2/
+cloud_firestore_web=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-0.2.0+1/
 file_picker=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-1.13.2/
+firebase_auth=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.18.0+1/
+firebase_auth_web=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.3.0+1/
+firebase_core=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.5.0/
+firebase_core_web=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.2.0/
 flutter_bluetooth_serial=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bluetooth_serial-0.2.2/
 flutter_plugin_android_lifecycle=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8/
 hexcolor=/home/thea/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/hexcolor-1.0.4/

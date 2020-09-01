@@ -33,6 +33,7 @@ export 'package:erobot_app/screens/ir_remoter/ir_remoter_setting.dart';
 export 'package:erobot_app/screens/login_page/joinus.dart';
 export 'package:erobot_app/screens/login_page/log_choice.dart';
 export 'package:erobot_app/screens/login_page/login.dart';
+export 'package:erobot_app/screens/login_page/profile_wrapper.dart';
 
 //ROOT PAGE
 export 'package:erobot_app/screens/root/root.dart';
