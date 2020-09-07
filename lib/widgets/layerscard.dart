@@ -182,16 +182,6 @@ class TwoLayerCard extends StatelessWidget {
 Widget randBackground(int index, double borderRadius) {
   int cardIndex = index % 5;
 
-  //LIST OF COLOR
-  var list = [
-    '0_111_60.png',
-    '249_167_62.png',
-    '182_20_44.png',
-    '3_160_176.png',
-    '231_126_78.png',
-  ];
-  String indexColor = list[cardIndex];
-
   //DO THIS TO BE BETTER WHEN DECREASE COLOR PICTURE OPERCITY
   var color1 = [0, 111, 60];
   var color2 = [249, 167, 62];
@@ -207,18 +197,13 @@ Widget randBackground(int index, double borderRadius) {
   if (cardIndex == 4) colorRGBO = color5;
 
   return ClipRRect(
-    borderRadius: BorderRadius.circular(borderRadius),
-    child: Image.asset(
-      'assets/colors/$indexColor',
-      fit: BoxFit.cover,
-      //DECREASE OPERCITY TO 0.8 WITH COLOR ABOVE
-      color: Color.fromRGBO(
-        colorRGBO[0],
-        colorRGBO[1],
-        colorRGBO[2],
-        0.8,
-      ),
-      colorBlendMode: BlendMode.modulate,
-    ),
-  );
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: Container(
+        color: Color.fromRGBO(
+          colorRGBO[0],
+          colorRGBO[1],
+          colorRGBO[2],
+          .8,
+        ),
+      ));
 }

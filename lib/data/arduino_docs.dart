@@ -2,14 +2,19 @@ import 'package:erobot_app/import/models.dart';
 
 final List<Doc> docs = [
   Doc('How to change Name and Password of HC-05', 'Learn how to build a robot',
-      0, 'arduino_doc.png'),
+      0, 'arduino_doc.png', 'Sep 7, 2020'),
   Doc('Learn how to build a robot', 'Learn how to build a robot', 1,
-      'arduino_doc.png'),
-  Doc('Arduino Documents', 'Learn how to build a robot', 2, 'arduino_doc.png'),
-  Doc('Arduino Documents', 'Learn how to build a robot', 3, 'arduino_doc.png'),
-  Doc('Arduino Documents', 'Learn how to build a robot', 4, 'arduino_doc.png'),
-  Doc('Arduino Documents', 'Learn how to build a robot', 5, 'arduino_doc.png'),
-  Doc('Arduino Documents', 'Learn how to build a robot', 6, 'arduino_doc.png'),
+      'arduino_doc.png', 'Sep 7, 2020'),
+  Doc('Arduino Documents', 'Learn how to build a robot', 2, 'arduino_doc.png',
+      'Sep 7, 2020'),
+  Doc('Arduino Documents', 'Learn how to build a robot', 3, 'arduino_doc.png',
+      'Sep 7, 2020'),
+  Doc('Arduino Documents', 'Learn how to build a robot', 4, 'arduino_doc.png',
+      'Sep 7, 2020'),
+  Doc('Arduino Documents', 'Learn how to build a robot', 5, 'arduino_doc.png',
+      'Sep 7, 2020'),
+  Doc('Arduino Documents', 'Learn how to build a robot', 6, 'arduino_doc.png',
+      'Sep 7, 2020'),
 ];
 
 List<Document> doc = [

@@ -65,7 +65,6 @@ flutter:
   assets:
     - assets/
     - assets/arduinologo/
-    - assets/colors/
     - assets/controller/
     - assets/erobot-logo/
     - assets/events/

@@ -3,10 +3,11 @@ class Doc {
   final String describe;
   final int index;
   final String imagePath;
+  final String date;
   Doc(
     this.title,
     this.describe,
     this.index,
-    this.imagePath,
+    this.imagePath, this.date,
   );
 }
