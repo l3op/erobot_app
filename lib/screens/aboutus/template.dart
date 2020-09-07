@@ -146,7 +146,9 @@ class _AboutTeamTemplateState extends State<AboutTeamTemplate> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     //EVENT IMAGE
-                    Image.asset('assets/events/${eventAcc.eventPath}'),
+                    Hero(
+                      tag: 'even-logo-${eventAcc.eventPath}',
+                      child: Image.asset('assets/events/${eventAcc.eventPath}')),
                     SizedBox(
                       width: 10,
                     ),

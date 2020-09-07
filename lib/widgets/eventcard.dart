@@ -38,8 +38,10 @@ class EventCard extends StatelessWidget {
               //EVENT LOGO
               Container(
                 width: MediaQuery.of(context).size.width * .2,
-                child:
-                    Image.asset('assets/events/$pathIMG', fit: BoxFit.fitWidth),
+                child: Hero(
+                    tag: 'even-logo-$pathIMG',
+                    child: Image.asset('assets/events/$pathIMG',
+                        fit: BoxFit.fitWidth)),
               ),
               SizedBox(width: 10),
               //EVENT INFO

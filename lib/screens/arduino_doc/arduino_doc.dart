@@ -13,7 +13,7 @@ class ArduinoDoc extends StatelessWidget {
           itemBuilder: (context, index) {
             final Doc doc = docs[index];
             double bottom = 0;
-            if(index == docs.length - 1) bottom = 20;
+            if (index == docs.length - 1) bottom = 20;
             return Container(
               margin: EdgeInsets.only(bottom: bottom),
               padding: EdgeInsets.fromLTRB(18.0, 10.0, 18, 0.0),
@@ -29,8 +29,11 @@ class ArduinoDoc extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(bottom: 10),
                         width: double.infinity,
-                        child: Image.asset('./assets/home/arduino_doc.png',
-                            fit: BoxFit.cover),
+                        child: Hero(
+                          tag: 'document-image-uniqe-$index',
+                          child: Image.asset('./assets/home/${doc.imagePath}',
+                              fit: BoxFit.cover),
+                        ),
                       ),
                       //EVENT INFO
                       Column(
@@ -75,7 +78,15 @@ class ArduinoDoc extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               color: Palette.shark,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DocumentTemplate(doc.index),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'Read More',
                                 style: TextStyle(
@@ -104,12 +115,12 @@ class ArduinoDoc extends StatelessWidget {
 //             cardIndex: doc.index,
 //             path: 'assets/home/${doc.imagePath}',
 //             onPressed: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => DocumentTemplate(doc.index),
-//                 ),
-//               );
+// Navigator.push(
+//   context,
+//   MaterialPageRoute(
+//     builder: (context) => DocumentTemplate(doc.index),
+//   ),
+// );
 //             },
 //             isCenter: true,
 //           );

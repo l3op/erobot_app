@@ -36,9 +36,12 @@ class _DocumentTemplateState extends State<DocumentTemplate> {
               pinned: true,
               //APP BAR BACKGROUND
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/home/arduino_doc.png',
-                  fit: BoxFit.cover,
+                background: Hero(
+                  tag: 'document-image-uniqe-$index',
+                  child: Image.asset(
+                    'assets/home/arduino_doc.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               //APP BAR
