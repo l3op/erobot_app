@@ -65,6 +65,9 @@ class ThreeLayerCard extends StatelessWidget {
           Positioned.fill(
             child: randBackground(cardIndex, borderRadius),
           ),
+          buildPositioned(size: cardIndex == 0 ? 200 : 0),
+          buildPositioned(size: cardIndex == 0 ? 180 : 0),
+          buildPositioned(size: cardIndex == 0 ? 160 : 0),
           Positioned.fill(
             child: FlatButton(
               shape: RoundedRectangleBorder(
@@ -117,8 +120,32 @@ class ThreeLayerCard extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Positioned buildPositioned({double size}) {
+    return Positioned.fill(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: cardIndex == 0 ? null : -50,
+              top: cardIndex == 0 ? 0 : null,
+              right: cardIndex == 0 ? -80 : -50,
+              child: ClipOval(
+                child: Container(
+                  width: size,
+                  height: size,
+                  color: Color.fromRGBO(255, 255, 255, .08),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -179,9 +206,7 @@ class TwoLayerCard extends StatelessWidget {
   }
 }
 
-Widget randBackground(int index, double borderRadius) {
-  int cardIndex = index % 5;
-
+Color returnColor(int cardIndex) {
   //DO THIS TO BE BETTER WHEN DECREASE COLOR PICTURE OPERCITY
   var color1 = [0, 111, 60];
   var color2 = [249, 167, 62];
@@ -195,15 +220,18 @@ Widget randBackground(int index, double borderRadius) {
   if (cardIndex == 2) colorRGBO = color3;
   if (cardIndex == 3) colorRGBO = color4;
   if (cardIndex == 4) colorRGBO = color5;
+  return Color.fromRGBO(
+    colorRGBO[0],
+    colorRGBO[1],
+    colorRGBO[2],
+    .8,
+  );
+}
+
+Widget randBackground(int index, double borderRadius) {
+  int cardIndex = index % 5;
 
   return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: Container(
-        color: Color.fromRGBO(
-          colorRGBO[0],
-          colorRGBO[1],
-          colorRGBO[2],
-          .8,
-        ),
-      ));
+      child: Container(color: returnColor(cardIndex)));
 }
