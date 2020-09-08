@@ -102,7 +102,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                   AboutUs(
                     tabController: _tabController,
                     tabIndex: tabIndex,
-                    pageController: _pageController,
                   ),
                   Profile()
                 ],
