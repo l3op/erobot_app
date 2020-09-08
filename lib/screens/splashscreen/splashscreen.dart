@@ -44,16 +44,17 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Center(
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .85,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: 250),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * .1),
                     Image.asset(
                       'assets/erobot-logo/app_splash.png',
                       width: 150,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: MediaQuery.of(context).size.height * .04),
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
@@ -76,18 +77,17 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               Container(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Last published 30th Jul, 2020.',
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        color: Color.fromRGBO(22, 31, 40, .6),
-                        fontSize: 14,
-                      ),
+                height: MediaQuery.of(context).size.height * .1,
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Text(
+                    'Last published 30th Jul, 2020.',
+                    style: TextStyle(
+                      fontFamily: 'Quicksand',
+                      color: Color.fromRGBO(22, 31, 40, .6),
+                      fontSize: 14,
                     ),
-                    SizedBox(height: 20),
-                  ],
+                  ),
                 ),
               )
             ],

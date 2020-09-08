@@ -66,9 +66,7 @@ class _ThreeLayerCardState extends State<ThreeLayerCard> {
         if (widget.cardIndex == 4) offset = -notifier.offset * 0.25;
         return Transform.translate(
           offset: Offset(offset, 0),
-          child: Opacity(
-              opacity: 1 - notifier.page % 1,
-              child: child),
+          child: Opacity(opacity: 1 - notifier.page % 1, child: child),
         );
       },
       child: Container(
@@ -89,9 +87,12 @@ class _ThreeLayerCardState extends State<ThreeLayerCard> {
             Positioned.fill(
               child: randBackground(widget.cardIndex, borderRadius),
             ),
-            buildPositioned(size: widget.cardIndex == 0 ? 300 - _animate : 0),
-            buildPositioned(size: widget.cardIndex == 0 ? 280 - _animate : 0),
-            buildPositioned(size: widget.cardIndex == 0 ? 260 - _animate : 0),
+            buildPositioned(
+                size: widget.cardIndex == 0 ? 300 - _animate : 0, index: 0),
+            buildPositioned(
+                size: widget.cardIndex == 0 ? 280 - _animate : 0, index: 1),
+            buildPositioned(
+                size: widget.cardIndex == 0 ? 260 - _animate : 0, index: 2),
             Positioned.fill(
               child: FlatButton(
                 shape: RoundedRectangleBorder(
@@ -152,15 +153,20 @@ class _ThreeLayerCardState extends State<ThreeLayerCard> {
     );
   }
 
-  Positioned buildPositioned({double size}) {
+  Positioned buildPositioned({double size, int index}) {
     return Positioned.fill(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              right: -120,
+            Consumer<PageOffsetNotifier>(
+              builder: (context, notifier, child) {
+                return Positioned(
+                  top: 0,
+                  right: -notifier.offset * index - 120,
+                  child: child,
+                );
+              },
               child: ClipOval(
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: 500),

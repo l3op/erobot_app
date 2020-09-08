@@ -2,11 +2,8 @@ import 'package:erobot_app/config/offset_notifier.dart';
 import 'package:erobot_app/widgets/bottom_navigation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:bubbled_navigation_bar/bubbled_navigation_bar.dart';
 import 'package:preload_page_view/preload_page_view.dart';
-
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/screens.dart';
@@ -25,7 +22,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
 
   //CONTROLLER
   PreloadPageController _pageController;
-  MenuPositionController _menuPositionController;
   TabController _tabController;
   ScrollController _scrollViewController;
 
@@ -35,20 +31,17 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
     );
 
-    _menuPositionController = MenuPositionController(initPosition: 0);
     _pageController = PreloadPageController(
       initialPage: pageIndex,
       keepPage: true,
       viewportFraction: 1,
     );
-    _pageController.addListener(handlePageChange);
 
     _tabController = TabController(
       length: 2,
       vsync: this,
       initialIndex: tabIndex,
     );
-    _tabController.addListener(handleTabChange);
 
     _scrollViewController = ScrollController();
     super.initState();
@@ -59,17 +52,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
     _scrollViewController.dispose();
     _tabController.dispose();
     _pageController.dispose();
-    _menuPositionController.dispose();
     super.dispose();
-  }
-
-  void handleTabChange() {
-    setState(() => tabIndex = _tabController.index);
-    print('Tab Change $tabIndex');
-  }
-
-  void handlePageChange() {
-    _menuPositionController.absolutePosition = _pageController.page;
   }
 
   final List<String> titleName = [
@@ -116,10 +99,9 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             ),
             //BOTTOM NAVIGATION
             bottomNavigationBar: AnimatedBottomNavigation(
-                currentPage: pageIndex,
-                onTab: (index) {
-                  onBottomTab(index);
-                }),
+              currentPage: pageIndex,
+              onTab: (index) => onBottomTab(index),
+            ),
           ),
         ),
       ),
@@ -141,29 +123,27 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
-      title: Text(
-        titleName[pageIndex],
-        style: TextStyle(
-          fontFamily: 'Raleway',
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
+      title: Consumer<PageOffsetNotifier>(
+        builder: (context, notifier, child) {
+          return Opacity(
+            opacity: (1 - notifier.page % 1) / 2 >= 0.25
+                ? 1 - notifier.page % 1
+                : notifier.page % 1,
+            child: child,
+          );
+        },
+        child: Row(
+          children: [
+            Text(
+              titleName[pageIndex],
+              style: TextStyle(
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+              ),
+            )
+          ],
         ),
-      ),
-    );
-  }
-
-  BubbledNavigationBarItem buildBubbledNavigationBar(
-      String label, IconData icon) {
-    return BubbledNavigationBarItem(
-      icon: Icon(icon, size: 30, color: Colors.white),
-      activeIcon: Icon(
-        icon,
-        size: 30,
-        color: Palette.bigstone,
-      ),
-      title: Text(
-        label,
-        style: TextStyle(color: Palette.bigstone, fontSize: 12),
       ),
     );
   }

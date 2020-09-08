@@ -1,5 +1,7 @@
+import 'package:erobot_app/config/offset_notifier.dart';
 import 'package:erobot_app/config/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BarItem {
   String item;
@@ -32,17 +34,28 @@ class _AnimatedBottomNavigationState extends State<AnimatedBottomNavigation> {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      color: Palette.bigstone,
+      decoration: BoxDecoration(
+        color: Palette.bigstone,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black87,
+            blurRadius: 10.0,
+            spreadRadius: 1,
+            offset: Offset(0, 10),
+          )
+        ],
+      ),
       child: AnimatedBottomBar(
-          barItems: widget.barItem,
-          currentIndex: widget.currentPage,
-          animationDuration: const Duration(milliseconds: 1000),
-          onTab: (index) {
-            setState(() {
-              selectedBar = index;
-            });
-            widget.onTab(index);
-          }),
+        barItems: widget.barItem,
+        currentIndex: widget.currentPage,
+        animationDuration: const Duration(milliseconds: 1000),
+        onTab: (index) {
+          setState(() {
+            selectedBar = index;
+          });
+          widget.onTab(index);
+        },
+      ),
     );
   }
 }
@@ -69,11 +82,48 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    List<double> _itemWidth = [
+      width * .3,
+      width * .33,
+      width * .33,
+      width * .26,
+    ];
     int _selectedIndex = widget.currentIndex;
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: _buildBarItem(_selectedIndex),
+    return Stack(
+      children: [
+        Consumer<PageOffsetNotifier>(
+          builder: (context, notifier, child) {
+            return Positioned(
+              top: 10,
+              left: widget.currentIndex != 3
+                  ? notifier.offset * .21
+                  : notifier.offset * .23,
+              bottom: 10,
+              child: child,
+            );
+          },
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(left: 10, right: 10),
+            height: 40,
+            width: _itemWidth[widget.currentIndex],
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Container(
+          height: 70,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: _buildBarItem(_selectedIndex),
+          ),
+        ),
+      ],
     );
   }
 
@@ -94,10 +144,6 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
             duration: Duration(milliseconds: 200),
             height: 40,
             padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: isSelected ? Colors.white : Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
-            ),
             child: Row(
               children: <Widget>[
                 Icon(

@@ -13,12 +13,6 @@ class _DocumentTemplateState extends State<DocumentTemplate> {
   VideoPlayerController playerController;
   VoidCallback listener;
 
-  @override
-  void dispose() {
-    playerController.dispose();
-    super.dispose();
-  }
-
   _DocumentTemplateState(this.index);
   @override
   Widget build(BuildContext context) {

@@ -17,9 +17,9 @@ class _LogInChoiceState extends State<LogInChoice> {
         builder: (context, notifier, child) {
           double offset =
               MediaQuery.of(context).size.width * 3 - notifier.offset;
-          double opacity = notifier.offset * 4 % 4 == 0
-              ? 1 - notifier.page % 1
-              : notifier.page % 1;
+          double opacity = notifier.page < 3
+              ? notifier.page % 1
+              : 1 - notifier.page % 1;
           return Padding(
             padding: const EdgeInsets.only(left: 18, right: 18),
             child: Column(
