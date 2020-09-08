@@ -1,6 +1,9 @@
+import 'package:erobot_app/config/offset_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'dart:math' as math;
 
-class ThreeLayerCard extends StatelessWidget {
+class ThreeLayerCard extends StatefulWidget {
   final String title;
   final String desription;
   final int cardIndex;
@@ -18,8 +21,13 @@ class ThreeLayerCard extends StatelessWidget {
     this.isCenter = false,
   }) : super(key: key);
 
-  final double borderRadius = 15;
+  @override
+  _ThreeLayerCardState createState() => _ThreeLayerCardState();
+}
 
+class _ThreeLayerCardState extends State<ThreeLayerCard> {
+  final double borderRadius = 15;
+  double _animate = 0;
   @override
   Widget build(BuildContext context) {
     //BLUETOOTH OR ARDUINO LOGO HEIGHT
@@ -29,7 +37,7 @@ class ThreeLayerCard extends StatelessWidget {
     double mediaWidth = MediaQuery.of(context).size.width;
     double mediaHeight = MediaQuery.of(context).size.height;
 
-    if (cardIndex == 0) {
+    if (widget.cardIndex == 0) {
       width = 30;
       height = 35;
       pathlogo = 'arduino_logo.png';
@@ -38,90 +46,108 @@ class ThreeLayerCard extends StatelessWidget {
     double left, top, right, bottom;
     top = bottom = 0;
     left = right = mediaWidth * .05;
-    if (isCenter) {
+    if (widget.isCenter) {
       bottom = 7;
-      cardIndex == 0 ? top = mediaHeight * .015 : top = 7;
-    } else if (!isCenter) {
+      widget.cardIndex == 0 ? top = mediaHeight * .015 : top = 7;
+    } else if (!widget.isCenter) {
       top = 14;
-      cardIndex == 0
+      widget.cardIndex == 0
           ? top = mediaHeight * .015
-          : cardIndex.isEven ? left = 7 : right = 7;
+          : widget.cardIndex.isEven ? left = 7 : right = 7;
     }
 
-    return Container(
-      height: !isCenter && (cardIndex == 2 || cardIndex == 3)
-          ? mediaHeight * .25
-          : mediaHeight * .20,
-      constraints: BoxConstraints(minHeight: 150, maxHeight: 180),
-      padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(borderRadius),
-              child: Image.asset(path, fit: BoxFit.cover),
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        double offset = 0;
+        if (widget.cardIndex == 0) offset = -notifier.offset * 1.15;
+        if (widget.cardIndex == 1) offset = -notifier.offset * 1.05;
+        if (widget.cardIndex == 2) offset = -notifier.offset * 0.7;
+        if (widget.cardIndex == 3) offset = -notifier.offset * 0.6;
+        if (widget.cardIndex == 4) offset = -notifier.offset * 0.25;
+        return Transform.translate(
+          offset: Offset(offset, 0),
+          child: Opacity(
+              opacity: 1 - notifier.page % 1,
+              child: child),
+        );
+      },
+      child: Container(
+        height:
+            !widget.isCenter && (widget.cardIndex == 2 || widget.cardIndex == 3)
+                ? mediaHeight * .25
+                : mediaHeight * .20,
+        constraints: BoxConstraints(minHeight: 150, maxHeight: 180),
+        padding: EdgeInsets.fromLTRB(left, top, right, bottom),
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(borderRadius),
+                child: Image.asset(widget.path, fit: BoxFit.cover),
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: randBackground(cardIndex, borderRadius),
-          ),
-          buildPositioned(size: cardIndex == 0 ? 200 : 0),
-          buildPositioned(size: cardIndex == 0 ? 180 : 0),
-          buildPositioned(size: cardIndex == 0 ? 160 : 0),
-          Positioned.fill(
-            child: FlatButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(borderRadius))),
-              onPressed: onPressed,
-              splashColor: const Color.fromRGBO(255, 255, 255, .2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: Text(
-                          title,
+            Positioned.fill(
+              child: randBackground(widget.cardIndex, borderRadius),
+            ),
+            buildPositioned(size: widget.cardIndex == 0 ? 300 - _animate : 0),
+            buildPositioned(size: widget.cardIndex == 0 ? 280 - _animate : 0),
+            buildPositioned(size: widget.cardIndex == 0 ? 260 - _animate : 0),
+            Positioned.fill(
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(borderRadius))),
+                onPressed: widget.onPressed,
+                splashColor: const Color.fromRGBO(255, 255, 255, .2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12.0),
+                          child: Text(
+                            widget.title,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Raleway',
+                              fontSize: widget.isCenter ? 18 : 20,
+                              height: 1.3,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: .7,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 3.0),
+                        Text(
+                          widget.desription,
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Raleway',
-                            fontSize: isCenter ? 18 : 20,
-                            height: 1.3,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: .7,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: .5,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 3.0),
-                      Text(
-                        desription,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Raleway',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: .5,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: cardIndex != 0 ? 10.0 : 5),
-                    child: Image.asset(
-                      'assets/arduinologo/$pathlogo',
-                      width: width,
-                      height: height,
+                      ],
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: widget.cardIndex != 0 ? 10.0 : 5),
+                      child: Image.asset(
+                        'assets/arduinologo/$pathlogo',
+                        width: width,
+                        height: height,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -133,11 +159,11 @@ class ThreeLayerCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              bottom: cardIndex == 0 ? null : -50,
-              top: cardIndex == 0 ? 0 : null,
-              right: cardIndex == 0 ? -80 : -50,
+              top: 0,
+              right: -120,
               child: ClipOval(
-                child: Container(
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
                   width: size,
                   height: size,
                   color: Color.fromRGBO(255, 255, 255, .08),

@@ -1,3 +1,4 @@
+import 'package:erobot_app/config/offset_notifier.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -8,6 +9,7 @@ import 'package:preload_page_view/preload_page_view.dart';
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/screens.dart';
+import 'package:provider/provider.dart';
 
 //ROOT PAGE
 class Root extends StatefulWidget {
@@ -85,95 +87,98 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
         ..buildViewportChrome(context, null, AxisDirection.down),
       child: WillPopScope(
         onWillPop: _onBackPressed,
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: buildAppBar(),
-          drawer: MainDrawer(),
-          body: Container(
-            //PRELOAD : TO ENSURE PAGES ARE LOADED BEFORE USABLE
-            child: PreloadPageView(
-              children: <Widget>[
-                HomeScreen(),
-                ArduinoDoc(),
-                AboutUs(
-                  tabController: _tabController,
-                  tabIndex: tabIndex,
-                  pageController: _pageController,
-                ),
-                Profile()
-              ],
-              physics: const AlwaysScrollableScrollPhysics(),
-              preloadPagesCount: 4,
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() => pageIndex = index);
-              },
+        child: ChangeNotifierProvider(
+            create:(e) => PageOffsetNotifier(_pageController),
+            child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: buildAppBar(),
+            drawer: MainDrawer(),
+            body: Container(
+              //PRELOAD : TO ENSURE PAGES ARE LOADED BEFORE USABLE
+              child: PreloadPageView(
+                children: <Widget>[
+                  HomeScreen(),
+                  ArduinoDoc(),
+                  AboutUs(
+                    tabController: _tabController,
+                    tabIndex: tabIndex,
+                    pageController: _pageController,
+                  ),
+                  Profile()
+                ],
+                physics: const ClampingScrollPhysics(),
+                preloadPagesCount: 4,
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() => pageIndex = index);
+                },
+              ),
             ),
-          ),
-          //BOTTOM NAVIGATION
-          bottomNavigationBar: BubbledNavigationBar(
-            defaultBubbleColor: Colors.white,
-            backgroundColor: Palette.bigstone,
-            initialIndex: pageIndex,
-            controller: _menuPositionController,
-            itemMargin: EdgeInsets.symmetric(horizontal: 0),
-            iconRightMargin: 10,
+            //BOTTOM NAVIGATION
+            bottomNavigationBar: BubbledNavigationBar(
+              defaultBubbleColor: Colors.white,
+              backgroundColor: Palette.bigstone,
+              initialIndex: pageIndex,
+              controller: _menuPositionController,
+              itemMargin: EdgeInsets.symmetric(horizontal: 0),
+              iconRightMargin: 10,
 
-            onTap: (_index) async {
-              var duration = 250;
+              onTap: (_index) async {
+                var duration = 250;
 
-              //FROM PAGE[0] TO PAGE[3] => ANIMATE TO PAGE[2] THEN PAGE[3]
-              if (_index == 3 && pageIndex == 0) {
-                _pageController.jumpToPage(2);
-                _pageController.animateToPage(
-                  3,
-                  curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: duration + 50),
-                );
-              }
-              //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
-              if (_index == 0 && pageIndex == 3) {
-                _pageController.jumpToPage(1);
-                _pageController.animateToPage(
-                  0,
-                  curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: duration + 50),
-                );
-              }
-              //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
-              if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
-                int _indexR; //Destination
-                if (_index > pageIndex) //Check which is destination
-                  _indexR = pageIndex;
-                else
-                  _indexR = _index;
-                _pageController.jumpToPage(_indexR + 1);
-                _pageController.animateToPage(
-                  _index,
-                  curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: duration - 50),
-                ); //+100
-              }
-              //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
-              else {
-                _pageController.animateToPage(
-                  _index,
-                  curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: duration - 100),
-                );
-              }
-            },
-            //BOTTOM NAVIGATION ITEMS
-            items: <BubbledNavigationBarItem>[
-              //HOME
-              buildBubbledNavigationBar('Home', Icons.home),
-              //EDUCATION
-              buildBubbledNavigationBar('Education', Icons.school),
-              //ABOUT US
-              buildBubbledNavigationBar('About us', Icons.people),
-              //PROFILE
-              buildBubbledNavigationBar('Profile', Icons.person),
-            ],
+                //FROM PAGE[0] TO PAGE[3] => ANIMATE TO PAGE[2] THEN PAGE[3]
+                if (_index == 3 && pageIndex == 0) {
+                  _pageController.jumpToPage(2);
+                  _pageController.animateToPage(
+                    3,
+                    curve: Curves.easeInOut,
+                    duration: Duration(milliseconds: duration + 50),
+                  );
+                }
+                //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
+                if (_index == 0 && pageIndex == 3) {
+                  _pageController.jumpToPage(1);
+                  _pageController.animateToPage(
+                    0,
+                    curve: Curves.easeInOut,
+                    duration: Duration(milliseconds: duration + 50),
+                  );
+                }
+                //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
+                if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
+                  int _indexR; //Destination
+                  if (_index > pageIndex) //Check which is destination
+                    _indexR = pageIndex;
+                  else
+                    _indexR = _index;
+                  _pageController.jumpToPage(_indexR + 1);
+                  _pageController.animateToPage(
+                    _index,
+                    curve: Curves.easeInOut,
+                    duration: Duration(milliseconds: duration - 50),
+                  ); //+100
+                }
+                //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
+                else {
+                  _pageController.animateToPage(
+                    _index,
+                    curve: Curves.easeInOut,
+                    duration: Duration(milliseconds: duration - 100),
+                  );
+                }
+              },
+              //BOTTOM NAVIGATION ITEMS
+              items: <BubbledNavigationBarItem>[
+                //HOME
+                buildBubbledNavigationBar('Home', Icons.home),
+                //EDUCATION
+                buildBubbledNavigationBar('Education', Icons.school),
+                //ABOUT US
+                buildBubbledNavigationBar('About us', Icons.people),
+                //PROFILE
+                buildBubbledNavigationBar('Profile', Icons.person),
+              ],
+            ),
           ),
         ),
       ),
