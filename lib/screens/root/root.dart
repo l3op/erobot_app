@@ -153,7 +153,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
 
   AppBar buildAppBar() {
     return AppBar(
-      elevation: pageIndex == 2 ? 0 : 5,
+      elevation: pageIndex >= 2 ? 0 : 5,
       leading: Padding(
         padding: const EdgeInsets.only(left: 13),
         child: Builder(

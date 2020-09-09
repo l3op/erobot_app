@@ -7,6 +7,12 @@ class CustomUser {
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String userEmail;
+
+  String getEmail() {
+    String userEmail = _auth.currentUser.email;
+    return userEmail;
+  }
 
   // CREATE USER
   CustomUser _userFromFirebaseUser(User user) {

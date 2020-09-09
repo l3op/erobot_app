@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogingIn = false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -36,8 +37,16 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            //loading on login click
+            Visibility(
+              visible: isLogingIn,
+              child: LinearProgressIndicator(
+                backgroundColor: Palette.background,
+                valueColor: AlwaysStoppedAnimation<Color>(Palette.blueFacebook),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.only(left: 18, right: 18, top: 18),
               child: Column(
@@ -172,15 +181,21 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () async {
+                          setState(() {
+                            isLogingIn = true;
+                          });
                           if (_formKey.currentState.validate()) {
                             print('Entered $_email & $_password');
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(_email, _password);
                             if (result != null)
-                              Navigator.pop(context);
+                              Navigator.pop(context, result);
                             else
                               setState(() => _error = "Wrong password");
                           }
+                          setState(() {
+                            isLogingIn = false;
+                          });
                         },
                       ),
                     ),
@@ -201,75 +216,86 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             //SOCIAL LOGIN
-            Column(
+            //SocialLogin()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SocialLogin extends StatelessWidget {
+  const SocialLogin({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(
+          'Or login with social account',
+          style: TextStyle(color: Colors.white),
+        ),
+        SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Or login with social account',
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        //LOGIN WITH GOOGLE
-                        ClipOval(
-                          child: Material(
-                            color: Colors.white,
-                            child: InkWell(
-                              splashColor: Colors.white,
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/graphics/google-logo.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                print('google login clicked!');
-                              },
-                            ),
+                //LOGIN WITH GOOGLE
+                ClipOval(
+                  child: Material(
+                    color: Colors.white,
+                    child: InkWell(
+                      splashColor: Colors.white,
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            'assets/graphics/google-logo.png',
+                            fit: BoxFit.contain,
                           ),
                         ),
-                        SizedBox(width: 10),
-                        //LOGIN WITH FACEBOOK
-                        ClipOval(
-                          child: Material(
-                            color: Palette.blueFacebook,
-                            child: InkWell(
-                              splashColor: Colors.white,
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Center(
-                                  child: FaIcon(
-                                    FontAwesomeIcons.facebookF,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                print('facebook login clicked!');
-                              },
-                            ),
+                      ),
+                      onTap: () {
+                        print('google login clicked!');
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                //LOGIN WITH FACEBOOK
+                ClipOval(
+                  child: Material(
+                    color: Palette.blueFacebook,
+                    child: InkWell(
+                      splashColor: Colors.white,
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Center(
+                          child: FaIcon(
+                            FontAwesomeIcons.facebookF,
+                            size: 20,
+                            color: Colors.white,
                           ),
-                        )
-                      ],
+                        ),
+                      ),
+                      onTap: () {
+                        print('facebook login clicked!');
+                      },
                     ),
                   ),
                 )
               ],
-            )
-          ],
-        ),
-      ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

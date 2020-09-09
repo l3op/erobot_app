@@ -1,4 +1,6 @@
 import 'package:erobot_app/config/palette.dart';
+import 'package:erobot_app/service/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -8,11 +10,10 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  bool isSwitched = false;
-  bool isConnected = false;
-
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<CustomUser>(context);
     return Drawer(
       child: Container(
         child: ListView(
@@ -92,13 +93,13 @@ class _MainDrawerState extends State<MainDrawer> {
                     ),
                     onTap: () => Navigator.pushNamed(context, '/feedback'),
                   ),
-                  ListTile(
+                  user != null ? ListTile(
                     leading: Icon(
                       Icons.exit_to_app,
                       color: Colors.white,
                     ),
                     title: Text(
-                      'Exit',
+                      'Sign out',
                       style: TextStyle(
                         fontFamily: 'Raleway',
                         color: Colors.white,
@@ -107,10 +108,11 @@ class _MainDrawerState extends State<MainDrawer> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/');
+                      _auth.signOut();
+                      Scaffold.of(context).openEndDrawer();
                       //exit(0);
                     },
-                  ),
+                  ) : Container(),
                 ],
               ),
             ),
