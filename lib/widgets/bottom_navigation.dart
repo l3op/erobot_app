@@ -18,9 +18,13 @@ class AnimatedBottomNavigation extends StatefulWidget {
   ];
   final int currentPage;
   final Function onTab;
+  final List<int> blocklist;
 
   AnimatedBottomNavigation(
-      {Key key, @required this.onTab, @required this.currentPage})
+      {Key key,
+      @required this.onTab,
+      @required this.currentPage,
+      @required this.blocklist})
       : super(key: key);
 
   @override
@@ -48,6 +52,7 @@ class _AnimatedBottomNavigationState extends State<AnimatedBottomNavigation> {
       child: AnimatedBottomBar(
         barItems: widget.barItem,
         currentIndex: widget.currentPage,
+        blockList: widget.blocklist,
         animationDuration: const Duration(milliseconds: 1000),
         onTab: (index) {
           setState(() {
@@ -65,6 +70,7 @@ class AnimatedBottomBar extends StatefulWidget {
   final Duration animationDuration;
   final Function onTab;
   final int currentIndex;
+  final List<int> blockList;
 
   const AnimatedBottomBar({
     Key key,
@@ -72,6 +78,7 @@ class AnimatedBottomBar extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 1000),
     @required this.onTab,
     @required this.currentIndex,
+    @required this.blockList,
   }) : super(key: key);
 
   @override
@@ -85,8 +92,12 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
     double width = MediaQuery.of(context).size.width;
     List<double> _itemWidth = [
       width * .3,
-      width * .33,
-      width * .33,
+      widget.blockList.contains(widget.currentIndex)
+          ? width * .35
+          : width * .33,
+      widget.blockList.contains(widget.currentIndex)
+          ? width * .35
+          : width * .33,
       width * .26,
     ];
     int _selectedIndex = widget.currentIndex;
@@ -134,11 +145,11 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
       bool isSelected = _selectedIndex == i;
       _barItem.add(
         InkWell(
-          onTap: () {
+          onTap: () async {
             setState(() {
               _selectedIndex = i;
             });
-            widget.onTab(_selectedIndex);
+            await widget.onTab(i);
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 200),
@@ -157,7 +168,9 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
                   curve: Curves.easeIn,
                   vsync: this,
                   child: Text(
-                    isSelected ? item.item : "",
+                    isSelected && !widget.blockList.contains(_selectedIndex)
+                        ? item.item
+                        : "",
                     style: TextStyle(
                       color: isSelected ? Palette.bigstone : Colors.white,
                       fontSize: 12,

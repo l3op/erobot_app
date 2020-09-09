@@ -3,7 +3,6 @@ import 'package:erobot_app/widgets/bottom_navigation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:preload_page_view/preload_page_view.dart';
 import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/screens.dart';
@@ -21,9 +20,11 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
   bool userPageDragging = false;
 
   //CONTROLLER
-  PreloadPageController _pageController;
+  PageController _pageController;
   TabController _tabController;
   ScrollController _scrollViewController;
+
+  List<int> blockList = [];
 
   @override
   void initState() {
@@ -31,11 +32,11 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
     );
 
-    _pageController = PreloadPageController(
+    _pageController = PageController(
       initialPage: pageIndex,
       keepPage: true,
       viewportFraction: 1,
-    );
+    )..addListener(_listener);
 
     _tabController = TabController(
       length: 2,
@@ -45,6 +46,16 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
 
     _scrollViewController = ScrollController();
     super.initState();
+  }
+
+  //clear blocklist on swap
+  _listener() {
+    if (_pageController.position.userScrollDirection ==
+            ScrollDirection.reverse ||
+        _pageController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+      blockList.clear();
+    }
   }
 
   @override
@@ -61,7 +72,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
     'About Us',
     'Profile'
   ];
-
   @override
   Widget build(BuildContext context) {
     //ROOT PAGE
@@ -79,7 +89,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             drawer: MainDrawer(),
             body: Container(
               //PRELOAD : TO ENSURE PAGES ARE LOADED BEFORE USABLE
-              child: PreloadPageView(
+              child: PageView(
                 children: <Widget>[
                   HomeScreen(),
                   ArduinoDoc(),
@@ -90,7 +100,6 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
                   Profile()
                 ],
                 physics: const ClampingScrollPhysics(),
-                preloadPagesCount: 4,
                 controller: _pageController,
                 onPageChanged: (index) {
                   setState(() => pageIndex = index);
@@ -100,11 +109,45 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             //BOTTOM NAVIGATION
             bottomNavigationBar: AnimatedBottomNavigation(
               currentPage: pageIndex,
+              blocklist: blockList,
               onTab: (index) => onBottomTab(index),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  void onBottomTab(_index) async {
+    //remove text from bottom bar if in blocklist
+    if (pageIndex - _index > 1) {
+      blockList.remove(_index);
+      blockList.add(pageIndex - 1);
+      if (pageIndex - _index > 2) blockList.add(pageIndex - 2);
+    }
+    if (_index - pageIndex > 1) {
+      blockList.remove(_index);
+      blockList.add(_index - 1);
+      if (_index - pageIndex > 2) blockList.add(_index - 2);
+    }
+    if (_index - pageIndex == 1 || (pageIndex - _index == 1))
+      blockList.remove(_index);
+
+    blockList = blockList.toSet().toList();
+    for (int t in blockList) print(t);
+
+    var duration = 400;
+    if ((_index == 3 && pageIndex == 0) || (_index == 0 && pageIndex == 3))
+      duration = duration * 2;
+    if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2)
+      duration = duration;
+    else
+      duration = duration - 250;
+
+    await _pageController.animateToPage(
+      _index,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: duration + 300),
     );
   }
 
@@ -187,49 +230,5 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
           ),
         ) ??
         false;
-  }
-
-  void onBottomTab(_index) async {
-    var duration = 400;
-    //FROM PAGE[0] TO PAGE[3] => ANIMATE TO PAGE[2] THEN PAGE[3]
-    if (_index == 3 && pageIndex == 0) {
-      _pageController.jumpToPage(2);
-      _pageController.animateToPage(
-        3,
-        curve: Curves.easeInOut,
-        duration: Duration(milliseconds: duration + 50),
-      );
-    }
-    //FROM PAGE[3] TO PAGE[0] => ANIMATE TO PAGE[1] THEN PAGE[0]
-    if (_index == 0 && pageIndex == 3) {
-      _pageController.jumpToPage(1);
-      _pageController.animateToPage(
-        0,
-        curve: Curves.easeInOut,
-        duration: Duration(milliseconds: duration + 50),
-      );
-    }
-    //FROM PAGE THAT INDEX -= 2 => ANIMATE TO MIDDLE PAGE THEN DESTINATION
-    if ((_index - pageIndex) == 2 || (pageIndex - _index) == 2) {
-      int _indexR; //Destination
-      if (_index > pageIndex) //Check which is destination
-        _indexR = pageIndex;
-      else
-        _indexR = _index;
-      _pageController.jumpToPage(_indexR + 1);
-      _pageController.animateToPage(
-        _index,
-        curve: Curves.easeInOut,
-        duration: Duration(milliseconds: duration - 50),
-      ); //+100
-    }
-    //FROM PAGE THAT INDEX -= 1 => ANIMATE TO PAGE DIRECTLY
-    else {
-      _pageController.animateToPage(
-        _index,
-        curve: Curves.easeInOut,
-        duration: Duration(milliseconds: duration - 100),
-      );
-    }
   }
 }

@@ -1,6 +1,5 @@
 import 'package:erobot_app/data/ir_model.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class CircleButtonText extends StatelessWidget {
   const CircleButtonText({
@@ -20,18 +19,21 @@ class CircleButtonText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String colorOx = "FF" + color;
     return Container(
       width: 55,
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: Hexcolor(color),
+        color: Color(int.parse(colorOx, radix: 16)),
       ),
       child: IconButton(
         icon: Text(
           !isShow ? display : value,
           style: TextStyle(
-            color: color != 'ffffff' ? Colors.white : Hexcolor('161f28'),
+            color: color != 'ffffff'
+                ? Colors.white
+                : Color(0xFF161f28),
           ),
         ),
         onPressed: onPressed,
@@ -58,12 +60,13 @@ class CircleButtonIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String colorOx = "FF" + color;
     return Container(
       width: 55,
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        color: Hexcolor(color),
+        color: Color(int.parse(colorOx, radix: 16)),
       ),
       child: IconButton(
         icon: !isShow
@@ -74,7 +77,9 @@ class CircleButtonIcon extends StatelessWidget {
             : Text(
                 value,
                 style: TextStyle(
-                  color: color != 'ffffff' ? Colors.white : Hexcolor('161f28'),
+                  color: color != 'ffffff'
+                      ? Colors.white
+                      : Color(0xFF161f28),
                 ),
               ),
         onPressed: onPressed,

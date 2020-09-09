@@ -69,6 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               labelText: "Enter your email address",
+                              hintStyle: TextStyle(fontFamily: "Quicksand"),
+                              hintText: "user@erobot.kh",
                               labelStyle: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.6),
                               ),
@@ -96,6 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   isDense: false,
+                                  hintText: "123456",
+                                  hintStyle: TextStyle(fontFamily: "Quicksand"),
                                   labelText: "Enter your password",
                                   labelStyle: TextStyle(
                                     color: Color.fromRGBO(0, 0, 0, 0.6),

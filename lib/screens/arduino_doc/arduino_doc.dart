@@ -18,9 +18,9 @@ class ArduinoDoc extends StatelessWidget {
           if (index == docs.length - 1) bottom = 20;
           return Consumer<PageOffsetNotifier>(
             builder: (context, notifier, child) {
-              print("--------------------");
-              print("p-number: " + notifier.page.toString());
-              print("p-offset: " + notifier.offset.toString());
+              // print("--------------------");
+              // print("p-number: " + notifier.page.toString());
+              // print("p-offset: " + notifier.offset.toString());
               double offset =
                   MediaQuery.of(context).size.width - notifier.offset;
               return Transform.translate(
