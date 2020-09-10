@@ -36,8 +36,8 @@ export 'package:erobot_app/screens/login_page/login.dart';
 export 'package:erobot_app/screens/login_page/profile_wrapper.dart';
 
 //ROOT PAGE
-export 'package:erobot_app/screens/root/root.dart';
+export 'package:erobot_app/screens/my_app/root.dart';
 export 'package:erobot_app/screens/sender/sender.dart';
 
 //SPLASH SCREEN
-export 'package:erobot_app/screens/splashscreen/splashscreen.dart';
+export 'package:erobot_app/screens/my_app/splashscreen.dart';

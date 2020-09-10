@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:preload_page_view/preload_page_view.dart';
 
 class PageOffsetNotifier with ChangeNotifier {
   double _offset = 0;
   double _page = 0; //1 or 0
 
-  PageOffsetNotifier(PageController pageController) {
+  PageOffsetNotifier(PreloadPageController pageController) {
     pageController.addListener(() {
       _offset = pageController.offset;
       _page = pageController.page;

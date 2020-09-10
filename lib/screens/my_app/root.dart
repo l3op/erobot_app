@@ -7,6 +7,7 @@ import 'package:erobot_app/config/palette.dart';
 import 'package:erobot_app/import/widgets.dart';
 import 'package:erobot_app/import/screens.dart';
 import 'package:provider/provider.dart';
+import 'package:preload_page_view/preload_page_view.dart';
 
 //ROOT PAGE
 class Root extends StatefulWidget {
@@ -20,7 +21,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
   bool userPageDragging = false;
 
   //CONTROLLER
-  PageController _pageController;
+  PreloadPageController _pageController;
   TabController _tabController;
   ScrollController _scrollViewController;
 
@@ -32,7 +33,7 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
     );
 
-    _pageController = PageController(
+    _pageController = PreloadPageController(
       initialPage: pageIndex,
       keepPage: true,
       viewportFraction: 1,
@@ -89,7 +90,8 @@ class _RootState extends State<Root> with SingleTickerProviderStateMixin {
             drawer: MainDrawer(),
             body: Container(
               //PRELOAD : TO ENSURE PAGES ARE LOADED BEFORE USABLE
-              child: PageView(
+              child: PreloadPageView(
+                preloadPagesCount: 4,
                 children: <Widget>[
                   HomeScreen(),
                   ArduinoDoc(),

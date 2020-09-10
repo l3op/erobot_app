@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:erobot_app/screens/root/root.dart';
+import 'package:erobot_app/screens/my_app/root.dart';
+import 'package:erobot_app/widgets/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
 
 //SPLASH SCREEN PAGE
 class SplashScreen extends StatefulWidget {
@@ -24,13 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigationPage() {
     Navigator.pushReplacement(
-      context,
-      PageTransition(
-        child: Root(),
-        duration: Duration(milliseconds: 550),
-        type: PageTransitionType.fade,
-      ),
-    );
+        context,
+        PageRouteTransition(
+            child: Root(), duration: Duration(milliseconds: 1000),));
   }
 
   @override

@@ -16,6 +16,7 @@ class AnimatedBottomNavigation extends StatefulWidget {
     BarItem(item: 'About us', icon: Icons.people),
     BarItem(item: 'Profile', icon: Icons.person),
   ];
+
   final int currentPage;
   final Function onTab;
   final List<int> blocklist;
@@ -142,7 +143,7 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
     List<Widget> _barItem = List();
     for (int i = 0; i < widget.barItems.length; i++) {
       BarItem item = widget.barItems[i];
-      bool isSelected = _selectedIndex == i;
+      bool isSelected = _selectedIndex == i && !widget.blockList.contains(_selectedIndex);
       _barItem.add(
         InkWell(
           onTap: () async {
@@ -168,7 +169,7 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
                   curve: Curves.easeIn,
                   vsync: this,
                   child: Text(
-                    isSelected && !widget.blockList.contains(_selectedIndex)
+                    isSelected
                         ? item.item
                         : "",
                     style: TextStyle(

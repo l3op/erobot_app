@@ -61,12 +61,12 @@ class _UserProfileSettingState extends State<UserProfileSetting>
                       child: CircleAvatar(
                         radius: 60,
                         backgroundImage:
-                            AssetImage('assets/profiles/leangsiv.png'),
+                            AssetImage('assets/profiles/bot2.png'),
                       ),
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Sok Chan',
+                      'User',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
